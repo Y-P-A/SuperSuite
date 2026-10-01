@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hash Generator — SuperSuite</title>
+    <meta name="description" content="Generate SHA-1, SHA-256 and SHA-512 hashes of any text, entirely in your browser." />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/rewind.css" />
+    <script src="/assets/js/rewind.js"></script>
+  </head>
+  <body data-page="/tools/hash-generator">
+    <main class="wrap wrap--narrow">
+      <section class="panel">
+        <div class="field">
+          <label for="text">Text to hash</label>
+          <textarea class="textarea" id="text" rows="5">SuperSuite</textarea>
+        </div>
+
+        <p class="note" style="margin-top:12px">
+          Hashing happens locally with the browser's own crypto — nothing is sent anywhere.
+        </p>
+
+        <div class="stack" style="margin-top:16px" id="algorithms">
+          <div class="field">
+            <label>SHA-1</label>
+            <div class="spread"><div class="output mono" id="sha1" style="flex:1"></div><button class="btn" type="button" data-copy-target="sha1">Copy</button></div>
+          </div>
+          <div class="field">
+            <label>SHA-256</label>
+            <div class="spread"><div class="output mono" id="sha256" style="flex:1"></div><button class="btn" type="button" data-copy-target="sha256">Copy</button></div>
+          </div>
+          <div class="field">
+            <label>SHA-512</label>
+            <div class="spread"><div class="output mono" id="sha512" style="flex:1"></div><button class="btn" type="button" data-copy-target="sha512">Copy</button></div>
+          </div>
+        </div>
+
+        <p class="note" id="status" hidden></p>
+      </section>
+    </main>
+
+    <script src="/assets/js/catalog.js"></script>
+    <script src="/assets/js/site.js"></script>
+    <script src="/assets/js/hash-generator.js"></script>
+  </body>
+</html>

@@ -9,6 +9,29 @@
   };
   const AMBIGUOUS = /[O0oIl1|]/g;
 
+  /* Short, easy-to-type words — enough of them that five make a strong phrase. */
+  const WORDS = ('able acid acorn amber anchor angle apple arrow atlas badge baker bamboo basket beacon ' +
+    'beetle bishop blossom bottle branch breeze bridge bronze brook buffer button cactus candle canvas ' +
+    'canyon carbon cargo carpet cedar cherry circus clever cobalt cocoa comet copper coral cosmos cotton ' +
+    'cricket crystal dagger dandelion desert diamond diver donkey dragon drizzle ember falcon feather ' +
+    'fennel ferry flint forest fossil galaxy garden garlic gecko ginger glacier globe granite gravel ' +
+    'guitar hammer harbor hazel heron honey hunter indigo island ivory jasmine jigsaw jungle kettle ' +
+    'lantern lemon lilac linen lizard lobster lotus lumber magnet mango maple marble meadow mentor ' +
+    'meteor mint mirror mosaic mustard nectar nickel nimble ocean olive orbit orchard otter paddle ' +
+    'pebble pelican pepper pigeon pillar pilot planet pocket pollen powder prairie prism pumpkin quartz ' +
+    'quiver rabbit radar raven ribbon river rocket saffron sailor salmon sapphire scone shadow shelter ' +
+    'silver singer socket sparrow spice spinner spring squash stellar stone summit sunset syrup tangle ' +
+    'teapot thistle thunder timber toffee triton tulip tundra velvet vessel violet walnut wave willow ' +
+    'winter wizard yonder zephyr zipper').split(' ');
+
+  const mode = { value: 'random' };
+  const modeEl = document.getElementById('mode');
+  const wordsEl = document.getElementById('words');
+  const wordsVal = document.getElementById('words-val');
+  const sepEl = document.getElementById('sep');
+  const lengthField = document.getElementById('length-field');
+  const phraseOpts = document.getElementById('phrase-opts');
+
   const lengthEl = document.getElementById('length');
   const lengthVal = document.getElementById('length-val');
   const outEl = document.getElementById('out');
@@ -63,7 +86,31 @@
     return { label: 'Overkill — perfect for password managers', color: 'var(--blue)', width: 100 };
   }
 
+  function paintStrength(password, entropy) {
+    const strength = strengthFor(entropy);
+    meterEl.style.width = strength.width + '%';
+    meterEl.style.background = strength.color;
+    strengthEl.textContent = strength.label + ' · about ' + Math.round(entropy) + ' bits of entropy';
+  }
+
+  function generatePassphrase() {
+    const count = Number(wordsEl.value);
+    const separator = sepEl.value;
+    const picked = [];
+    for (let i = 0; i < count; i++) picked.push(WORDS[randomIndex(WORDS.length)]);
+    const capitalise = document.getElementById('upper').checked;
+    const phrase = picked.map(function (word) {
+      return capitalise ? word.charAt(0).toUpperCase() + word.slice(1) : word;
+    }).join(separator);
+
+    errorEl.hidden = true;
+    outEl.textContent = phrase;
+    paintStrength(phrase, count * Math.log2(WORDS.length) + 2);
+  }
+
   function generate() {
+    if (mode.value === 'passphrase') { generatePassphrase(); return; }
+
     const picked = pool();
     const length = Number(lengthEl.value);
     const needs = enabled().map(function (name) {
@@ -90,15 +137,32 @@
     outEl.textContent = password;
 
     const entropy = password.length * Math.log2(Array.from(new Set(picked)).length);
-    const strength = strengthFor(entropy);
-    meterEl.style.width = strength.width + '%';
-    meterEl.style.background = strength.color;
-    strengthEl.textContent = strength.label + ' · about ' + Math.round(entropy) + ' bits of entropy';
+    paintStrength(password, entropy);
     document.title = 'Password Generator — SuperSuite';
   }
 
   lengthEl.addEventListener('input', function () {
     lengthVal.textContent = lengthEl.value;
+  });
+
+  wordsEl.addEventListener('input', function () {
+    wordsVal.textContent = wordsEl.value;
+    if (mode.value === 'passphrase') generatePassphrase();
+  });
+  sepEl.addEventListener('change', function () {
+    if (mode.value === 'passphrase') generatePassphrase();
+  });
+  modeEl.addEventListener('click', function (event) {
+    const chip = event.target.closest('[data-mode]');
+    if (!chip) return;
+    mode.value = chip.getAttribute('data-mode');
+    modeEl.querySelectorAll('.chip').forEach(function (item) {
+      item.classList.toggle('is-active', item === chip);
+    });
+    const phrase = mode.value === 'passphrase';
+    lengthField.hidden = phrase;
+    phraseOpts.hidden = !phrase;
+    generate();
   });
 
   ['lower', 'upper', 'digits', 'symbols', 'plain'].forEach(function (name) {

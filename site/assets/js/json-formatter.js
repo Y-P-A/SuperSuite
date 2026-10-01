@@ -99,6 +99,20 @@
     run(sortValue, 'Keys sorted A-Z');
   });
 
+  document.getElementById('stringify').addEventListener('click', function () {
+    let value;
+    try {
+      value = read();
+    } catch (error) {
+      fail(error);
+      return;
+    }
+    const text = JSON.stringify(JSON.stringify(value));
+    errorEl.hidden = true;
+    outputEl.textContent = text;
+    statusEl.textContent = 'Escaped as one JSON string literal · ' + text.length + ' characters';
+  });
+
   document.getElementById('copy').addEventListener('click', function () {
     const text = outputEl.textContent;
     if (!text || text === '—') {

@@ -97,6 +97,38 @@
     return luminance > 0.6 ? '#2c3e50' : '#ffffff';
   }
 
+  /* WCAG contrast: reluminance, ratio, and the pass grade for a pair. */
+  function relativeLuminance(c) {
+    const channel = (v) => {
+      const s = clamp(v) / 255;
+      return s <= 0.03928 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4);
+    };
+    return 0.2126 * channel(c.r) + 0.7152 * channel(c.g) + 0.0722 * channel(c.b);
+  }
+
+  function contrastRatio(a, b) {
+    const la = relativeLuminance(a);
+    const lb = relativeLuminance(b);
+    return (Math.max(la, lb) + 0.05) / (Math.min(la, lb) + 0.05);
+  }
+
+  function grade(ratio) {
+    if (ratio >= 7) return 'AAA';
+    if (ratio >= 4.5) return 'AA';
+    if (ratio >= 3) return 'AA large';
+    return 'fails';
+  }
+
+  function paintContrast() {
+    const whiteEl = document.getElementById('c-white');
+    const blackEl = document.getElementById('c-black');
+    if (!whiteEl || !blackEl) return;
+    const onWhite = contrastRatio(rgb, { r: 255, g: 255, b: 255 });
+    const onBlack = contrastRatio(rgb, { r: 0, g: 0, b: 0 });
+    whiteEl.textContent = onWhite.toFixed(2) + ':1 · ' + grade(onWhite);
+    blackEl.textContent = onBlack.toFixed(2) + ':1 · ' + grade(onBlack);
+  }
+
   function readRecent() {
     try {
       const raw = JSON.parse(localStorage.getItem(STORE_KEY) || '[]');
@@ -169,6 +201,7 @@
     if (document.activeElement !== hexInput) hexInput.value = hex;
 
     renderShades();
+    paintContrast();
     if (commit) remember(hex);
     document.title = upper + ' — Color Picker — SuperSuite';
   }

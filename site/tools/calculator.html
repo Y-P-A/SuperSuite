@@ -7,6 +7,8 @@
     <meta name="description" content="A fast, flat calculator with full keyboard support and a running tape." />
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/rewind.css" />
+    <script src="/assets/js/rewind.js"></script>
   </head>
   <body>
     <main class="wrap wrap--narrow">
@@ -26,6 +28,13 @@
             <div class="calc-display">
               <div class="calc-display__expr" id="expr" aria-live="polite">&nbsp;</div>
               <div class="calc-display__value" id="value">0</div>
+            </div>
+
+            <div class="calc-keys calc-keys--memory" id="memory-keys" style="grid-template-columns: repeat(4, 1fr); margin-bottom: 10px">
+              <button class="btn" type="button" data-key="mc">MC</button>
+              <button class="btn" type="button" data-key="mr">MR</button>
+              <button class="btn" type="button" data-key="mplus">M+</button>
+              <button class="btn" type="button" data-key="mminus">M&minus;</button>
             </div>
 
             <div class="calc-keys" id="keypad">

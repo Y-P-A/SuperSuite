@@ -4,9 +4,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Eaglercraft — SuperSuite</title>
-    <meta name="description" content="Minecraft in the browser through Eaglercraft — Astra, Eclipse, Resent, Pixel and Larp clients plus the classic 1.5.2, 1.8.8, 1.12.2 and 1.16.5 versions." />
+    <meta name="description" content="Minecraft in the browser through Eaglercraft — Astra, Eclipse, Resent, Pixel and Larp clients plus the classic 1.5.2, 1.8.8, 1.12.2 and 1.16.5 versions in both JS and WASM builds." />
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/rewind.css" />
+    <script src="/assets/js/rewind.js"></script>
   </head>
   <body>
     <main class="wrap">
@@ -55,23 +57,35 @@
             1.5.2 &middot; JS
             <span class="small muted" style="display:block;letter-spacing:0;text-transform:none;margin-top:4px">Lightest — runs on almost anything</span>
           </button>
+          <button class="btn" type="button" data-version="js188">
+            1.8.8 &middot; JS
+            <span class="small muted" style="display:block;letter-spacing:0;text-transform:none;margin-top:4px">PvP classic, no WASM needed</span>
+          </button>
           <button class="btn" type="button" data-version="wasm188">
             1.8.8 &middot; WASM
-            <span class="small muted" style="display:block;letter-spacing:0;text-transform:none;margin-top:4px">The PvP classic</span>
+            <span class="small muted" style="display:block;letter-spacing:0;text-transform:none;margin-top:4px">Faster 1.8.8 for modern devices</span>
+          </button>
+          <button class="btn" type="button" data-version="js1122">
+            1.12.2 &middot; JS
+            <span class="small muted" style="display:block;letter-spacing:0;text-transform:none;margin-top:4px">More blocks, more world</span>
           </button>
           <button class="btn" type="button" data-version="wasm1122">
             1.12.2 &middot; WASM
-            <span class="small muted" style="display:block;letter-spacing:0;text-transform:none;margin-top:4px">More blocks, more world</span>
+            <span class="small muted" style="display:block;letter-spacing:0;text-transform:none;margin-top:4px">Smoother 1.12.2</span>
+          </button>
+          <button class="btn" type="button" data-version="js1165">
+            1.16.5 &middot; JS
+            <span class="small muted" style="display:block;letter-spacing:0;text-transform:none;margin-top:4px">Newest content — heavy</span>
           </button>
           <button class="btn" type="button" data-version="wasm1165">
             1.16.5 &middot; WASM
-            <span class="small muted" style="display:block;letter-spacing:0;text-transform:none;margin-top:4px">Newest — heaviest</span>
+            <span class="small muted" style="display:block;letter-spacing:0;text-transform:none;margin-top:4px">Newest and heaviest</span>
           </button>
         </div>
 
         <p class="warn" id="heavy-warning" hidden>
-          Heads up: 1.16.5 is the heaviest build. It needs a decent device with plenty of memory —
-          on an older laptop or phone it can stutter or fail to load. Try 1.5.2 or 1.8.8 instead.
+          Heads up: the 1.16.5 builds are the heaviest. They need a decent device with plenty of memory —
+          on an older laptop or phone they can stutter or fail to load. Try 1.5.2 or 1.8.8 instead.
         </p>
 
         <div class="frame-wide" id="frame">

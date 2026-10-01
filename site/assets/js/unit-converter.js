@@ -109,6 +109,45 @@
         ['wk', 'Week', 'wk', 604800],
         ['yr', 'Year (365 days)', 'yr', 31536000]
       ]
+    },
+    {
+      id: 'pressure',
+      label: 'Pressure',
+      defaults: ['bar', 'psi'],
+      units: [
+        ['pa', 'Pascal', 'Pa', 1],
+        ['kpa', 'Kilopascal', 'kPa', 1000],
+        ['bar', 'Bar', 'bar', 100000],
+        ['mbar', 'Millibar', 'mbar', 100],
+        ['psi', 'Pound per square inch', 'psi', 6894.757293168],
+        ['atm', 'Atmosphere', 'atm', 101325],
+        ['mmhg', 'Millimeter of mercury', 'mmHg', 133.322387415]
+      ]
+    },
+    {
+      id: 'energy',
+      label: 'Energy',
+      defaults: ['kcal', 'kj'],
+      units: [
+        ['j', 'Joule', 'J', 1],
+        ['kj', 'Kilojoule', 'kJ', 1000],
+        ['cal', 'Calorie', 'cal', 4.184],
+        ['kcal', 'Kilocalorie', 'kcal', 4184],
+        ['wh', 'Watt hour', 'Wh', 3600],
+        ['kwh', 'Kilowatt hour', 'kWh', 3600000],
+        ['btu', 'British thermal unit', 'BTU', 1055.05585262]
+      ]
+    },
+    {
+      id: 'angle',
+      label: 'Angle',
+      defaults: ['deg', 'rad'],
+      units: [
+        ['deg', 'Degree', '°', 1],
+        ['rad', 'Radian', 'rad', 57.29577951308232],
+        ['grad', 'Gradian', 'grad', 0.9],
+        ['turn', 'Turn', 'turn', 360]
+      ]
     }
   ].map(function (category) {
     category.units = category.units.map(function (row) {

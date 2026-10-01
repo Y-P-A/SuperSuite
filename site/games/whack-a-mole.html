@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Whack-a-Mole — SuperSuite</title>
+    <meta name="description" content="Moles pop up, you bop them — sixty seconds of pure reflexes." />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/rewind.css" />
+    <script src="/assets/js/rewind.js"></script>
+  </head>
+  <body data-page="/games/whack-a-mole">
+    <main class="wrap wrap--narrow">
+      <section class="panel">
+        <div class="hud">
+          <div class="hud__item"><span class="hud__label">Score</span><span class="hud__value" id="score">0</span></div>
+          <div class="hud__item"><span class="hud__label">Time</span><span class="hud__value" id="time">60</span></div>
+          <div class="hud__item"><span class="hud__label">Misses</span><span class="hud__value" id="misses">0</span></div>
+          <div class="hud__item"><span class="hud__label">Best</span><span class="hud__value" id="best">0</span></div>
+        </div>
+
+        <div class="stage">
+          <div class="mole" id="board" aria-label="Whack a mole board"></div>
+        </div>
+
+        <p class="small muted" id="status" style="margin-top:14px">Press Start, then bop every mole that pops up.</p>
+
+        <div class="btn-row" style="margin-top:14px">
+          <button class="btn btn--primary" type="button" id="start">Start</button>
+        </div>
+      </section>
+    </main>
+
+    <script src="/assets/js/catalog.js"></script>
+    <script src="/assets/js/site.js"></script>
+    <script src="/assets/js/games/common.js"></script>
+    <script src="/assets/js/games/whack-a-mole.js"></script>
+  </body>
+</html>

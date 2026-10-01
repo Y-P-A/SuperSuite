@@ -648,3 +648,194 @@ input[type="checkbox"] { accent-color: var(--tone); width: 16px; height: 16px; }
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
 }
+
+/* ---------- tables ---------- */
+.table-wrap { max-height: 420px; overflow: auto; border: 2px solid var(--ink); background: var(--surface); }
+.table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.table th, .table td { padding: 7px 10px; text-align: right; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.table th:first-child, .table td:first-child { text-align: left; }
+.table thead th { position: sticky; top: 0; background: var(--surface-2); text-transform: uppercase; font-size: 11px; letter-spacing: 0.08em; z-index: 1; }
+
+/* ---------- diff ---------- */
+.diff { border: 2px solid var(--ink); background: var(--surface); max-height: 420px; overflow: auto; font-family: var(--mono); font-size: 13px; }
+.diff__line { display: flex; gap: 8px; padding: 3px 10px; white-space: pre-wrap; word-break: break-word; border-bottom: 1px solid rgba(0, 0, 0, 0.06); }
+.diff__sign { flex: none; width: 12px; font-weight: 700; opacity: 0.7; }
+.diff__line--add { background: #e6f7ec; color: #1b7a3d; }
+.diff__line--del { background: #fdeaea; color: #a8231b; }
+html[data-rewind="2020s"] .diff__line--add { background: rgba(67, 209, 122, 0.14); color: #6fe39b; }
+html[data-rewind="2020s"] .diff__line--del { background: rgba(255, 95, 109, 0.14); color: #ff8b95; }
+
+/* ---------- world clock ---------- */
+.clock-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 12px; }
+.clock-card {
+  display: grid;
+  gap: 2px;
+  border: 2px solid var(--ink);
+  background: var(--surface-2);
+  padding: 12px 14px;
+}
+.clock-card__name { font-weight: 800; text-transform: uppercase; font-size: 12px; letter-spacing: 0.09em; }
+.clock-card__time { font-size: 26px; font-weight: 700; }
+.clock-card__meta { color: var(--ink-2); }
+
+/* ---------- gradient generator ---------- */
+.gradient-preview { height: 220px; border: 2px solid var(--ink); box-shadow: var(--shadow-sm); }
+
+/* ---------- todo ---------- */
+.todo { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.todo__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 2px solid var(--ink);
+  background: var(--surface);
+  padding: 10px 12px;
+}
+.todo__label { display: flex; align-items: center; gap: 10px; flex: 1; cursor: pointer; min-width: 0; }
+.todo__label span { word-break: break-word; }
+.todo__item.is-done { opacity: 0.62; }
+.todo__item.is-done span { text-decoration: line-through; }
+
+/* ---------- board games ---------- */
+.board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  width: min(100%, 420px);
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.12);
+}
+.tile {
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  border-radius: 4px;
+  color: #fff;
+  transition: transform 0.1s ease;
+}
+.tile--empty { background: rgba(255, 255, 255, 0.08); }
+
+/* memory match */
+.mem {
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 4), 1fr);
+  gap: 8px;
+  width: min(100%, 480px);
+}
+.mem__card {
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border: 2px solid var(--ink);
+  background: var(--surface-2);
+  cursor: pointer;
+  padding: 0;
+  color: transparent;
+  font-size: clamp(18px, 4vw, 30px);
+  line-height: 1;
+  transition: background 0.12s ease, transform 0.12s ease;
+}
+.mem__card:hover { transform: translateY(-2px); }
+.mem__card.is-open { background: var(--tone); color: #fff; }
+.mem__card.is-matched { background: var(--green); color: #fff; outline: 2px solid var(--green); outline-offset: 2px; }
+.mem__face { pointer-events: none; }
+
+/* tic tac toe */
+.ttt { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; width: min(100%, 330px); }
+.ttt__cell {
+  aspect-ratio: 1;
+  border: 2px solid var(--ink);
+  background: var(--surface);
+  font: 800 clamp(30px, 9vw, 54px)/1 var(--sans);
+  color: var(--ink);
+  cursor: pointer;
+}
+.ttt__cell.is-x { color: var(--sky); }
+.ttt__cell.is-o { color: var(--red); }
+.ttt__cell.is-win { background: var(--yellow); color: var(--ink); }
+
+/* connect four */
+.cf {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  width: min(100%, 520px);
+  padding: 10px;
+  background: #1f4fa8;
+  border: 2px solid var(--ink);
+}
+.cf__cell { aspect-ratio: 1; border: 0; background: transparent; cursor: pointer; padding: 0; display: grid; place-items: center; }
+.cf__disc { width: 88%; aspect-ratio: 1; border-radius: 50%; background: rgba(0, 0, 0, 0.25); display: block; }
+.cf__disc--r { background: #e74c3c; }
+.cf__disc--y { background: #f1c40f; }
+.cf__disc.is-win { outline: 3px solid #fff; outline-offset: 1px; }
+.cf__cell:hover .cf__disc:not(.cf__disc--r):not(.cf__disc--y) { background: rgba(255, 255, 255, 0.25); }
+
+/* minesweeper */
+.ms { display: grid; grid-template-columns: repeat(var(--cols, 9), minmax(22px, 1fr)); gap: 2px; background: var(--surface-2); padding: 3px; min-width: max-content; }
+.ms__cell {
+  width: 100%;
+  min-width: 22px;
+  aspect-ratio: 1;
+  border: 2px solid var(--ink);
+  background: var(--surface);
+  font: 800 13px/1 var(--sans);
+  color: var(--ink);
+  cursor: pointer;
+  padding: 0;
+  box-shadow: inset -2px -2px 0 rgba(0, 0, 0, 0.16), inset 2px 2px 0 rgba(255, 255, 255, 0.65);
+}
+.ms__cell.is-open { box-shadow: none; background: var(--surface-2); cursor: default; }
+.ms__cell.is-flag { color: var(--red); }
+.ms__cell.is-mine { background: var(--red); color: #fff; }
+.ms__cell.is-boom { background: var(--orange); }
+.ms__cell.n1 { color: #2980b9; } .ms__cell.n2 { color: #27ae60; } .ms__cell.n3 { color: #c0392b; }
+.ms__cell.n4 { color: #8e44ad; } .ms__cell.n5 { color: #d35400; } .ms__cell.n6 { color: #16a085; }
+.ms__cell.n7 { color: #2c3e50; } .ms__cell.n8 { color: #7f8c8d; }
+html[data-rewind="2020s"] .ms__cell { box-shadow: inset -2px -2px 0 rgba(0, 0, 0, 0.4), inset 2px 2px 0 rgba(255, 255, 255, 0.1); }
+
+/* simon */
+.simon { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: min(100%, 340px); }
+.simon__pad {
+  aspect-ratio: 1;
+  border: 2px solid var(--ink);
+  cursor: pointer;
+  opacity: 0.62;
+  padding: 0;
+  transition: opacity 0.1s ease, transform 0.1s ease, box-shadow 0.1s ease;
+}
+.simon__pad:hover { opacity: 0.85; }
+.simon__pad.is-on { opacity: 1; transform: scale(1.03); box-shadow: 0 0 0 4px #fff, 0 0 26px currentColor; }
+
+/* whack a mole */
+.mole { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: min(100%, 380px); }
+.mole__hole {
+  aspect-ratio: 1;
+  border: 2px solid var(--ink);
+  background: #3b2a1a;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0;
+  display: grid;
+  place-items: end center;
+  overflow: hidden;
+  position: relative;
+}
+.mole__body {
+  display: grid;
+  place-items: center;
+  width: 78%;
+  aspect-ratio: 1;
+  border-radius: 50% 50% 12% 12%;
+  background: #8d6e4b;
+  color: #2c3e50;
+  font-size: 18px;
+  transform: translateY(105%);
+  transition: transform 0.12s ease;
+}
+.mole__hole.is-up .mole__body { transform: translateY(6%); }
+
+/* jump / asteroids pad tweaks */
+.pad .btn { touch-action: manipulation; }

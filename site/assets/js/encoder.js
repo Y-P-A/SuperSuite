@@ -68,6 +68,41 @@
       }
     },
     {
+      id: 'binary',
+      label: 'Binary',
+      hint: 'Binary shows the same UTF-8 bytes as 8-bit groups of ones and zeros.',
+      encode: function (text) {
+        return Array.from(new TextEncoder().encode(text)).map(function (byte) {
+          return byte.toString(2).padStart(8, '0');
+        }).join(' ');
+      },
+      decode: function (text) {
+        const bits = text.replace(/[^01]/g, '');
+        if (bits.length % 8) throw new Error('Binary needs a multiple of eight bits.');
+        const bytes = new Uint8Array(bits.length / 8);
+        for (let i = 0; i < bytes.length; i++) bytes[i] = parseInt(bits.substr(i * 8, 8), 2);
+        return new TextDecoder().decode(bytes);
+      }
+    },
+    {
+      id: 'morse',
+      label: 'Morse',
+      hint: 'Morse code writes letters as dots and dashes — a space between letters, a slash between words.',
+      encode: function (text) {
+        return text.toUpperCase().split('').map(function (char) {
+          if (char === ' ') return '/';
+          return MORSE[char] || '';
+        }).filter(Boolean).join(' ');
+      },
+      decode: function (text) {
+        return text.trim().split(/\s+/).map(function (token) {
+          if (token === '/') return ' ';
+          const found = Object.keys(MORSE).filter(function (key) { return MORSE[key] === token; })[0];
+          return found || '?';
+        }).join('');
+      }
+    },
+    {
       id: 'rot13',
       label: 'ROT13',
       hint: 'ROT13 shifts every letter by 13 — the classic spoiler-safe scramble. Decoding is the same shift.',
@@ -75,6 +110,14 @@
       decode: function (text) { return rot13(text); }
     }
   ];
+
+  const MORSE = {
+    A: '.-', B: '-...', C: '-.-.', D: '-..', E: '.', F: '..-.', G: '--.', H: '....', I: '..',
+    J: '.---', K: '-.-', L: '.-..', M: '--', N: '-.', O: '---', P: '.--.', Q: '--.-', R: '.-.',
+    S: '...', T: '-', U: '..-', V: '...-', W: '.--', X: '-..-', Y: '-.--', Z: '--..',
+    0: '-----', 1: '.----', 2: '..---', 3: '...--', 4: '....-', 5: '.....',
+    6: '-....', 7: '--...', 8: '---..', 9: '----.'
+  };
 
   function rot13(text) {
     return text.replace(/[a-z]/gi, function (char) {

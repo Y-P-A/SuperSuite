@@ -12,6 +12,7 @@
 
   let source = '';      // raw expression, e.g. "12+3.5*2"
   let lastResult = '0';
+  let memory = 0;       // M+ / M- / MR / MC store
 
   /* ---------- formatting ---------- */
   function formatNumber(n) {
@@ -186,6 +187,21 @@
             source = before + '-' + trailing;
           }
         }
+        break;
+      }
+      case 'mc':
+        memory = 0;
+        SS.toast('Memory cleared');
+        break;
+      case 'mr':
+        source += formatNumber(memory);
+        break;
+      case 'mplus':
+      case 'mminus': {
+        const current = tryEvaluate(source);
+        if (current === null) { SS.toast('Nothing to store yet'); break; }
+        memory += key === 'mplus' ? current : -current;
+        SS.toast('Memory ' + formatNumber(memory));
         break;
       }
       case 'backspace':

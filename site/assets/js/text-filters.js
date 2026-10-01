@@ -35,6 +35,21 @@
     y: '\u028f', z: '\u1d22'
   };
 
+  const MORSE = {
+    A: '.-', B: '-...', C: '-.-.', D: '-..', E: '.', F: '..-.', G: '--.', H: '....', I: '..',
+    J: '.---', K: '-.-', L: '.-..', M: '--', N: '-.', O: '---', P: '.--.', Q: '--.-', R: '.-.',
+    S: '...', T: '-', U: '..-', V: '...-', W: '.--', X: '-..-', Y: '-.--', Z: '--..',
+    0: '-----', 1: '.----', 2: '..---', 3: '...--', 4: '....-', 5: '.....',
+    6: '-....', 7: '--...', 8: '---..', 9: '----.'
+  };
+
+  const NATO = {
+    a: 'Alfa', b: 'Bravo', c: 'Charlie', d: 'Delta', e: 'Echo', f: 'Foxtrot', g: 'Golf',
+    h: 'Hotel', i: 'India', j: 'Juliett', k: 'Kilo', l: 'Lima', m: 'Mike', n: 'November',
+    o: 'Oscar', p: 'Papa', q: 'Quebec', r: 'Romeo', s: 'Sierra', t: 'Tango', u: 'Uniform',
+    v: 'Victor', w: 'Whiskey', x: 'Xray', y: 'Yankee', z: 'Zulu'
+  };
+
   const LEET = { a: '4', b: '8', e: '3', g: '6', i: '1', l: '1', o: '0', s: '5', t: '7', A: '4', B: '8', E: '3', G: '6', I: '1', L: '1', O: '0', S: '5', T: '7' };
 
   const FLIP = {
@@ -97,6 +112,16 @@
     }).join(''),
     upsidedown: (text) => Array.from(text).reverse().map((char) => (FLIP[char] !== undefined ? FLIP[char] : char)).join(''),
     leet: (text) => mapped(LEET, text),
+    reverse: (text) => Array.from(text).reverse().join(''),
+    morse: (text) => Array.from(text.toUpperCase()).map((char) => {
+      if (char === ' ') return '/';
+      return MORSE[char] || '';
+    }).filter(Boolean).join(' '),
+    nato: (text) => Array.from(text).map((char) => {
+      if (/[a-z]/i.test(char)) return NATO[char.toLowerCase()];
+      if (char === ' ') return '·';
+      return char;
+    }).join(' '),
     zalgo: zalgo
   };
 

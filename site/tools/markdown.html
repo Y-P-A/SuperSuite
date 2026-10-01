@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Markdown Preview — SuperSuite</title>
+    <meta name="description" content="Type Markdown and see the formatted HTML preview side by side." />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/rewind.css" />
+    <script src="/assets/js/rewind.js"></script>
+  </head>
+  <body data-page="/tools/markdown">
+    <main class="wrap">
+      <section class="panel">
+        <div class="two-col">
+          <div class="field">
+            <label for="source">Markdown</label>
+            <textarea class="textarea" id="source" rows="20" spellcheck="false"></textarea>
+          </div>
+          <div class="field">
+            <label>Preview</label>
+            <div class="output" id="preview" style="font-family:var(--sans);font-size:15px;min-height:420px"></div>
+          </div>
+        </div>
+
+        <div class="btn-row" style="margin-top:12px">
+          <button class="btn" type="button" id="copy-html">Copy HTML</button>
+          <button class="btn" type="button" id="sample">Load sample</button>
+        </div>
+
+        <ul class="keys">
+          <li><span class="kbd">#</span> heading &nbsp;·&nbsp; <span class="kbd">**bold**</span> &nbsp;·&nbsp; <span class="kbd">*italic*</span> &nbsp;·&nbsp; <span class="kbd">`code`</span></li>
+          <li><span class="kbd">- item</span> list &nbsp;·&nbsp; <span class="kbd">&gt; quote</span> &nbsp;·&nbsp; <span class="kbd">[text](url)</span> link &nbsp;·&nbsp; <span class="kbd">```</span> code block</li>
+        </ul>
+      </section>
+    </main>
+
+    <script src="/assets/js/catalog.js"></script>
+    <script src="/assets/js/site.js"></script>
+    <script src="/assets/js/markdown.js"></script>
+  </body>
+</html>

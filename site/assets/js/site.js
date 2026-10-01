@@ -29,6 +29,7 @@
         '<div class="topbar__inner">' +
           '<a class="brand" href="/"><span class="brand__mark">S</span>Super<span class="brand--accent">Suite</span></a>' +
           '<nav class="nav" aria-label="Main">' + links + '</nav>' +
+          '<span class="clock" id="ss-clock" hidden></span>' +
         '</div>' +
       '</header>'
     );
@@ -117,6 +118,45 @@
     if (typeof dataUrlOrBlob !== 'string') URL.revokeObjectURL(link.href);
   };
 
+  /* Tool and game pages can declare `data-page="/tools/x"` on <body> instead of
+     repeating the back link and panel header by hand — both are built here from
+     the catalog entry, so the copy stays in one place. */
+  function mountPage() {
+    const path = document.body.getAttribute('data-page');
+    if (!path) return;
+    const catalog = window.SS_CATALOG || { utilities: [], games: [] };
+    const item = catalog.utilities.concat(catalog.games).find(function (entry) {
+      return entry.href === path;
+    });
+    if (!item) return;
+
+    const isGame = path.indexOf('/games/') === 0;
+    const main = document.querySelector('main');
+    if (main) {
+      main.insertAdjacentHTML('afterbegin',
+        '<p class="small"><a href="' + (isGame ? '/games/' : '/utilities/') + '">&larr; ' +
+        (isGame ? 'All games' : 'All utilities') + '</a></p>');
+    }
+
+    const panel = document.querySelector('main .panel');
+    if (!panel) return;
+    if (item.tone && !/\bt-/.test(panel.className)) panel.classList.add(item.tone);
+    panel.insertAdjacentHTML('afterbegin',
+      '<div class="panel__head">' +
+        '<div><h1>' + item.name + '</h1>' +
+        '<p class="muted small" data-page-note></p></div>' +
+        '<span class="badge">' + item.tag + '</span>' +
+      '</div>');
+    const note = panel.querySelector('[data-page-note]');
+    if (note) note.textContent = document.body.getAttribute('data-note') || item.desc;
+  }
+
+  function mountSettings() {
+    const tag = document.createElement('script');
+    tag.src = '/assets/js/settings.js';
+    document.head.appendChild(tag);
+  }
+
   function mount() {
     document.body.insertAdjacentHTML('afterbegin', headerHTML());
     document.body.insertAdjacentHTML('beforeend', footerHTML());
@@ -127,7 +167,9 @@
       el.innerHTML = list.map(cardHTML).join('');
     });
 
+    mountPage();
     SS.wireCopyButtons(document);
+    mountSettings();
   }
 
   if (document.readyState === 'loading') {

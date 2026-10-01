@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Word Counter — SuperSuite</title>
+    <meta name="description" content="Count words, characters, sentences and paragraphs, with reading time and keyword density." />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/rewind.css" />
+    <script src="/assets/js/rewind.js"></script>
+  </head>
+  <body data-page="/tools/word-counter">
+    <main class="wrap wrap--narrow">
+      <section class="panel">
+        <div class="field">
+          <label for="text">Your text</label>
+          <textarea class="textarea" id="text" rows="9" placeholder="Paste or type your text here — it is counted as you go."></textarea>
+        </div>
+
+        <div class="hud" style="margin-top: 16px">
+          <div class="hud__item"><span class="hud__label">Words</span><span class="hud__value" id="words">0</span></div>
+          <div class="hud__item"><span class="hud__label">Characters</span><span class="hud__value" id="chars">0</span></div>
+          <div class="hud__item"><span class="hud__label">No spaces</span><span class="hud__value" id="charsns">0</span></div>
+          <div class="hud__item"><span class="hud__label">Sentences</span><span class="hud__value" id="sentences">0</span></div>
+          <div class="hud__item"><span class="hud__label">Paragraphs</span><span class="hud__value" id="paragraphs">0</span></div>
+          <div class="hud__item"><span class="hud__label">Reading</span><span class="hud__value" id="reading">0s</span></div>
+        </div>
+
+        <div class="spread" style="margin-bottom: 8px">
+          <span class="label">Top keywords</span>
+          <button class="btn" type="button" id="clear">Clear</button>
+        </div>
+        <div class="chips" id="keywords"><span class="muted small">Words you use most will show up here.</span></div>
+      </section>
+    </main>
+
+    <script src="/assets/js/catalog.js"></script>
+    <script src="/assets/js/site.js"></script>
+    <script src="/assets/js/word-counter.js"></script>
+  </body>
+</html>

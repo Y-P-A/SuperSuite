@@ -13,6 +13,9 @@
     pixel: { label: 'Pixel Client · 1.12.2', url: BASE + 'Pixel%20Client/index.html' },
     larp: { label: 'Larp Client · 1.12.2', url: BASE + 'Larp%20Client%201.12.2/index.html' },
     js152: { label: '1.5.2 · JS', url: BASE + '1.5.2/index.html' },
+    js188: { label: '1.8.8 · JS', url: BASE + '1.8.8/index.html' },
+    js1122: { label: '1.12.2 · JS', url: BASE + '1.12.2/index.html' },
+    js1165: { label: '1.16.5 · JS', url: BASE + '1.16.5/index.html', heavy: true },
     wasm188: { label: '1.8.8 · WASM', url: BASE + '1.8.8-wasm/index.html' },
     wasm1122: { label: '1.12.2 · WASM', url: BASE + '1.12.2-wasm/index.html' },
     wasm1165: { label: '1.16.5 · WASM', url: BASE + '1.16.5-wasm/index.html', heavy: true }
