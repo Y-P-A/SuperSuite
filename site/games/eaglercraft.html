@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Eaglercraft — SuperSuite</title>
-    <meta name="description" content="Minecraft in the browser through Eaglercraft — pick 1.5.2, 1.8.8, 1.12.2 or 1.16.5." />
+    <meta name="description" content="Minecraft in the browser through Eaglercraft — Astra, Eclipse, Resent, Pixel and Larp clients plus the classic 1.5.2, 1.8.8, 1.12.2 and 1.16.5 versions." />
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="/assets/css/style.css" />
   </head>
@@ -16,25 +16,54 @@
         <div class="panel__head">
           <div>
             <h1>Eaglercraft</h1>
-            <p class="muted small">Minecraft in the browser. Pick your version, then click the game to grab mouse control.</p>
+            <p class="muted small">Minecraft in the browser. Pick a client or a version, then click the game once to grab mouse control.</p>
           </div>
           <span class="badge">Game 05</span>
         </div>
 
-        <div class="version-grid" id="versions" style="margin-bottom: 14px">
-          <button class="btn" type="button" data-version="1.5.2">
+        <p class="label">Clients</p>
+        <div class="version-grid" id="versions" style="margin-bottom: 16px">
+          <button class="btn" type="button" data-version="astra">
+            Astra Client &middot; 1.8.8
+            <span class="small muted" style="display:block;letter-spacing:0;text-transform:none;margin-top:4px">Recommended — the best all-round client</span>
+          </button>
+          <button class="btn" type="button" data-version="astra2">
+            Astra Client 2 &middot; 1.8.8
+            <span class="small muted" style="display:block;letter-spacing:0;text-transform:none;margin-top:4px">Newer Astra build</span>
+          </button>
+          <button class="btn" type="button" data-version="eclipse">
+            Eclipse Client &middot; 1.8.8
+            <span class="small muted" style="display:block;letter-spacing:0;text-transform:none;margin-top:4px">Tuned for PvP</span>
+          </button>
+          <button class="btn" type="button" data-version="resent">
+            Resent Client
+            <span class="small muted" style="display:block;letter-spacing:0;text-transform:none;margin-top:4px">Light and smooth</span>
+          </button>
+          <button class="btn" type="button" data-version="pixel">
+            Pixel Client &middot; 1.12.2
+            <span class="small muted" style="display:block;letter-spacing:0;text-transform:none;margin-top:4px">Client for 1.12.2</span>
+          </button>
+          <button class="btn" type="button" data-version="larp">
+            Larp Client &middot; 1.12.2
+            <span class="small muted" style="display:block;letter-spacing:0;text-transform:none;margin-top:4px">Another 1.12.2 pick</span>
+          </button>
+        </div>
+
+        <p class="label">Vanilla versions</p>
+        <div class="version-grid" id="versions-vanilla" style="margin-bottom: 14px">
+          <button class="btn" type="button" data-version="js152">
             1.5.2 &middot; JS
             <span class="small muted" style="display:block;letter-spacing:0;text-transform:none;margin-top:4px">Lightest — runs on almost anything</span>
           </button>
-          <button class="btn" type="button" data-version="1.8.8">
+          <button class="btn" type="button" data-version="wasm188">
             1.8.8 &middot; WASM
             <span class="small muted" style="display:block;letter-spacing:0;text-transform:none;margin-top:4px">The PvP classic</span>
           </button>
-          <button class="btn" type="button" data-version="1.12.2">
+          <button class="btn" type="button" data-version="wasm1122">
             1.12.2 &middot; WASM
             <span class="small muted" style="display:block;letter-spacing:0;text-transform:none;margin-top:4px">More blocks, more world</span>
           </button>
-          <button class="btn" type="button" data-version="1.16.5">
+          <button class="btn" type="button" data-version="wasm1165">
             1.16.5 &middot; WASM
             <span class="small muted" style="display:block;letter-spacing:0;text-transform:none;margin-top:4px">Newest — heaviest</span>
           </button>
@@ -49,23 +78,22 @@
           <iframe
             id="game"
             title="Eaglercraft"
-            src="https://gx-launcher.github.io/game/1.8.8-wasm/index.html"
+            src="https://gx-launcher.github.io/game/Astra%20Client/index.html"
             allow="fullscreen; gamepad; autoplay"
             loading="lazy"
           ></iframe>
         </div>
 
         <div class="row" style="margin-top: 14px">
-          <span class="badge">Loading <span class="mono" id="current">1.8.8</span></span>
+          <span class="badge">Loading <span class="mono" id="current">Astra Client 1.8.8</span></span>
           <button class="btn" type="button" id="reload">Reload game</button>
           <button class="btn" type="button" id="fullscreen">Fullscreen</button>
-          <a class="btn" id="open-tab" href="https://gx-launcher.github.io/game/1.8.8-wasm/index.html" target="_blank" rel="noopener">Open in new tab</a>
         </div>
 
         <ul class="keys">
           <li>Click inside the game once so it can lock your mouse. <span class="kbd">Esc</span> releases it.</li>
-          <li>First load pulls a few megabytes, so give it a moment — especially on 1.16.5.</li>
-          <li>If it stays blank, use <em>Open in new tab</em>: some blockers stop embedded game frames.</li>
+          <li>Client builds are single files of 18-56 MB, so the first load takes a moment; after that the browser has them cached.</li>
+          <li>Stuck on a blank frame? Give it a moment, or press <em>Reload game</em>.</li>
         </ul>
       </section>
     </main>

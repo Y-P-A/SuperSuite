@@ -9,7 +9,7 @@
     { href: '/games/', label: 'Games' }
   ];
 
-  const DARK_GLYPHS = ['t-yellow'];
+  const DARK_ICON_TONES = ['t-yellow'];
 
   function currentSection() {
     const path = location.pathname;
@@ -46,12 +46,13 @@
   }
 
   function cardHTML(item) {
-    const dark = DARK_GLYPHS.indexOf(item.tone) > -1 ? ' card__icon--dark' : '';
+    const dark = DARK_ICON_TONES.indexOf(item.tone) > -1 ? ' card__icon--dark' : '';
+    const icon = item.icon || item.glyph || '';
     return (
       '<a class="card ' + item.tone + '" href="' + item.href + '">' +
         '<span class="card__stripe"></span>' +
         '<span class="card__body">' +
-          '<span class="card__icon' + dark + '" aria-hidden="true">' + item.glyph + '</span>' +
+          '<span class="card__icon' + dark + '" aria-hidden="true">' + icon + '</span>' +
           '<span>' +
             '<h3>' + item.name + '</h3>' +
             '<p>' + item.desc + '</p>' +

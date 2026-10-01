@@ -1,6 +1,6 @@
 # SuperSuite
 
-Static site — flat, geometric, 2015-flavoured. Hub page plus five utilities and five
+Static site — flat, geometric, 2015-flavoured. Hub page plus ten utilities and five
 games. No build step, no framework, no backend: plain HTML, one stylesheet, and plain
 scripts served by nginx.
 
@@ -15,10 +15,13 @@ site/
   nginx.conf            mounted as /etc/nginx/conf.d/default.conf
   assets/css/style.css  the whole design system (tokens, shell, tools, games)
   assets/js/site.js     header/footer shell, toast, clipboard, download helpers
-  assets/js/catalog.js  SS_CATALOG — single source of truth for both listings
+  assets/js/catalog.js  SS_CATALOG — single source of truth for both listings,
+                        including each card's inline SVG logo (`icon`)
   assets/js/*.js        one script per utility
   assets/js/games/      common.js (loop, input, overlay, high scores) + one per game
   vendor/qrcode.js      MIT QR encoder (Kazuhiko Arase) — vendored, no CDN at runtime
+  vendor/pdf.min.js     pdf.js 3.11.174 legacy UMD build + its worker, both vendored
+                        (Apache-2.0) and used only by the image converter
   vendor/               keep third-party files here, never in assets/js
 ```
 
@@ -41,8 +44,16 @@ curl -sS -o /dev/null -w '%{http_code}\n' http://localhost:3000/        # 200
   keeps the browser honest. There is no file watcher, so refresh the preview after edits.
 - **Google Maps** is embedded keyless via `https://www.google.com/maps?q=…&t=…&z=…&output=embed`.
   Do not add an API key; keep the `output=embed` parameter.
-- **Eaglercraft** is `gx-launcher.github.io` in an iframe (1.5.2 JS plus 1.8.8 / 1.12.2 / 1.16.5
-  WASM). Nothing is self-hosted. If a blocker stops the frame, "Open in new tab" is the fallback.
+- **Eaglercraft** frames builds from `gx-launcher.github.io/game/…` — six clients (Astra, Astra 2,
+  Eclipse, Resent, Pixel, Larp) plus vanilla 1.5.2 / 1.8.8 / 1.12.2 / 1.16.5. Astra Client 1.8.8
+  is the default. The same files on `raw.githack.com` **cannot** be framed — that host answers
+  with `x-frame-options: SAMEORIGIN` (and 403s datacenter IPs), so the GitHub Pages mirror is the
+  one to use. Nothing is self-hosted, and there is no "open in new tab" fallback by design.
+- **Image Converter** writes PDFs by hand (`buildPdf` in `assets/js/image-converter.js`): every
+  page is one JPEG stored with `/Filter /DCTDecode`, laid out on A4 by aspect ratio. The xref
+  offsets and `/Length` values must stay byte-accurate, and the byte arrays must be concatenated
+  as `Uint8Array` chunks — building the file as a JS string corrupts bytes above 0x7f. Reading
+  PDFs back uses the vendored pdf.js, whose worker is loaded from `/vendor/pdf.worker.min.js`.
 - **QR generation** picks the smallest encoding version by looping versions 1-40. The encoder
   throws *plain strings* (not `Error` objects), so any overflow check must read both shapes —
   `String(err.message)` alone silently breaks generation.
@@ -57,8 +68,10 @@ The container has no test runner; these checks cover most of it:
 
 ```bash
 # every route answers
-for p in / /utilities/ /games/ /tools/calculator /tools/qr-code /games/tetris /games/eaglercraft; do
-  printf '%-24s %s\n' "$p" "$(curl -sS -o /dev/null -w '%{http_code}' http://localhost:3000$p)"; done
+for p in / /utilities/ /games/ /tools/calculator /tools/qr-code /tools/image-converter \
+         /tools/unit-converter /tools/password-generator /tools/json-formatter /tools/encoder \
+         /games/tetris /games/eaglercraft; do
+  printf '%-28s %s\n' "$p" "$(curl -sS -o /dev/null -w '%{http_code}' http://localhost:3000$p)"; done
 ```
 
 - Script syntax (host has no node; run it in a container):
@@ -69,3 +82,5 @@ for p in / /utilities/ /games/ /tools/calculator /tools/qr-code /games/tetris /g
   browser tab was available.
 - QR output is genuinely scannable: render the module matrix to a PBM (same geometry as
   `assets/js/qr-code.js`) and decode it with `zxing-cpp` / `pyzbar` in a throwaway container.
+- A PDF written by the image converter is worth checking with a real tool — `pdftoppm` (poppler)
+  or `pdfinfo` in a throwaway container — since a bad xref still opens in lenient viewers.
