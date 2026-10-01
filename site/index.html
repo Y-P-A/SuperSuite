@@ -3,150 +3,49 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>SuperSuite — Coming Soon</title>
-    <meta name="description" content="SuperSuite is currently being built. Official release coming soon." />
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%9B%A0%EF%B8%8F%3C/text%3E%3C/svg%3E" />
-    <style>
-      :root {
-        color-scheme: dark;
-        --bg: #0b1020;
-        --panel: rgba(255, 255, 255, 0.04);
-        --text: #f4f6fb;
-        --muted: #a2adc4;
-        --accent: #6ea8fe;
-        --accent-2: #b98cff;
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-
-      html,
-      body {
-        height: 100%;
-        margin: 0;
-      }
-
-      body {
-        display: grid;
-        place-items: center;
-        padding: 24px;
-        background:
-          radial-gradient(60rem 40rem at 15% 10%, rgba(110, 168, 254, 0.18), transparent 60%),
-          radial-gradient(50rem 35rem at 85% 90%, rgba(185, 140, 255, 0.16), transparent 60%),
-          var(--bg);
-        color: var(--text);
-        font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        -webkit-font-smoothing: antialiased;
-        text-align: center;
-      }
-
-      main {
-        width: min(680px, 100%);
-        padding: clamp(28px, 6vw, 56px);
-        border: 1px solid rgba(255, 255, 255, 0.09);
-        border-radius: 24px;
-        background: var(--panel);
-        backdrop-filter: blur(10px);
-        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
-      }
-
-      .badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        margin-bottom: 22px;
-        padding: 6px 14px;
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        border-radius: 999px;
-        font-size: 12px;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: var(--muted);
-      }
-
-      .dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: var(--accent);
-        box-shadow: 0 0 0 0 rgba(110, 168, 254, 0.6);
-        animation: pulse 2.2s ease-out infinite;
-      }
-
-      h1 {
-        margin: 0 0 16px;
-        font-size: clamp(30px, 6vw, 46px);
-        line-height: 1.15;
-        letter-spacing: -0.02em;
-        background: linear-gradient(100deg, var(--text), var(--accent) 55%, var(--accent-2));
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-      }
-
-      p {
-        margin: 0;
-        font-size: clamp(15px, 2.4vw, 18px);
-        line-height: 1.6;
-        color: var(--muted);
-      }
-
-      .bar {
-        position: relative;
-        overflow: hidden;
-        height: 4px;
-        margin: 30px auto 0;
-        width: min(260px, 70%);
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.08);
-      }
-
-      .bar::after {
-        content: "";
-        position: absolute;
-        inset: 0 auto 0 0;
-        width: 40%;
-        border-radius: inherit;
-        background: linear-gradient(90deg, var(--accent), var(--accent-2));
-        animation: slide 2.4s ease-in-out infinite;
-      }
-
-      @keyframes pulse {
-        70% {
-          box-shadow: 0 0 0 10px rgba(110, 168, 254, 0);
-        }
-        100% {
-          box-shadow: 0 0 0 0 rgba(110, 168, 254, 0);
-        }
-      }
-
-      @keyframes slide {
-        0% {
-          transform: translateX(-110%);
-        }
-        100% {
-          transform: translateX(260%);
-        }
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        .dot,
-        .bar::after {
-          animation: none;
-        }
-        .bar::after {
-          width: 100%;
-        }
-      }
-    </style>
+    <title>SuperSuite — utilities and unblocked games</title>
+    <meta name="description" content="SuperSuite is a handpicked hub of handy utilities and unblocked games. No login, no clutter." />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
   </head>
   <body>
-    <main>
-      <span class="badge"><span class="dot" aria-hidden="true"></span> SuperSuite</span>
-      <h1>We are currently building SuperSuite.</h1>
-      <p>Official release coming soon.</p>
-      <div class="bar" aria-hidden="true"></div>
+    <main class="wrap">
+      <section class="hero">
+        <div class="hero__inner">
+          <span class="badge"><span class="badge__dot"></span>Updated monthly</span>
+          <h1>One hub for utilities &amp; unblocked games</h1>
+          <p>
+            Handpicked tools that actually do the job, plus the classics you grew up with.
+            No login, no clutter — open it and go.
+          </p>
+          <div class="btn-row">
+            <a class="btn btn--primary t-teal" href="/utilities/">Browse utilities</a>
+            <a class="btn" href="/games/">Play games</a>
+          </div>
+        </div>
+        <span class="hero__shape hero__shape--circle" aria-hidden="true"></span>
+        <span class="hero__shape hero__shape--square" aria-hidden="true"></span>
+        <span class="hero__shape hero__shape--triangle" aria-hidden="true"></span>
+      </section>
+
+      <section class="section">
+        <div class="section__head">
+          <h2>Utilities</h2>
+          <p class="muted small">Five tools, zero sign-up.</p>
+        </div>
+        <div class="grid" data-catalog="utilities"></div>
+      </section>
+
+      <section class="section">
+        <div class="section__head">
+          <h2>Games</h2>
+          <p class="muted small">Keyboard and touch friendly arcade classics.</p>
+        </div>
+        <div class="grid" data-catalog="games"></div>
+      </section>
     </main>
+
+    <script src="/assets/js/catalog.js"></script>
+    <script src="/assets/js/site.js"></script>
   </body>
 </html>

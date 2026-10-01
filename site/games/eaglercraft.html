@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Eaglercraft — SuperSuite</title>
+    <meta name="description" content="Minecraft in the browser through Eaglercraft — pick 1.5.2, 1.8.8, 1.12.2 or 1.16.5." />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+  </head>
+  <body>
+    <main class="wrap">
+      <p class="small"><a href="/games/">&larr; All games</a></p>
+
+      <section class="panel t-purple">
+        <div class="panel__head">
+          <div>
+            <h1>Eaglercraft</h1>
+            <p class="muted small">Minecraft in the browser. Pick your version, then click the game to grab mouse control.</p>
+          </div>
+          <span class="badge">Game 05</span>
+        </div>
+
+        <div class="version-grid" id="versions" style="margin-bottom: 14px">
+          <button class="btn" type="button" data-version="1.5.2">
+            1.5.2 &middot; JS
+            <span class="small muted" style="display:block;letter-spacing:0;text-transform:none;margin-top:4px">Lightest — runs on almost anything</span>
+          </button>
+          <button class="btn" type="button" data-version="1.8.8">
+            1.8.8 &middot; WASM
+            <span class="small muted" style="display:block;letter-spacing:0;text-transform:none;margin-top:4px">The PvP classic</span>
+          </button>
+          <button class="btn" type="button" data-version="1.12.2">
+            1.12.2 &middot; WASM
+            <span class="small muted" style="display:block;letter-spacing:0;text-transform:none;margin-top:4px">More blocks, more world</span>
+          </button>
+          <button class="btn" type="button" data-version="1.16.5">
+            1.16.5 &middot; WASM
+            <span class="small muted" style="display:block;letter-spacing:0;text-transform:none;margin-top:4px">Newest — heaviest</span>
+          </button>
+        </div>
+
+        <p class="warn" id="heavy-warning" hidden>
+          Heads up: 1.16.5 is the heaviest build. It needs a decent device with plenty of memory —
+          on an older laptop or phone it can stutter or fail to load. Try 1.5.2 or 1.8.8 instead.
+        </p>
+
+        <div class="frame-wide" id="frame">
+          <iframe
+            id="game"
+            title="Eaglercraft"
+            src="https://gx-launcher.github.io/game/1.8.8-wasm/index.html"
+            allow="fullscreen; gamepad; autoplay"
+            loading="lazy"
+          ></iframe>
+        </div>
+
+        <div class="row" style="margin-top: 14px">
+          <span class="badge">Loading <span class="mono" id="current">1.8.8</span></span>
+          <button class="btn" type="button" id="reload">Reload game</button>
+          <button class="btn" type="button" id="fullscreen">Fullscreen</button>
+          <a class="btn" id="open-tab" href="https://gx-launcher.github.io/game/1.8.8-wasm/index.html" target="_blank" rel="noopener">Open in new tab</a>
+        </div>
+
+        <ul class="keys">
+          <li>Click inside the game once so it can lock your mouse. <span class="kbd">Esc</span> releases it.</li>
+          <li>First load pulls a few megabytes, so give it a moment — especially on 1.16.5.</li>
+          <li>If it stays blank, use <em>Open in new tab</em>: some blockers stop embedded game frames.</li>
+        </ul>
+      </section>
+    </main>
+
+    <script src="/assets/js/site.js"></script>
+    <script src="/assets/js/games/eaglercraft.js"></script>
+  </body>
+</html>

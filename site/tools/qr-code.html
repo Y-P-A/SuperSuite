@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>QR Code Generator — SuperSuite</title>
+    <meta name="description" content="Generate a scannable QR code from any text or link, with custom size, colors and PNG or SVG download." />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+  </head>
+  <body>
+    <main class="wrap wrap--narrow">
+      <p class="small"><a href="/utilities/">&larr; All utilities</a></p>
+
+      <section class="panel t-teal">
+        <div class="panel__head">
+          <div>
+            <h1>QR Code Generator</h1>
+            <p class="muted small">Real, scannable QR codes generated in your browser. Nothing is uploaded.</p>
+          </div>
+          <span class="badge">Utility 03</span>
+        </div>
+
+        <div class="two-col">
+          <div class="stack">
+            <div class="field">
+              <label for="content">Text or URL</label>
+              <textarea class="textarea" id="content" spellcheck="false" placeholder="https://example.com">https://supersuite.example</textarea>
+              <span class="small muted" id="count">0 characters</span>
+            </div>
+
+            <div class="field">
+              <label for="ec">Error correction</label>
+              <select class="select" id="ec">
+                <option value="M" selected>M — balanced (recommended)</option>
+                <option value="L">L — smallest code</option>
+                <option value="Q">Q — tougher</option>
+                <option value="H">H — toughest, works with a logo</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="scale">Module size — <span class="mono" id="scale-val">8</span> px</label>
+              <input type="range" id="scale" min="2" max="20" step="1" value="8" />
+            </div>
+
+            <div class="field">
+              <label for="margin">Quiet zone — <span class="mono" id="margin-val">4</span> modules</label>
+              <input type="range" id="margin" min="0" max="8" step="1" value="4" />
+              <span class="small muted">Most scanners want at least 4 modules of white around the code.</span>
+            </div>
+
+            <div class="row">
+              <div class="field field--grow">
+                <label for="fg">Code color</label>
+                <input type="color" id="fg" value="#2c3e50" />
+              </div>
+              <div class="field field--grow">
+                <label for="bg">Background</label>
+                <input type="color" id="bg" value="#ffffff" />
+              </div>
+            </div>
+
+            <div class="btn-row">
+              <button class="btn btn--primary" type="button" id="download-png">Download PNG</button>
+              <button class="btn" type="button" id="download-svg">Download SVG</button>
+            </div>
+          </div>
+
+          <div class="stack">
+            <div class="qr-preview">
+              <canvas id="qr" width="320" height="320" role="img" aria-label="Generated QR code"></canvas>
+            </div>
+            <p class="note" id="meta">—</p>
+            <p class="warn" id="warn" hidden></p>
+          </div>
+        </div>
+
+        <ul class="keys">
+          <li>Tip: keep strong contrast between the two colors — dark code on a light background scans best.</li>
+          <li>Tip: after downloading, point your phone camera at the screen to test it before you print it.</li>
+        </ul>
+      </section>
+    </main>
+
+    <script src="/assets/js/site.js"></script>
+    <script src="/vendor/qrcode.js"></script>
+    <script src="/assets/js/qr-code.js"></script>
+  </body>
+</html>

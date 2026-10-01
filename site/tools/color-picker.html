@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Color Picker — SuperSuite</title>
+    <meta name="description" content="Pick a color, convert it between HEX, RGB and HSL, copy it and grab tints and shades." />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+  </head>
+  <body>
+    <main class="wrap wrap--narrow">
+      <p class="small"><a href="/utilities/">&larr; All utilities</a></p>
+
+      <section class="panel t-orange">
+        <div class="panel__head">
+          <div>
+            <h1>Color Picker</h1>
+            <p class="muted small">Pick, convert, copy — plus tints and shades for the same color.</p>
+          </div>
+          <span class="badge">Utility 02</span>
+        </div>
+
+        <div class="two-col">
+          <div class="stack">
+            <div class="swatch" id="swatch"></div>
+            <div class="field">
+              <label for="native">Pick a color</label>
+              <input type="color" id="native" value="#2980b9" />
+            </div>
+            <div class="field">
+              <label for="hex">HEX</label>
+              <div class="row">
+                <input class="input mono" id="hex" value="#2980b9" spellcheck="false" />
+                <button class="btn" type="button" data-copy="#2980b9" id="copy-hex">Copy</button>
+                <button class="btn" type="button" id="random">Random</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="stack">
+            <div class="field">
+              <label for="r">Red <span class="mono" id="r-val">41</span></label>
+              <input type="range" id="r" min="0" max="255" value="41" />
+            </div>
+            <div class="field">
+              <label for="g">Green <span class="mono" id="g-val">128</span></label>
+              <input type="range" id="g" min="0" max="255" value="128" />
+            </div>
+            <div class="field">
+              <label for="b">Blue <span class="mono" id="b-val">185</span></label>
+              <input type="range" id="b" min="0" max="255" value="185" />
+            </div>
+
+            <div class="output" id="readouts">
+              <div>HEX <span id="o-hex">#2980B9</span></div>
+              <div>RGB <span id="o-rgb">rgb(41, 128, 185)</span></div>
+              <div>HSL <span id="o-hsl">hsl(204, 64%, 44%)</span></div>
+            </div>
+            <div class="btn-row">
+              <button class="btn" type="button" id="copy-rgb">Copy RGB</button>
+              <button class="btn" type="button" id="copy-hsl">Copy HSL</button>
+              <button class="btn" type="button" id="copy-css">Copy CSS</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="stack" style="margin-top: 20px">
+          <div>
+            <span class="label">Tints &amp; shades</span>
+            <div class="shades" id="shades"></div>
+          </div>
+          <div>
+            <span class="label">Recent colors</span>
+            <div class="recent" id="recent"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="/assets/js/site.js"></script>
+    <script src="/assets/js/color-picker.js"></script>
+  </body>
+</html>

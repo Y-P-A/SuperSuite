@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Calculator — SuperSuite</title>
+    <meta name="description" content="A fast, flat calculator with full keyboard support and a running tape." />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+  </head>
+  <body>
+    <main class="wrap wrap--narrow">
+      <p class="small"><a href="/utilities/">&larr; All utilities</a></p>
+
+      <section class="panel t-blue">
+        <div class="panel__head">
+          <div>
+            <h1>Calculator</h1>
+            <p class="muted small">Click it or type it. Everything stays in your browser.</p>
+          </div>
+          <span class="badge">Utility 01</span>
+        </div>
+
+        <div class="two-col">
+          <div>
+            <div class="calc-display">
+              <div class="calc-display__expr" id="expr" aria-live="polite">&nbsp;</div>
+              <div class="calc-display__value" id="value">0</div>
+            </div>
+
+            <div class="calc-keys" id="keypad">
+              <button class="btn" type="button" data-key="clear">C</button>
+              <button class="btn" type="button" data-key="backspace">&larr;</button>
+              <button class="btn" type="button" data-key="%">%</button>
+              <button class="btn btn--primary" type="button" data-key="/">&divide;</button>
+
+              <button class="btn" type="button" data-key="7">7</button>
+              <button class="btn" type="button" data-key="8">8</button>
+              <button class="btn" type="button" data-key="9">9</button>
+              <button class="btn btn--primary" type="button" data-key="*">&times;</button>
+
+              <button class="btn" type="button" data-key="4">4</button>
+              <button class="btn" type="button" data-key="5">5</button>
+              <button class="btn" type="button" data-key="6">6</button>
+              <button class="btn btn--primary" type="button" data-key="-">&minus;</button>
+
+              <button class="btn" type="button" data-key="1">1</button>
+              <button class="btn" type="button" data-key="2">2</button>
+              <button class="btn" type="button" data-key="3">3</button>
+              <button class="btn btn--primary" type="button" data-key="+">+</button>
+
+              <button class="btn" type="button" data-key="negate">&plusmn;</button>
+              <button class="btn" type="button" data-key="0">0</button>
+              <button class="btn" type="button" data-key=".">.</button>
+              <button class="btn btn--dark" type="button" data-key="equals">=</button>
+            </div>
+          </div>
+
+          <div>
+            <div class="spread" style="margin-bottom: 10px">
+              <span class="label">Tape</span>
+              <button class="btn" type="button" id="clear-tape">Clear tape</button>
+            </div>
+            <ul class="tape" id="tape"></ul>
+            <p class="note" id="tape-empty">Results you calculate show up here.</p>
+          </div>
+        </div>
+
+        <ul class="keys">
+          <li><span class="kbd">0-9</span><span class="kbd">+</span><span class="kbd">-</span><span class="kbd">*</span><span class="kbd">/</span> type a sum</li>
+          <li><span class="kbd">Enter</span> equals &nbsp;·&nbsp; <span class="kbd">Backspace</span> delete &nbsp;·&nbsp; <span class="kbd">Esc</span> clear</li>
+        </ul>
+      </section>
+    </main>
+
+    <script src="/assets/js/site.js"></script>
+    <script src="/assets/js/calculator.js"></script>
+  </body>
+</html>

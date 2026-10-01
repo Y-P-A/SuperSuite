@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Snake — SuperSuite</title>
+    <meta name="description" content="Classic Snake: eat, grow, and do not bite yourself. It speeds up as you go." />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+  </head>
+  <body>
+    <main class="wrap wrap--narrow">
+      <p class="small"><a href="/games/">&larr; All games</a></p>
+
+      <section class="panel t-green">
+        <div class="panel__head">
+          <div>
+            <h1>Snake</h1>
+            <p class="muted small">Walls are deadly, food is worth ten, and it keeps getting faster.</p>
+          </div>
+          <span class="badge">Game 04</span>
+        </div>
+
+        <div class="hud">
+          <div class="hud__item"><span class="hud__label">Score</span><span class="hud__value" id="score">0</span></div>
+          <div class="hud__item"><span class="hud__label">Length</span><span class="hud__value" id="length">3</span></div>
+          <div class="hud__item"><span class="hud__label">Speed</span><span class="hud__value" id="speed">1</span></div>
+          <div class="hud__item"><span class="hud__label">Best</span><span class="hud__value" id="best">0</span></div>
+        </div>
+
+        <div class="stage">
+          <canvas id="field" width="480" height="480" aria-label="Snake board"></canvas>
+          <div class="stage__overlay is-visible" id="overlay">
+            <div>
+              <h3 data-overlay-title>Ready?</h3>
+              <p data-overlay-text>Arrow keys or WASD to steer. On a phone, use the pad below.</p>
+              <button class="btn btn--primary" type="button" data-overlay-button>Start</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="spread" style="margin-top: 14px">
+          <span class="small muted">You cannot reverse into yourself — no instant U-turns.</span>
+          <div class="btn-row">
+            <button class="btn" type="button" id="pause">Pause</button>
+            <button class="btn" type="button" id="restart">Restart</button>
+          </div>
+        </div>
+
+        <div class="pad" id="pad">
+          <div class="pad__row">
+            <button class="btn" type="button" data-key="ArrowUp">&uarr;</button>
+          </div>
+          <div class="pad__row">
+            <button class="btn" type="button" data-key="ArrowLeft">&larr;</button>
+            <button class="btn" type="button" data-key="ArrowDown">&darr;</button>
+            <button class="btn" type="button" data-key="ArrowRight">&rarr;</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="/assets/js/site.js"></script>
+    <script src="/assets/js/games/common.js"></script>
+    <script src="/assets/js/games/snake.js"></script>
+  </body>
+</html>
