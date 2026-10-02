@@ -61,10 +61,11 @@ curl -sS -o /dev/null -w '%{http_code}\n' http://localhost:3000/        # 200
 
 ## Page shell for new tools and games
 
-New tool/game pages do not repeat the back link or the panel header. Put
-`data-page="/tools/slug"` on `<body>` (optional `data-note="…"` to override the blurb) and
-`site.js` builds both from the catalog entry. Such pages must load `catalog.js` before
-`site.js`. Older pages keep hand-written markup and have no `data-page`; both styles coexist.
+New tool/game pages do not repeat the panel header, and no page carries a "back to the list"
+link: the top nav is the way back. Put `data-page="/tools/slug"` on `<body>` (optional
+`data-note="…"` to override the blurb) and `site.js` builds the panel head from the catalog
+entry. Such pages must load `catalog.js` before `site.js`. Older pages keep hand-written
+markup and have no `data-page`; both styles coexist.
 
 ## Quirks worth knowing
 
@@ -85,16 +86,19 @@ New tool/game pages do not repeat the back link or the panel header. Put
   `raw.githack.com` **cannot** be framed — that host answers with `x-frame-options: SAMEORIGIN`
   (and 403s datacenter IPs). Nothing is self-hosted, and there is no "open in new tab"
   fallback by design.
-- **Music Lab** (`assets/js/music-lab.js`) is the only tool with real state. A song is
-  `{ bpm, bars, metronome, layers[] }` and each layer is
-  `{ instrument, volume, octave, muted, solo, notes:Set("row:step") }`. Sound is synthesised
+- **Music Lab** (`assets/js/music-lab.js`) is the only tool with real state, and it is kept
+  deliberately simple — Chrome Music Lab's Song Maker is the reference. A song is
+  `{ bpm, bars, sound, drum, notes:Set("row:step"), hits:Set(step) }`: one note instrument,
+  one drum, and one grid of `8 rows × bars × 8 steps` whose last row is the beat strip
+  (`DRUM_ROW = -1`). Growing a bar is just `bars += 1`, capped at 64. Sound is synthesised
   live through the Web Audio API — no samples, no vendored audio. Notes are scheduled ahead
   of the clock (25 ms tick, 120 ms lookahead) and the playhead is driven by a queue of
   `[step, ctxTime]`, so changing tempo mid-playback never desyncs the highlight. Grid edits
   push JSON snapshots onto a 25-deep undo stack. Cells listen for `pointerdown`/`pointermove`
   rather than `click`, so notes can be painted by dragging. **Every envelope ramps to 0.0001,
   never to 0** — `exponentialRampToValueAtTime(0)` throws and would silence that instrument.
-  The grid is `8 rows × bars × 8 steps`; growing a bar is just `bars += 1`, capped at 64.
+  `restore()` still reads the old multi-layer song format (first layer = melody, first drum
+  layer = beat), so songs saved before the rewrite keep loading.
 - **Image Converter** writes PDFs by hand (`buildPdf` in `assets/js/image-converter.js`): every
   page is one JPEG stored with `/Filter /DCTDecode`, laid out on A4 by aspect ratio. The xref
   offsets and `/Length` values must stay byte-accurate, and the byte arrays must be concatenated
@@ -114,6 +118,13 @@ New tool/game pages do not repeat the back link or the panel header. Put
   **Reversi** is the same trap with a different sign: `search` maximises for the CPU and
   minimises for the player, and the evaluation is from the CPU's side. Corner weights dominate
   on purpose; mobility and disc counts only break ties.
+- **`SS_CATALOG.utilities` is kept in alphabetical order.** That is the order `/utilities/` and
+  the home grid render in, and each entry's `tag` is its position (`Utility 07`). Insert a new
+  utility in the right place and renumber the tags below it.
+- **Any Web Audio tool keeps one AudioContext for the page and never `close()`s it** (see
+  `ensureAudio` in `assets/js/morse-code.js`). A fresh context per press runs into the
+  browser's context limit and everything after a few beeps is silent, which reads as "the
+  beeper is broken".
 - No secrets, database, or external services.
 
 ## Verifying changes (no browser needed)

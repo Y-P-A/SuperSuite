@@ -10,93 +10,32 @@
 }
 
 .ml-bar--foot {
-  margin-top: 20px;
-  padding-top: 18px;
+  margin-top: 18px;
+  padding-top: 16px;
   border-top: 2px solid var(--line);
 }
 
 .ml-tempo { flex: 1 1 210px; min-width: 190px; }
 .ml-preset { flex: 1 1 200px; min-width: 180px; }
 .ml-name { flex: 1 1 180px; min-width: 160px; }
-
 .ml-play { min-width: 118px; }
 
-.ml-head { margin: 20px 0 10px; }
+.ml-bars { flex: 0 1 auto; }
+.ml-bars .btn { padding: 6px 10px; }
 
-/* ---------- instrument (layer) cards ---------- */
+.ml-hint { margin: 16px 0 10px; }
 
-.ml-layers {
+/* ---------- the sound and drum pickers ---------- */
+
+.ml-tray {
   display: grid;
-  gap: 12px;
-  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-}
-
-.ml-layer {
-  display: grid;
-  gap: 10px;
-  padding: 10px 12px;
-  border: 2px solid var(--line);
-  background: var(--surface-2);
-}
-
-.ml-layer.is-selected {
-  border-color: var(--accent, var(--tone));
-  box-shadow: inset 0 0 0 2px var(--accent, var(--tone));
-}
-
-.ml-layer__top {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.ml-layer__pick {
-  display: flex;
   gap: 8px;
-  align-items: center;
-  padding: 2px 0;
-  border: 0;
-  background: none;
-  color: inherit;
-  font: inherit;
+  flex: 1 1 280px;
+}
+
+.btn.ml-chip {
+  padding: 5px 10px;
   font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  cursor: pointer;
-}
-
-.ml-layer__dot {
-  width: 14px;
-  height: 14px;
-  flex: none;
-  border: 2px solid var(--line);
-}
-
-.ml-layer__row {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.ml-layer__row label {
-  display: grid;
-  gap: 4px;
-  flex: 1 1 90px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--ink-2);
-}
-
-.ml-layer__row input[type="range"] { width: 100%; }
-
-.btn.ml-mini {
-  padding: 3px 9px;
-  font-size: 11px;
 }
 
 /* ---------- the grid ---------- */
@@ -123,12 +62,18 @@
   color: var(--ink-3);
 }
 
+.ml-note--drum {
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
 .ml-cell {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1px;
   min-height: 20px;
   aspect-ratio: 1 / 1;
   padding: 0;
@@ -157,11 +102,14 @@
   display: inline-block;
   width: 4px;
   height: 54%;
+  background: var(--accent-ink, #fff);
 }
 
-.ml-cell.is-on i { background: var(--accent-ink, #fff) !important; }
+/* The beat strip: solid blocks, so it reads as drums and not as pitches. */
+.ml-cell.is-drum { border-color: var(--ink); }
+.ml-cell.is-drum.is-on { background: var(--ink); }
 
 @media (max-width: 600px) {
   .ml-grid { grid-template-columns: 30px repeat(var(--steps, 16), minmax(16px, 1fr)); }
-  .ml-layer__row label { flex: 1 1 100%; }
+  .ml-note--drum { font-size: 9px; }
 }

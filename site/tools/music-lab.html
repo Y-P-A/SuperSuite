@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Music Lab — SuperSuite</title>
-    <meta name="description" content="A beginner-friendly music maker: paint notes on an endless grid, stack as many instruments as you like, and play them all at once." />
+    <meta name="description" content="A beginner-friendly song maker: tap notes onto the grid, add a beat, press play." />
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="/assets/css/style.css" />
     <link rel="stylesheet" href="/assets/css/rewind.css" />
@@ -22,6 +22,14 @@
             <input type="range" id="ml-bpm" min="60" max="200" step="1" value="110" />
           </div>
 
+          <div class="field ml-bars">
+            <span class="label">Bars — <span class="mono" id="ml-bars">2</span></span>
+            <div class="btn-row">
+              <button class="btn" type="button" id="ml-remove-bar">&minus; Remove</button>
+              <button class="btn" type="button" id="ml-add-bar">+ Add</button>
+            </div>
+          </div>
+
           <div class="field ml-preset">
             <label for="ml-preset">Start from a song</label>
             <select class="select" id="ml-preset">
@@ -30,31 +38,27 @@
           </div>
 
           <div class="btn-row">
-            <button class="btn" type="button" id="ml-metro">Metronome: off</button>
             <button class="btn" type="button" id="ml-surprise">Surprise me</button>
             <button class="btn" type="button" id="ml-undo">Undo</button>
             <button class="btn" type="button" id="ml-clear">Clear all</button>
           </div>
         </div>
 
-        <div class="spread ml-head">
-          <span class="label">Instruments playing together</span>
-          <button class="btn btn--primary" type="button" id="ml-add-layer">+ Add instrument</button>
-        </div>
-        <div class="ml-layers" id="ml-layers"></div>
-
-        <p class="set-hint" id="ml-hint">Pick an instrument above, then click squares below to drop notes in. Every instrument plays at the same time.</p>
-
-        <div class="spread ml-head">
-          <span class="label">Melody grid — <span class="mono" id="ml-bars">2</span> bars</span>
-          <div class="btn-row">
-            <button class="btn" type="button" id="ml-remove-bar">− Remove bar</button>
-            <button class="btn btn--primary" type="button" id="ml-add-bar">+ Add bar</button>
-          </div>
-        </div>
+        <p class="muted small ml-hint">Tap squares in the note grid to write the tune — the top row is the highest note. The <strong>drum</strong> strip along the bottom is the beat. Press play and it loops.</p>
 
         <div class="ml-scroll">
           <div class="ml-grid" id="ml-grid"></div>
+        </div>
+
+        <div class="ml-bar ml-bar--foot">
+          <div class="ml-tray">
+            <span class="label">Sound</span>
+            <div class="btn-row" id="ml-sounds"></div>
+          </div>
+          <div class="ml-tray">
+            <span class="label">Drum</span>
+            <div class="btn-row" id="ml-drums"></div>
+          </div>
         </div>
 
         <div class="ml-bar ml-bar--foot">
@@ -79,9 +83,8 @@
         </div>
 
         <ul class="keys">
-          <li><strong>Endless notes.</strong> Hit <em>Add bar</em> as many times as you like — the tune keeps going and loops back to the start.</li>
-          <li><strong>Full band.</strong> Add an instrument for each sound you want; they all play together at once, each with its own volume, mute and solo.</li>
-          <li><strong>Beginner friendly.</strong> Every row is a note of the scale in order, so anything you click sounds musical. Try <em>Surprise me</em> for an instant tune.</li>
+          <li><strong>Tap to paint.</strong> Click a square to add a note, drag across to add a run of them, or drag over notes again to rub them out.</li>
+          <li><strong>Pick your sound.</strong> Choose the note instrument and the drum underneath — every square you tap uses the sound you have picked.</li>
           <li><strong>Space</strong> plays and stops. Your songs save in this browser, and <em>Export file</em> keeps a copy you can share.</li>
         </ul>
       </section>

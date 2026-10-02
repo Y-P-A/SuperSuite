@@ -1,36 +1,40 @@
 /* Music Lab — a beginner-friendly song maker.
 
-   The idea in one line: every row is the next note of the scale, every column
-   is a beat, and you can add as many instruments (layers) as you like. They all
-   sound together, so the grid you see is the whole band.
-
-   Sound is generated live with the Web Audio API — no samples, no downloads. */
+   One sheet of graph paper: rows are the notes of the scale (highest at the
+   top), columns are eighth notes, and the strip along the bottom is the beat.
+   You pick one sound for the notes and one drum for the beat, paint notes in,
+   and press play. Sound is generated live with the Web Audio API — no samples,
+   no downloads, no backend. */
 (function () {
   const el = (id) => document.getElementById(id);
 
   const ROWS = 8;                                /* C up to the C above it */
+  const DRUM_ROW = -1;                           /* the beat strip */
   const STEPS_PER_BAR = 8;                       /* eighth notes in 4/4 */
   const MAX_BARS = 64;                           /* 512 beats is plenty "endless" */
   const SEMITONES = [0, 2, 4, 5, 7, 9, 11, 12];  /* the major scale, in order */
   const NAMES = ['C', 'D', 'E', 'F', 'G', 'A', 'B', 'C'];
-  const COLORS = ['#3498db', '#e67e22', '#27ae60', '#e84393', '#8e44ad', '#16a085', '#c0392b', '#f1c40f'];
   const MIDDLE_C = 261.6256;
 
-  const INSTRUMENTS = [
-    { id: 'piano', label: 'Piano' },
+  const SOUNDS = [
     { id: 'marimba', label: 'Marimba' },
+    { id: 'piano', label: 'Piano' },
     { id: 'bell', label: 'Bells' },
     { id: 'pluck', label: 'Guitar' },
-    { id: 'synth', label: 'Synth lead' },
+    { id: 'synth', label: 'Synth' },
     { id: 'pad', label: 'Strings' },
     { id: 'bass', label: 'Bass' },
-    { id: 'chip', label: '8-bit' },
-    { id: 'kick', label: 'Kick drum' },
-    { id: 'snare', label: 'Snare drum' },
+    { id: 'chip', label: '8-bit' }
+  ];
+
+  const DRUMS = [
+    { id: 'kick', label: 'Kick' },
+    { id: 'snare', label: 'Snare' },
     { id: 'hihat', label: 'Hi-hat' }
   ];
 
-  const isDrum = (id) => ['kick', 'snare', 'hihat'].indexOf(id) > -1;
+  const soundExists = (id) => SOUNDS.some((sound) => sound.id === id);
+  const drumExists = (id) => DRUMS.some((drum) => drum.id === id);
 
   /* ----------------------------------------------------------------- sound */
 
@@ -167,49 +171,14 @@
       }
     }
 
-    function click(when, strong) {
-      if (!ctx) return;
-      const osc = ctx.createOscillator();
-      osc.type = 'square';
-      osc.frequency.value = strong ? 1400 : 900;
-      const shape = ctx.createGain();
-      shape.gain.setValueAtTime(0.12, when);
-      shape.gain.exponentialRampToValueAtTime(0.0001, when + 0.05);
-      osc.connect(shape);
-      shape.connect(master);
-      osc.start(when);
-      osc.stop(when + 0.08);
-    }
-
-    return { ensure, play, click };
+    return { ensure, play };
   })();
 
   /* ------------------------------------------------------------------ song */
 
-  function blankLayer(instrument) {
-    return {
-      instrument: instrument || 'piano',
-      volume: 0.8,
-      octave: 0,
-      muted: false,
-      solo: false,
-      notes: new Set()
-    };
-  }
-
-  function blankSong() {
-    return {
-      bpm: 110,
-      bars: 4,
-      metronome: false,
-      layers: [blankLayer('piano'), blankLayer('marimba')]
-    };
-  }
-
-  let song = blankSong();
-  let paint = 0;           /* index of the layer being painted */
-  let cellMap = new Map(); /* "row:step" -> button */
-  let playCells = [];      /* [step] -> [buttons] */
+  let song = { bpm: 110, bars: 2, sound: 'marimba', drum: 'kick', notes: new Set(), hits: new Set() };
+  let cellMap = new Map();  /* "row:step" -> button */
+  let playCells = [];       /* [step] -> [buttons] */
   let headStep = -1;
   let undoStack = [];
   let playing = false;
@@ -223,54 +192,46 @@
   const totalSteps = () => song.bars * STEPS_PER_BAR;
   const stepDuration = () => (60 / song.bpm) / 2;
   const key = (row, step) => row + ':' + step;
+  const freqOf = (row) => MIDDLE_C * Math.pow(2, SEMITONES[row] / 12);
 
-  function freqOf(row, octave) {
-    return MIDDLE_C * Math.pow(2, (SEMITONES[row] + 12 * (octave || 0)) / 12);
+  function hasNote(row, step) {
+    return row === DRUM_ROW ? song.hits.has(step) : song.notes.has(key(row, step));
+  }
+
+  function setNote(row, step, on) {
+    if (row === DRUM_ROW) {
+      if (on) song.hits.add(step);
+      else song.hits.delete(step);
+      return;
+    }
+    const id = key(row, step);
+    if (on) song.notes.add(id);
+    else song.notes.delete(id);
   }
 
   /* ---------------------------------------------------------------- presets */
 
   const PRESETS = [
     {
-      name: 'Twinkle Twinkle', bpm: 120, bars: 4,
-      layers: [{
-        instrument: 'piano',
-        notes: [[0, 0], [0, 2], [4, 4], [4, 6], [5, 8], [5, 10], [4, 12],
-          [3, 16], [3, 18], [2, 20], [2, 22], [1, 24], [1, 26], [0, 28]]
-      }]
+      name: 'Twinkle Twinkle', bpm: 120, bars: 2, sound: 'marimba', drum: 'kick', hits: [0, 4, 8, 12],
+      notes: [[0, 0], [0, 2], [4, 4], [4, 6], [5, 8], [5, 10], [4, 12], [3, 14]]
     },
     {
-      name: 'Ode to Joy', bpm: 120, bars: 4,
-      layers: [{
-        instrument: 'marimba',
-        notes: [[2, 0], [2, 2], [3, 4], [4, 6], [4, 8], [3, 10], [2, 12], [1, 14],
-          [0, 16], [0, 18], [1, 20], [2, 22], [2, 24], [1, 26]]
-      }]
+      name: 'Ode to Joy', bpm: 120, bars: 2, sound: 'piano', drum: 'snare', hits: [0, 8],
+      notes: [[2, 0], [2, 2], [3, 4], [4, 6], [4, 8], [3, 10], [2, 12], [1, 14]]
     },
     {
-      name: 'Mary Had a Little Lamb', bpm: 120, bars: 4,
-      layers: [{
-        instrument: 'bell',
-        notes: [[2, 0], [1, 2], [0, 4], [1, 6], [2, 8], [2, 10], [2, 12],
-          [1, 16], [1, 18], [1, 20], [2, 22], [4, 24], [4, 26]]
-      }]
+      name: 'Mary Had a Little Lamb', bpm: 120, bars: 2, sound: 'bell', drum: 'hihat',
+      hits: [0, 2, 4, 6, 8, 10, 12, 14],
+      notes: [[2, 0], [1, 2], [0, 4], [1, 6], [2, 8], [2, 10], [2, 12], [1, 14]]
     },
     {
-      name: 'Happy Birthday', bpm: 110, bars: 4,
-      layers: [{
-        instrument: 'pluck',
-        notes: [[0, 0], [0, 2], [1, 4], [0, 8], [3, 10], [2, 12],
-          [0, 16], [0, 18], [1, 20], [0, 22], [4, 24], [3, 26]]
-      }]
+      name: 'Happy Birthday', bpm: 110, bars: 2, sound: 'pluck', drum: 'kick', hits: [0, 8],
+      notes: [[4, 0], [4, 2], [5, 4], [4, 6], [7, 8], [6, 10], [4, 12], [4, 14]]
     },
     {
-      name: 'Full band demo', bpm: 100, bars: 4,
-      layers: [
-        { instrument: 'piano', notes: [[0, 0], [4, 4], [5, 8], [7, 12], [5, 16], [4, 20], [2, 24], [0, 28]] },
-        { instrument: 'bass', octave: -1, notes: [[0, 0], [0, 8], [3, 16], [3, 24]] },
-        { instrument: 'hihat', notes: [[0, 0], [0, 2], [0, 4], [0, 6], [0, 8], [0, 10], [0, 12], [0, 14], [0, 16], [0, 18], [0, 20], [0, 22], [0, 24], [0, 26], [0, 28], [0, 30]] },
-        { instrument: 'kick', notes: [[0, 0], [0, 8], [0, 16], [0, 24]] }
-      ]
+      name: 'Drum and bass', bpm: 100, bars: 2, sound: 'bass', drum: 'kick', hits: [0, 4, 8, 12],
+      notes: [[0, 0], [0, 4], [3, 8], [4, 12]]
     }
   ];
 
@@ -278,14 +239,11 @@
     stop();
     song.bpm = preset.bpm;
     song.bars = preset.bars;
-    song.layers = preset.layers.map((spec) => {
-      const layer = blankLayer(spec.instrument);
-      layer.octave = spec.octave || 0;
-      spec.notes.forEach((pair) => layer.notes.add(key(pair[0], pair[1])));
-      return layer;
-    });
+    song.sound = preset.sound;
+    song.drum = preset.drum;
+    song.notes = new Set((preset.notes || []).map((pair) => key(pair[0], pair[1])));
+    song.hits = new Set(preset.hits || []);
     undoStack = [];
-    paint = 0;
     el('ml-bpm').value = String(song.bpm);
     el('ml-bpm-val').textContent = String(song.bpm);
     renderAll();
@@ -295,16 +253,10 @@
      transport */
 
   function emit(step, when, dur) {
-    const soloing = song.layers.some((layer) => layer.solo);
-    song.layers.forEach((layer) => {
-      if (layer.muted || (soloing && !layer.solo)) return;
-      for (let row = 0; row < ROWS; row++) {
-        if (layer.notes.has(key(row, step))) {
-          Sound.play(layer.instrument, freqOf(row, layer.octave), when, dur, layer.volume);
-        }
-      }
-    });
-    if (song.metronome && step % 2 === 0) Sound.click(when, step % STEPS_PER_BAR === 0);
+    for (let row = 0; row < ROWS; row++) {
+      if (song.notes.has(key(row, step))) Sound.play(song.sound, freqOf(row), when, dur, 0.8);
+    }
+    if (song.hits.has(step)) Sound.play(song.drum, 200, when, dur, 0.9);
   }
 
   function schedule() {
@@ -339,14 +291,15 @@
 
   function play() {
     if (playing) return;
-    if (!Sound.ensure()) {
+    const ctx = Sound.ensure();
+    if (!ctx) {
       SS.toast('This browser cannot play audio');
       return;
     }
     playing = true;
     schedStep = 0;
     headQueue = [];
-    nextTime = Sound.ensure().currentTime + 0.08;
+    nextTime = ctx.currentTime + 0.08;
     ticker = setInterval(schedule, 25);
     schedule();
     el('ml-play').textContent = '\u25A0 Stop';
@@ -369,44 +322,24 @@
 
   /* ------------------------------------------------------------------ render */
 
-  function layerHTML(layer, index) {
-    const drum = isDrum(layer.instrument);
-    const options = INSTRUMENTS.map((instrument) =>
-      '<option value="' + instrument.id + '"' +
-      (instrument.id === layer.instrument ? ' selected' : '') + '>' + instrument.label + '</option>').join('');
-    const octaves = [-1, 0, 1].map((octave) =>
-      '<option value="' + octave + '"' + (octave === layer.octave ? ' selected' : '') + '>' +
-      (octave > 0 ? '+' + octave : String(octave)) + '</option>').join('');
-
-    return '<div class="ml-layer' + (index === paint ? ' is-selected' : '') + '" data-layer="' + index + '">' +
-      '<div class="ml-layer__top">' +
-        '<button class="ml-layer__pick" type="button" data-act="pick" title="Paint notes with this instrument">' +
-          '<span class="ml-layer__dot" style="background:' + COLORS[index % COLORS.length] + '"></span>' +
-          'Instrument ' + (index + 1) +
-        '</button>' +
-        '<div class="btn-row">' +
-          '<button class="btn ml-mini' + (layer.muted ? ' is-active' : '') + '" type="button" data-act="mute">Mute</button>' +
-          '<button class="btn ml-mini' + (layer.solo ? ' is-active' : '') + '" type="button" data-act="solo">Solo</button>' +
-          '<button class="btn ml-mini" type="button" data-act="clear">Clear</button>' +
-          '<button class="btn ml-mini" type="button" data-act="remove"' + (song.layers.length < 2 ? ' disabled' : '') + '>Remove</button>' +
-        '</div>' +
-      '</div>' +
-      '<div class="ml-layer__row">' +
-        '<label>Sound<select class="select" data-act="instrument">' + options + '</select></label>' +
-        (drum ? '' : '<label>Octave<select class="select" data-act="octave">' + octaves + '</select></label>') +
-        '<label>Volume<input type="range" min="0" max="100" value="' + Math.round(layer.volume * 100) + '" data-act="volume" /></label>' +
-      '</div>' +
-    '</div>';
-  }
-
-  function renderLayers() {
-    el('ml-layers').innerHTML = song.layers.map(layerHTML).join('');
+  function renderSounds() {
+    el('ml-sounds').innerHTML = SOUNDS.map((sound) =>
+      '<button class="btn ml-chip' + (sound.id === song.sound ? ' is-active' : '') +
+      '" type="button" data-sound="' + sound.id + '">' + sound.label + '</button>').join('');
+    el('ml-drums').innerHTML = DRUMS.map((drum) =>
+      '<button class="btn ml-chip' + (drum.id === song.drum ? ' is-active' : '') +
+      '" type="button" data-drum="' + drum.id + '">' + drum.label + '</button>').join('');
   }
 
   function cellHTML(row, step) {
-    const classes = 'ml-cell' + (step % 2 === 0 ? ' is-beat' : '') + (step % STEPS_PER_BAR === 0 ? ' is-bar' : '');
+    const drum = row === DRUM_ROW;
+    const classes = 'ml-cell' +
+      (drum ? ' is-drum' : '') +
+      (step % 2 === 0 ? ' is-beat' : '') +
+      (step % STEPS_PER_BAR === 0 ? ' is-bar' : '');
+    const name = drum ? 'Drum' : NAMES[row];
     return '<button class="' + classes + '" type="button" data-row="' + row + '" data-step="' + step +
-      '" aria-label="' + NAMES[row] + ' at beat ' + (step + 1) + '"></button>';
+      '" aria-label="' + name + ' at beat ' + (step + 1) + '"></button>';
   }
 
   function renderGrid() {
@@ -420,6 +353,8 @@
       html += '<span class="ml-note mono small">' + NAMES[row] + '</span>';
       for (let step = 0; step < steps; step++) html += cellHTML(row, step);
     }
+    html += '<span class="ml-note ml-note--drum mono">Drum</span>';
+    for (let step = 0; step < steps; step++) html += cellHTML(DRUM_ROW, step);
     grid.innerHTML = html;
 
     cellMap = new Map();
@@ -437,26 +372,19 @@
   function paintCell(row, step) {
     const cell = cellMap.get(key(row, step));
     if (!cell) return;
-    const dots = [];
-    song.layers.forEach((layer, index) => {
-      if (!layer.notes.has(key(row, step))) return;
-      const on = index === paint;
-      dots.push('<i style="background:' + COLORS[index % COLORS.length] + (on ? '' : ';opacity:.45') + '"></i>');
-    });
-    cell.innerHTML = dots.join('');
-    cell.classList.toggle('is-on', song.layers[paint] && song.layers[paint].notes.has(key(row, step)));
+    const on = hasNote(row, step);
+    cell.classList.toggle('is-on', on);
+    cell.innerHTML = on && row !== DRUM_ROW ? '<i></i>' : '';
   }
 
   function repaintCells() {
     cellMap.forEach((cell) => {
-      const row = Number(cell.getAttribute('data-row'));
-      const step = Number(cell.getAttribute('data-step'));
-      paintCell(row, step);
+      paintCell(Number(cell.getAttribute('data-row')), Number(cell.getAttribute('data-step')));
     });
   }
 
   function renderAll() {
-    renderLayers();
+    renderSounds();
     renderGrid();
   }
 
@@ -466,15 +394,10 @@
     return JSON.stringify({
       bpm: song.bpm,
       bars: song.bars,
-      metronome: song.metronome,
-      layers: song.layers.map((layer) => ({
-        instrument: layer.instrument,
-        volume: layer.volume,
-        octave: layer.octave,
-        muted: layer.muted,
-        solo: layer.solo,
-        notes: Array.from(layer.notes)
-      }))
+      sound: song.sound,
+      drum: song.drum,
+      notes: Array.from(song.notes),
+      hits: Array.from(song.hits)
     });
   }
 
@@ -483,33 +406,33 @@
     if (undoStack.length > 25) undoStack.shift();
   }
 
+  /* Songs saved by the older multi-instrument version of this page are still
+     read here: the first layer becomes the melody, the first drum layer the beat. */
   function restore(raw) {
     const data = JSON.parse(raw);
-    song.bpm = data.bpm;
-    song.bars = data.bars;
-    song.metronome = data.metronome;
-    song.layers = data.layers.map((layer) => {
-      const next = blankLayer(layer.instrument);
-      next.volume = layer.volume;
-      next.octave = layer.octave;
-      next.muted = layer.muted;
-      next.solo = layer.solo;
-      layer.notes.forEach((note) => next.notes.add(note));
-      return next;
-    });
-    paint = Math.min(paint, song.layers.length - 1);
+    const old = Array.isArray(data.layers) ? data.layers : null;
+    if (old) {
+      const melody = old.find((layer) => !drumExists(layer.instrument)) || old[0] || {};
+      const drums = old.find((layer) => drumExists(layer.instrument));
+      song.sound = soundExists(melody.instrument) ? melody.instrument : 'piano';
+      song.notes = new Set(melody.notes || []);
+      song.drum = drums ? drums.instrument : 'kick';
+      song.hits = new Set(drums ? drums.notes.map((note) => Number(note.split(':')[1])) : []);
+    } else {
+      song.sound = soundExists(data.sound) ? data.sound : 'piano';
+      song.drum = drumExists(data.drum) ? data.drum : 'kick';
+      song.notes = new Set(data.notes || []);
+      song.hits = new Set(data.hits || []);
+    }
+    song.bpm = data.bpm || 110;
+    song.bars = Math.max(1, Math.min(MAX_BARS, data.bars || 2));
     el('ml-bpm').value = String(song.bpm);
     el('ml-bpm-val').textContent = String(song.bpm);
-    el('ml-metro').textContent = 'Metronome: ' + (song.metronome ? 'on' : 'off');
     renderAll();
   }
 
   function applyNote(row, step) {
-    const layer = song.layers[paint];
-    if (!layer) return;
-    const id = key(row, step);
-    if (dragMode === 'erase') layer.notes.delete(id);
-    else layer.notes.add(id);
+    setNote(row, step, dragMode === 'add');
     paintCell(row, step);
   }
 
@@ -519,8 +442,7 @@
     event.preventDefault();
     const row = Number(cell.getAttribute('data-row'));
     const step = Number(cell.getAttribute('data-step'));
-    const layer = song.layers[paint];
-    dragMode = layer && layer.notes.has(key(row, step)) ? 'erase' : 'add';
+    dragMode = hasNote(row, step) ? 'erase' : 'add';
     pushUndo();
     dragging = true;
     applyNote(row, step);
@@ -536,59 +458,30 @@
   window.addEventListener('pointerup', () => { dragging = false; });
   window.addEventListener('pointercancel', () => { dragging = false; });
 
-  /* ------------------------------------------------------------------ layers */
+  /* ---------------------------------------------------------- sound pickers */
 
-  el('ml-layers').addEventListener('click', (event) => {
-    const card = event.target.closest('.ml-layer');
-    const button = event.target.closest('[data-act]');
-    if (!card || !button) return;
-    const index = Number(card.getAttribute('data-layer'));
-    const action = button.getAttribute('data-act');
-    const layer = song.layers[index];
+  function preview(instrument) {
+    const ctx = Sound.ensure();
+    if (!ctx) return;
+    Sound.play(instrument, MIDDLE_C, ctx.currentTime + 0.02, 0.3, 0.8);
+  }
 
-    if (action === 'pick') {
-      paint = index;
-      renderLayers();
-      repaintCells();
-      return;
-    }
-    if (action === 'mute') { layer.muted = !layer.muted; renderLayers(); return; }
-    if (action === 'solo') { layer.solo = !layer.solo; renderLayers(); return; }
-    if (action === 'clear') { pushUndo(); layer.notes.clear(); repaintCells(); return; }
-    if (action === 'remove' && song.layers.length > 1) {
-      pushUndo();
-      song.layers.splice(index, 1);
-      paint = Math.max(0, Math.min(paint, song.layers.length - 1));
-      renderAll();
-    }
-  });
-
-  el('ml-layers').addEventListener('change', (event) => {
-    const card = event.target.closest('.ml-layer');
-    const control = event.target.closest('[data-act]');
-    if (!card || !control) return;
-    const index = Number(card.getAttribute('data-layer'));
-    const layer = song.layers[index];
-    const action = control.getAttribute('data-act');
-    if (action === 'instrument') { layer.instrument = control.value; renderLayers(); }
-    if (action === 'octave') { layer.octave = Number(control.value); renderLayers(); }
-  });
-
-  el('ml-layers').addEventListener('input', (event) => {
-    const card = event.target.closest('.ml-layer');
-    const control = event.target.closest('[data-act="volume"]');
-    if (!card || !control) return;
-    song.layers[Number(card.getAttribute('data-layer'))].volume = Number(control.value) / 100;
-  });
-
-  el('ml-add-layer').addEventListener('click', () => {
+  el('ml-sounds').addEventListener('click', (event) => {
+    const button = event.target.closest('[data-sound]');
+    if (!button) return;
     pushUndo();
-    const used = song.layers.map((layer) => layer.instrument);
-    const fresh = INSTRUMENTS.find((instrument) => used.indexOf(instrument.id) === -1);
-    song.layers.push(blankLayer(fresh ? fresh.id : 'piano'));
-    paint = song.layers.length - 1;
-    renderAll();
-    SS.toast('Instrument ' + song.layers.length + ' added');
+    song.sound = button.getAttribute('data-sound');
+    renderSounds();
+    preview(song.sound);
+  });
+
+  el('ml-drums').addEventListener('click', (event) => {
+    const button = event.target.closest('[data-drum]');
+    if (!button) return;
+    pushUndo();
+    song.drum = button.getAttribute('data-drum');
+    renderSounds();
+    preview(song.drum);
   });
 
   /* --------------------------------------------------------------- transport */
@@ -598,13 +491,6 @@
   el('ml-bpm').addEventListener('input', (event) => {
     song.bpm = Number(event.target.value);
     el('ml-bpm-val').textContent = String(song.bpm);
-  });
-
-  el('ml-metro').addEventListener('click', () => {
-    song.metronome = !song.metronome;
-    el('ml-metro').textContent = 'Metronome: ' + (song.metronome ? 'on' : 'off');
-    const ctx = song.metronome ? Sound.ensure() : null;
-    if (ctx) Sound.click(ctx.currentTime, true);
   });
 
   el('ml-add-bar').addEventListener('click', () => {
@@ -619,10 +505,11 @@
     pushUndo();
     song.bars -= 1;
     const limit = totalSteps();
-    song.layers.forEach((layer) => {
-      Array.from(layer.notes).forEach((note) => {
-        if (Number(note.split(':')[1]) >= limit) layer.notes.delete(note);
-      });
+    Array.from(song.notes).forEach((note) => {
+      if (Number(note.split(':')[1]) >= limit) song.notes.delete(note);
+    });
+    Array.from(song.hits).forEach((step) => {
+      if (step >= limit) song.hits.delete(step);
     });
     renderGrid();
   });
@@ -635,7 +522,8 @@
 
   el('ml-clear').addEventListener('click', () => {
     pushUndo();
-    song.layers.forEach((layer) => layer.notes.clear());
+    song.notes.clear();
+    song.hits.clear();
     repaintCells();
     SS.toast('Grid cleared');
   });
@@ -646,24 +534,16 @@
     const rows = [0, 1, 2, 4, 5, 7];
     const pick = (list) => list[Math.floor(Math.random() * list.length)];
 
-    const melody = blankLayer(pick(['piano', 'marimba', 'bell', 'pluck', 'chip']));
+    song.sound = pick(SOUNDS).id;
+    song.drum = pick(DRUMS).id;
+    song.notes = new Set();
+    song.hits = new Set();
     for (let step = 0; step < total; step += 2) {
-      if (Math.random() < 0.72) melody.notes.add(key(pick(rows), step));
+      if (Math.random() < 0.7) song.notes.add(key(pick(rows), step));
     }
+    const gap = song.drum === 'hihat' ? 2 : 4;
+    for (let step = 0; step < total; step += gap) song.hits.add(step);
 
-    const bass = blankLayer('bass');
-    bass.octave = -1;
-    for (let step = 0; step < total; step += 8) {
-      bass.notes.add(key(pick([0, 3, 4, 5]), step));
-      bass.notes.add(key(pick([0, 3, 4, 5]), step + 4));
-    }
-
-    const drum = blankLayer(pick(['hihat', 'kick', 'snare']));
-    const gap = drum.instrument === 'hihat' ? 2 : 8;
-    for (let step = 0; step < total; step += gap) drum.notes.add(key(0, step));
-
-    song.layers = [melody, bass, drum];
-    paint = 0;
     renderAll();
     SS.toast('Here is a tune — press Play');
   });
@@ -738,7 +618,7 @@
     reader.onload = () => {
       try {
         const data = JSON.parse(String(reader.result));
-        if (!data.layers || !data.layers.length) throw new Error('bad file');
+        if (!data.notes && !data.layers) throw new Error('bad file');
         stop();
         pushUndo();
         restore(JSON.stringify(data));

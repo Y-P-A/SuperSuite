@@ -253,260 +253,12 @@
   window.SS_CATALOG = {
     utilities: [
       {
-        name: 'Calculator',
-        desc: 'Fast flat calculator with keyboard support, memory keys and a running tape.',
-        href: '/tools/calculator',
-        tone: 't-blue',
-        icon: ICON.calculator,
-        tag: 'Utility 01'
-      },
-      {
-        name: 'Color Picker',
-        desc: 'Pick a color, convert it, copy it, and grab tints and shades.',
-        href: '/tools/color-picker',
-        tone: 't-orange',
-        icon: ICON.colorPicker,
-        tag: 'Utility 02'
-      },
-      {
-        name: 'QR Code Generator',
-        desc: 'Scannable QR codes with custom size, colors, error correction and download.',
-        href: '/tools/qr-code',
-        tone: 't-teal',
-        icon: ICON.qrCode,
-        tag: 'Utility 03'
-      },
-      {
-        name: 'Maps Explorer',
-        desc: 'Search any place, switch map types, jump to your location.',
-        href: '/tools/maps',
-        tone: 't-green',
-        icon: ICON.maps,
-        tag: 'Utility 04'
-      },
-      {
-        name: 'Crazy Text Filters',
-        desc: 'Mock, uwu, script, bubble and more — turn plain text weird.',
-        href: '/tools/text-filters',
-        tone: 't-purple',
-        icon: ICON.textFilters,
-        tag: 'Utility 05'
-      },
-      {
-        name: 'Image Converter',
-        desc: 'PNG, JPG and PDF both ways — with quality and resize controls.',
-        href: '/tools/image-converter',
-        tone: 't-pink',
-        icon: ICON.imageConverter,
-        tag: 'Utility 06'
-      },
-      {
-        name: 'Unit Converter',
-        desc: 'Length, weight, temperature, data, speed and more — converts as you type.',
-        href: '/tools/unit-converter',
-        tone: 't-sky',
-        icon: ICON.unitConverter,
-        tag: 'Utility 07'
-      },
-      {
-        name: 'Password Generator',
-        desc: 'Strong random passwords or passphrases, made in your browser.',
-        href: '/tools/password-generator',
-        tone: 't-red',
-        icon: ICON.password,
-        tag: 'Utility 08'
-      },
-      {
-        name: 'JSON Formatter',
-        desc: 'Paste messy JSON — tidy it, sort it, minify it, check it, copy it.',
-        href: '/tools/json-formatter',
-        tone: 't-yellow',
-        icon: ICON.json,
-        tag: 'Utility 09'
-      },
-      {
-        name: 'Encoder / Decoder',
-        desc: 'Base64, URL, HTML entities, hex, binary, ROT13 and JWT.',
-        href: '/tools/encoder',
-        tone: 't-ink',
-        icon: ICON.encoder,
-        tag: 'Utility 10'
-      },
-      {
-        name: 'Word Counter',
-        desc: 'Words, characters, sentences, reading time and keyword density.',
-        href: '/tools/word-counter',
-        tone: 't-sky',
-        icon: ICON.wordCounter,
-        tag: 'Utility 11'
-      },
-      {
-        name: 'Case Converter',
-        desc: 'UPPER, lower, Title, Sentence, camelCase, snake_case and more.',
-        href: '/tools/case-converter',
-        tone: 't-blue',
-        icon: ICON.caseConverter,
-        tag: 'Utility 12'
-      },
-      {
-        name: 'Lorem Ipsum',
-        desc: 'Classic placeholder text by paragraph, sentence or word count.',
-        href: '/tools/lorem-ipsum',
-        tone: 't-ink',
-        icon: ICON.loremIpsum,
-        tag: 'Utility 13'
-      },
-      {
-        name: 'Markdown Preview',
-        desc: 'Type Markdown on the left, see clean formatted HTML on the right.',
-        href: '/tools/markdown',
-        tone: 't-purple',
-        icon: ICON.markdown,
-        tag: 'Utility 14'
-      },
-      {
-        name: 'Text Diff',
-        desc: 'Compare two blocks of text and highlight every added and removed line.',
-        href: '/tools/text-diff',
-        tone: 't-red',
-        icon: ICON.textDiff,
-        tag: 'Utility 15'
-      },
-      {
-        name: 'Slug Generator',
-        desc: 'Turn any headline into a clean, URL-safe slug in one click.',
-        href: '/tools/slug-generator',
-        tone: 't-teal',
-        icon: ICON.slugGenerator,
-        tag: 'Utility 16'
-      },
-      {
-        name: 'Morse Code',
-        desc: 'Translate text to Morse and back, with a live audio beeper.',
-        href: '/tools/morse-code',
-        tone: 't-orange',
-        icon: ICON.morseCode,
-        tag: 'Utility 17'
-      },
-      {
-        name: 'Roman Numerals',
-        desc: 'Convert numbers to Roman numerals and back, with a quick table.',
-        href: '/tools/roman-numerals',
-        tone: 't-yellow',
-        icon: ICON.romanNumerals,
-        tag: 'Utility 18'
-      },
-      {
         name: 'Base Converter',
         desc: 'Binary, octal, decimal and hex — converted live as you type.',
         href: '/tools/base-converter',
         tone: 't-green',
         icon: ICON.baseConverter,
-        tag: 'Utility 19'
-      },
-      {
-        name: 'Hash Generator',
-        desc: 'SHA-1, SHA-256 and SHA-512 digests of any text, computed locally.',
-        href: '/tools/hash-generator',
-        tone: 't-ink',
-        icon: ICON.hashGenerator,
-        tag: 'Utility 20'
-      },
-      {
-        name: 'Stopwatch',
-        desc: 'Precise stopwatch with laps — keyboard driven and always accurate.',
-        href: '/tools/stopwatch',
-        tone: 't-red',
-        icon: ICON.stopwatch,
-        tag: 'Utility 21'
-      },
-      {
-        name: 'Countdown Timer',
-        desc: 'Set a timer, watch it count down, get a chime when it is done.',
-        href: '/tools/countdown-timer',
-        tone: 't-orange',
-        icon: ICON.countdownTimer,
-        tag: 'Utility 22'
-      },
-      {
-        name: 'World Clock',
-        desc: 'Live clocks for cities around the world, plus a meeting planner.',
-        href: '/tools/world-clock',
-        tone: 't-sky',
-        icon: ICON.worldClock,
-        tag: 'Utility 23'
-      },
-      {
-        name: 'Percentage Calculator',
-        desc: 'Percent of, percent change, and what percent — all three in one.',
-        href: '/tools/percentage-calculator',
-        tone: 't-green',
-        icon: ICON.percentageCalculator,
-        tag: 'Utility 24'
-      },
-      {
-        name: 'Date Calculator',
-        desc: 'Days between dates, add or subtract days, and work out ages.',
-        href: '/tools/date-calculator',
-        tone: 't-purple',
-        icon: ICON.dateCalculator,
-        tag: 'Utility 25'
-      },
-      {
-        name: 'Tip Splitter',
-        desc: 'Split a bill with tip, per-person totals and a quick round-up.',
-        href: '/tools/tip-splitter',
-        tone: 't-pink',
-        icon: ICON.tipSplitter,
-        tag: 'Utility 26'
-      },
-      {
-        name: 'Loan Calculator',
-        desc: 'Monthly payments, total interest and a full amortisation table.',
-        href: '/tools/loan-calculator',
-        tone: 't-blue',
-        icon: ICON.loanCalculator,
-        tag: 'Utility 27'
-      },
-      {
-        name: 'Notes Pad',
-        desc: 'A plain notepad that saves to your browser and counts your words.',
-        href: '/tools/notes',
-        tone: 't-yellow',
-        icon: ICON.notes,
-        tag: 'Utility 28'
-      },
-      {
-        name: 'Todo List',
-        desc: 'A simple checklist that remembers itself — add, tick, clear done.',
-        href: '/tools/todo',
-        tone: 't-teal',
-        icon: ICON.todo,
-        tag: 'Utility 29'
-      },
-      {
-        name: 'Gradient Generator',
-        desc: 'Build CSS gradients, tweak the angle, and copy the code.',
-        href: '/tools/gradient-generator',
-        tone: 't-pink',
-        icon: ICON.gradientGenerator,
-        tag: 'Utility 30'
-      },
-      {
-        name: 'Music Lab',
-        desc: 'Paint notes on an endless grid and stack as many instruments as you like.',
-        href: '/tools/music-lab',
-        tone: 't-purple',
-        icon: ICON.musicLab,
-        tag: 'Utility 31'
-      },
-      {
-        name: 'Discount Calculator',
-        desc: 'Sale price, savings, tax and the final total — worked out as you type.',
-        href: '/tools/discount-calculator',
-        tone: 't-green',
-        icon: ICON.discount,
-        tag: 'Utility 32'
+        tag: 'Utility 01'
       },
       {
         name: 'BMI Calculator',
@@ -514,7 +266,31 @@
         href: '/tools/bmi-calculator',
         tone: 't-teal',
         icon: ICON.bmi,
-        tag: 'Utility 33'
+        tag: 'Utility 02'
+      },
+      {
+        name: 'Calculator',
+        desc: 'Fast flat calculator with keyboard support, memory keys and a running tape.',
+        href: '/tools/calculator',
+        tone: 't-blue',
+        icon: ICON.calculator,
+        tag: 'Utility 03'
+      },
+      {
+        name: 'Case Converter',
+        desc: 'UPPER, lower, Title, Sentence, camelCase, snake_case and more.',
+        href: '/tools/case-converter',
+        tone: 't-blue',
+        icon: ICON.caseConverter,
+        tag: 'Utility 04'
+      },
+      {
+        name: 'Color Picker',
+        desc: 'Pick a color, convert it, copy it, and grab tints and shades.',
+        href: '/tools/color-picker',
+        tone: 't-orange',
+        icon: ICON.colorPicker,
+        tag: 'Utility 05'
       },
       {
         name: 'Cooking Converter',
@@ -522,7 +298,23 @@
         href: '/tools/cooking-converter',
         tone: 't-orange',
         icon: ICON.cooking,
-        tag: 'Utility 34'
+        tag: 'Utility 06'
+      },
+      {
+        name: 'Countdown Timer',
+        desc: 'Set a timer, watch it count down, get a chime when it is done.',
+        href: '/tools/countdown-timer',
+        tone: 't-orange',
+        icon: ICON.countdownTimer,
+        tag: 'Utility 07'
+      },
+      {
+        name: 'Crazy Text Filters',
+        desc: 'Mock, uwu, script, bubble and more — turn plain text weird.',
+        href: '/tools/text-filters',
+        tone: 't-purple',
+        icon: ICON.textFilters,
+        tag: 'Utility 08'
       },
       {
         name: 'Data Size Converter',
@@ -530,6 +322,214 @@
         href: '/tools/data-size-converter',
         tone: 't-sky',
         icon: ICON.dataSize,
+        tag: 'Utility 09'
+      },
+      {
+        name: 'Date Calculator',
+        desc: 'Days between dates, add or subtract days, and work out ages.',
+        href: '/tools/date-calculator',
+        tone: 't-purple',
+        icon: ICON.dateCalculator,
+        tag: 'Utility 10'
+      },
+      {
+        name: 'Discount Calculator',
+        desc: 'Sale price, savings, tax and the final total — worked out as you type.',
+        href: '/tools/discount-calculator',
+        tone: 't-green',
+        icon: ICON.discount,
+        tag: 'Utility 11'
+      },
+      {
+        name: 'Encoder / Decoder',
+        desc: 'Base64, URL, HTML entities, hex, binary, ROT13 and JWT.',
+        href: '/tools/encoder',
+        tone: 't-ink',
+        icon: ICON.encoder,
+        tag: 'Utility 12'
+      },
+      {
+        name: 'Gradient Generator',
+        desc: 'Build CSS gradients, tweak the angle, and copy the code.',
+        href: '/tools/gradient-generator',
+        tone: 't-pink',
+        icon: ICON.gradientGenerator,
+        tag: 'Utility 13'
+      },
+      {
+        name: 'Hash Generator',
+        desc: 'SHA-1, SHA-256 and SHA-512 digests of any text, computed locally.',
+        href: '/tools/hash-generator',
+        tone: 't-ink',
+        icon: ICON.hashGenerator,
+        tag: 'Utility 14'
+      },
+      {
+        name: 'Image Converter',
+        desc: 'PNG, JPG and PDF both ways — with quality and resize controls.',
+        href: '/tools/image-converter',
+        tone: 't-pink',
+        icon: ICON.imageConverter,
+        tag: 'Utility 15'
+      },
+      {
+        name: 'JSON Formatter',
+        desc: 'Paste messy JSON — tidy it, sort it, minify it, check it, copy it.',
+        href: '/tools/json-formatter',
+        tone: 't-yellow',
+        icon: ICON.json,
+        tag: 'Utility 16'
+      },
+      {
+        name: 'Loan Calculator',
+        desc: 'Monthly payments, total interest and a full amortisation table.',
+        href: '/tools/loan-calculator',
+        tone: 't-blue',
+        icon: ICON.loanCalculator,
+        tag: 'Utility 17'
+      },
+      {
+        name: 'Lorem Ipsum',
+        desc: 'Classic placeholder text by paragraph, sentence or word count.',
+        href: '/tools/lorem-ipsum',
+        tone: 't-ink',
+        icon: ICON.loremIpsum,
+        tag: 'Utility 18'
+      },
+      {
+        name: 'Maps Explorer',
+        desc: 'Search any place, switch map types, jump to your location.',
+        href: '/tools/maps',
+        tone: 't-green',
+        icon: ICON.maps,
+        tag: 'Utility 19'
+      },
+      {
+        name: 'Markdown Preview',
+        desc: 'Type Markdown on the left, see clean formatted HTML on the right.',
+        href: '/tools/markdown',
+        tone: 't-purple',
+        icon: ICON.markdown,
+        tag: 'Utility 20'
+      },
+      {
+        name: 'Morse Code',
+        desc: 'Translate text to Morse and back, with a live audio beeper.',
+        href: '/tools/morse-code',
+        tone: 't-orange',
+        icon: ICON.morseCode,
+        tag: 'Utility 21'
+      },
+      {
+        name: 'Music Lab',
+        desc: 'Tap a tune onto the note grid, add a beat underneath, and press play.',
+        href: '/tools/music-lab',
+        tone: 't-purple',
+        icon: ICON.musicLab,
+        tag: 'Utility 22'
+      },
+      {
+        name: 'Notes Pad',
+        desc: 'A plain notepad that saves to your browser and counts your words.',
+        href: '/tools/notes',
+        tone: 't-yellow',
+        icon: ICON.notes,
+        tag: 'Utility 23'
+      },
+      {
+        name: 'Password Generator',
+        desc: 'Strong random passwords or passphrases, made in your browser.',
+        href: '/tools/password-generator',
+        tone: 't-red',
+        icon: ICON.password,
+        tag: 'Utility 24'
+      },
+      {
+        name: 'Percentage Calculator',
+        desc: 'Percent of, percent change, and what percent — all three in one.',
+        href: '/tools/percentage-calculator',
+        tone: 't-green',
+        icon: ICON.percentageCalculator,
+        tag: 'Utility 25'
+      },
+      {
+        name: 'QR Code Generator',
+        desc: 'Scannable QR codes with custom size, colors, error correction and download.',
+        href: '/tools/qr-code',
+        tone: 't-teal',
+        icon: ICON.qrCode,
+        tag: 'Utility 26'
+      },
+      {
+        name: 'Roman Numerals',
+        desc: 'Convert numbers to Roman numerals and back, with a quick table.',
+        href: '/tools/roman-numerals',
+        tone: 't-yellow',
+        icon: ICON.romanNumerals,
+        tag: 'Utility 27'
+      },
+      {
+        name: 'Slug Generator',
+        desc: 'Turn any headline into a clean, URL-safe slug in one click.',
+        href: '/tools/slug-generator',
+        tone: 't-teal',
+        icon: ICON.slugGenerator,
+        tag: 'Utility 28'
+      },
+      {
+        name: 'Stopwatch',
+        desc: 'Precise stopwatch with laps — keyboard driven and always accurate.',
+        href: '/tools/stopwatch',
+        tone: 't-red',
+        icon: ICON.stopwatch,
+        tag: 'Utility 29'
+      },
+      {
+        name: 'Text Diff',
+        desc: 'Compare two blocks of text and highlight every added and removed line.',
+        href: '/tools/text-diff',
+        tone: 't-red',
+        icon: ICON.textDiff,
+        tag: 'Utility 30'
+      },
+      {
+        name: 'Tip Splitter',
+        desc: 'Split a bill with tip, per-person totals and a quick round-up.',
+        href: '/tools/tip-splitter',
+        tone: 't-pink',
+        icon: ICON.tipSplitter,
+        tag: 'Utility 31'
+      },
+      {
+        name: 'Todo List',
+        desc: 'A simple checklist that remembers itself — add, tick, clear done.',
+        href: '/tools/todo',
+        tone: 't-teal',
+        icon: ICON.todo,
+        tag: 'Utility 32'
+      },
+      {
+        name: 'Unit Converter',
+        desc: 'Length, weight, temperature, data, speed and more — converts as you type.',
+        href: '/tools/unit-converter',
+        tone: 't-sky',
+        icon: ICON.unitConverter,
+        tag: 'Utility 33'
+      },
+      {
+        name: 'Word Counter',
+        desc: 'Words, characters, sentences, reading time and keyword density.',
+        href: '/tools/word-counter',
+        tone: 't-sky',
+        icon: ICON.wordCounter,
+        tag: 'Utility 34'
+      },
+      {
+        name: 'World Clock',
+        desc: 'Live clocks for cities around the world, plus a meeting planner.',
+        href: '/tools/world-clock',
+        tone: 't-sky',
+        icon: ICON.worldClock,
         tag: 'Utility 35'
       }
     ],

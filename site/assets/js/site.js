@@ -130,14 +130,6 @@
     });
     if (!item) return;
 
-    const isGame = path.indexOf('/games/') === 0;
-    const main = document.querySelector('main');
-    if (main) {
-      main.insertAdjacentHTML('afterbegin',
-        '<p class="small"><a href="' + (isGame ? '/games/' : '/utilities/') + '">&larr; ' +
-        (isGame ? 'All games' : 'All utilities') + '</a></p>');
-    }
-
     const panel = document.querySelector('main .panel');
     if (!panel) return;
     if (item.tone && !/\bt-/.test(panel.className)) panel.classList.add(item.tone);
