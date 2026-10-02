@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Morse Code — SuperSuite</title>
+    <meta name="description" content="Translate text to Morse code and back, with an optional audio beeper." />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/rewind.css" />
+    <script src="/assets/js/rewind.js"></script>
+  </head>
+  <body data-page="/tools/morse-code">
+    <main class="wrap wrap--narrow">
+      <section class="panel">
+        <div class="two-col">
+          <div class="field">
+            <label for="text">Text</label>
+            <textarea class="textarea" id="text" rows="7">SOS supersuite</textarea>
+          </div>
+          <div class="field">
+            <label for="code">Morse</label>
+            <textarea class="textarea" id="code" rows="7"></textarea>
+          </div>
+        </div>
+
+        <div class="btn-row" style="margin-top:12px">
+          <button class="btn btn--primary" type="button" id="text-to-code">Text &rarr; Morse</button>
+          <button class="btn" type="button" id="code-to-text">Morse &rarr; Text</button>
+          <button class="btn" type="button" id="beep">Beep it</button>
+          <button class="btn" type="button" id="copy">Copy morse</button>
+        </div>
+
+        <p class="note" style="margin-top:14px">
+          Letters are separated by a space, words by a slash. The beeper plays the dots and dashes at 15 words per minute.
+        </p>
+      </section>
+    </main>
+
+    <script src="/assets/js/catalog.js"></script>
+    <script src="/assets/js/site.js"></script>
+    <script src="/assets/js/morse-code.js"></script>
+  </body>
+</html>

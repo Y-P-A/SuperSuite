@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Music Lab — SuperSuite</title>
+    <meta name="description" content="A beginner-friendly song maker: tap notes onto the grid, add a beat, press play." />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/rewind.css" />
+    <link rel="stylesheet" href="/assets/css/music-lab.css" />
+    <script src="/assets/js/rewind.js"></script>
+  </head>
+  <body data-page="/tools/music-lab">
+    <main class="wrap">
+      <section class="panel">
+        <div class="ml-bar">
+          <button class="btn btn--primary ml-play" type="button" id="ml-play">&#9654; Play</button>
+
+          <div class="field ml-tempo">
+            <label for="ml-bpm">Tempo — <span class="mono" id="ml-bpm-val">110</span> BPM</label>
+            <input type="range" id="ml-bpm" min="60" max="200" step="1" value="110" />
+          </div>
+
+          <div class="field ml-bars">
+            <span class="label">Bars — <span class="mono" id="ml-bars">2</span></span>
+            <div class="btn-row">
+              <button class="btn" type="button" id="ml-remove-bar">&minus; Remove</button>
+              <button class="btn" type="button" id="ml-add-bar">+ Add</button>
+            </div>
+          </div>
+
+          <div class="field ml-preset">
+            <label for="ml-preset">Start from a song</label>
+            <select class="select" id="ml-preset">
+              <option value="">Pick a song…</option>
+            </select>
+          </div>
+
+          <div class="btn-row">
+            <button class="btn" type="button" id="ml-surprise">Surprise me</button>
+            <button class="btn" type="button" id="ml-undo">Undo</button>
+            <button class="btn" type="button" id="ml-clear">Clear all</button>
+          </div>
+        </div>
+
+        <p class="muted small ml-hint">Tap squares in the note grid to write the tune — the top row is the highest note. The <strong>drum</strong> strip along the bottom is the beat. Press play and it loops.</p>
+
+        <div class="ml-scroll">
+          <div class="ml-grid" id="ml-grid"></div>
+        </div>
+
+        <div class="ml-bar ml-bar--foot">
+          <div class="ml-tray">
+            <span class="label">Sound</span>
+            <div class="btn-row" id="ml-sounds"></div>
+          </div>
+          <div class="ml-tray">
+            <span class="label">Drum</span>
+            <div class="btn-row" id="ml-drums"></div>
+          </div>
+        </div>
+
+        <div class="ml-bar ml-bar--foot">
+          <div class="field ml-name">
+            <label for="ml-songname">Song name</label>
+            <input class="input" type="text" id="ml-songname" placeholder="My tune" autocomplete="off" />
+          </div>
+          <div class="btn-row">
+            <button class="btn btn--primary" type="button" id="ml-save">Save song</button>
+            <button class="btn" type="button" id="ml-export">Export file</button>
+            <button class="btn" type="button" id="ml-import">Import file</button>
+            <input type="file" id="ml-file" accept="application/json,.json" hidden />
+          </div>
+          <div class="field ml-preset">
+            <label for="ml-saved">Your saved songs</label>
+            <select class="select" id="ml-saved"></select>
+          </div>
+          <div class="btn-row">
+            <button class="btn" type="button" id="ml-load">Load</button>
+            <button class="btn" type="button" id="ml-delete">Delete</button>
+          </div>
+        </div>
+
+        <ul class="keys">
+          <li><strong>Tap to paint.</strong> Click a square to add a note, drag across to add a run of them, or drag over notes again to rub them out.</li>
+          <li><strong>Pick your sound.</strong> Choose the note instrument and the drum underneath — every square you tap uses the sound you have picked.</li>
+          <li><strong>Space</strong> plays and stops. Your songs save in this browser, and <em>Export file</em> keeps a copy you can share.</li>
+        </ul>
+      </section>
+    </main>
+
+    <script src="/assets/js/catalog.js"></script>
+    <script src="/assets/js/site.js"></script>
+    <script src="/assets/js/music-lab.js"></script>
+  </body>
+</html>

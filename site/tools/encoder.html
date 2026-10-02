@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Encoder / Decoder — SuperSuite</title>
+    <meta name="description" content="Encode and decode Base64, URL, HTML entities, hex and ROT13 in your browser. Text never leaves the page." />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/rewind.css" />
+    <script src="/assets/js/rewind.js"></script>
+  </head>
+  <body>
+    <main class="wrap wrap--narrow">
+      <section class="panel t-ink">
+        <div class="panel__head">
+          <div>
+            <h1>Encoder / Decoder</h1>
+            <p class="muted small">Base64, URL, HTML entities, hex and ROT13 — one box in, one box out.</p>
+          </div>
+          <span class="badge">Utility 10</span>
+        </div>
+
+        <div class="chips" id="modes"></div>
+        <p class="small muted" id="hint" style="margin-top: 10px">—</p>
+
+        <div class="two-col" style="margin-top: 14px">
+          <div class="stack">
+            <div class="field">
+              <label for="input">Input</label>
+              <textarea class="textarea" id="input" spellcheck="false" placeholder="Type or paste text here">SuperSuite works offline!</textarea>
+            </div>
+            <div class="btn-row">
+              <button class="btn btn--primary" type="button" id="encode">Encode &rarr;</button>
+              <button class="btn" type="button" id="decode">&larr; Decode</button>
+            </div>
+          </div>
+
+          <div class="stack">
+            <div class="field">
+              <label for="output">Output</label>
+              <div class="output" id="output" style="min-height: 190px; max-height: 320px; overflow: auto">—</div>
+            </div>
+            <div class="btn-row">
+              <button class="btn" type="button" id="copy">Copy output</button>
+              <button class="btn" type="button" id="swap">Use output as input</button>
+              <button class="btn" type="button" id="clear">Clear</button>
+            </div>
+          </div>
+        </div>
+
+        <p class="warn" id="error" hidden></p>
+
+        <ul class="keys">
+          <li>Base64 and hex both work with accents and emoji — the text is read as UTF-8.</li>
+          <li>ROT13 is its own undo: decoding it twice brings the text back.</li>
+        </ul>
+      </section>
+    </main>
+
+    <script src="/assets/js/site.js"></script>
+    <script src="/assets/js/encoder.js"></script>
+  </body>
+</html>

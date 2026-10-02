@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Reversi — SuperSuite</title>
+    <meta name="description" content="Reversi (Othello) against a CPU that thinks four moves ahead. Flip discs from the corners and own the board." />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/rewind.css" />
+    <script src="/assets/js/rewind.js"></script>
+  </head>
+  <body data-page="/games/reversi">
+    <main class="wrap wrap--narrow">
+      <section class="panel">
+        <div class="hud">
+          <div class="hud__item"><span class="hud__label">You (black)</span><span class="hud__value" id="black">2</span></div>
+          <div class="hud__item"><span class="hud__label">CPU (white)</span><span class="hud__value" id="white">2</span></div>
+          <div class="hud__item"><span class="hud__label">Wins</span><span class="hud__value" id="wins">0</span></div>
+          <div class="hud__item"><span class="hud__label">Losses</span><span class="hud__value" id="losses">0</span></div>
+        </div>
+
+        <div class="stage stage--pixel">
+          <canvas id="field" width="480" height="480" aria-label="Reversi board"></canvas>
+          <div class="stage__overlay is-visible" id="overlay">
+            <div>
+              <h3 data-overlay-title>Ready?</h3>
+              <p data-overlay-text>You are black and you move first. Click a highlighted square to place a disc and flip everything you trap.</p>
+              <button class="btn btn--primary" type="button" data-overlay-button>Start</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="spread" style="margin-top: 14px">
+          <span class="small muted" id="status">Corners are gold — they can never be flipped back.</span>
+          <div class="btn-row">
+            <button class="btn" type="button" id="restart">New game</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="/assets/js/catalog.js"></script>
+    <script src="/assets/js/site.js"></script>
+    <script src="/assets/js/games/common.js"></script>
+    <script src="/assets/js/games/reversi.js"></script>
+  </body>
+</html>

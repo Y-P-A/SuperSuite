@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>JSON Formatter — SuperSuite</title>
+    <meta name="description" content="Paste messy JSON and get it tidy: pretty-print, minify, validate and copy — all offline in your browser." />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/rewind.css" />
+    <script src="/assets/js/rewind.js"></script>
+  </head>
+  <body>
+    <main class="wrap wrap--narrow">
+      <section class="panel t-yellow">
+        <div class="panel__head">
+          <div>
+            <h1>JSON Formatter</h1>
+            <p class="muted small">Paste JSON, tidy it up, minify it or find out exactly where it broke.</p>
+          </div>
+          <span class="badge">Utility 09</span>
+        </div>
+
+        <div class="stack">
+          <div class="field">
+            <label for="input">Input</label>
+            <textarea class="textarea" id="input" spellcheck="false" placeholder='{"hello":"world","items":[1,2,3]}'></textarea>
+          </div>
+
+          <div class="btn-row">
+            <button class="btn btn--primary" type="button" id="format">Format</button>
+            <button class="btn" type="button" id="minify">Minify</button>
+            <button class="btn" type="button" id="sort">Sort keys</button>
+            <button class="btn" type="button" id="stringify">Escape as string</button>
+            <button class="btn" type="button" id="copy">Copy output</button>
+            <button class="btn" type="button" id="download">Download .json</button>
+            <button class="btn" type="button" id="clear">Clear</button>
+          </div>
+
+          <p class="warn" id="error" hidden></p>
+
+          <div class="field">
+            <label for="output">Output</label>
+            <div class="output" id="output" style="max-height: 420px; overflow: auto">—</div>
+          </div>
+
+          <p class="small muted" id="status">Paste something to get started.</p>
+        </div>
+
+        <ul class="keys">
+          <li>Format uses two-space indentation, the same as most editors.</li>
+          <li>Sort keys rearranges every object alphabetically — handy for diffing two files.</li>
+        </ul>
+      </section>
+    </main>
+
+    <script src="/assets/js/site.js"></script>
+    <script src="/assets/js/json-formatter.js"></script>
+  </body>
+</html>

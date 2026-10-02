@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Flappy — SuperSuite</title>
+    <meta name="description" content="Tap to flap, dodge the pipes, and see how far you get." />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/rewind.css" />
+    <script src="/assets/js/rewind.js"></script>
+  </head>
+  <body data-page="/games/flappy">
+    <main class="wrap wrap--narrow">
+      <section class="panel">
+        <div class="hud">
+          <div class="hud__item"><span class="hud__label">Score</span><span class="hud__value" id="score">0</span></div>
+          <div class="hud__item"><span class="hud__label">Best</span><span class="hud__value" id="best">0</span></div>
+        </div>
+
+        <div class="stage stage--narrow">
+          <canvas id="field" width="380" height="520" aria-label="Flappy bird board"></canvas>
+          <div class="stage__overlay is-visible" id="overlay">
+            <div>
+              <h3 data-overlay-title>Ready?</h3>
+              <p data-overlay-text>Tap the board, click, or press Space to flap. Do not touch the pipes.</p>
+              <button class="btn btn--primary" type="button" data-overlay-button>Start</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="spread" style="margin-top: 14px">
+          <span class="small muted">The gap tightens as your score climbs.</span>
+          <div class="btn-row">
+            <button class="btn" type="button" id="pause">Pause</button>
+            <button class="btn" type="button" id="restart">Restart</button>
+          </div>
+        </div>
+
+        <div class="pad" id="pad">
+          <div class="pad__row"><button class="btn" type="button" data-key="Space">Flap</button></div>
+        </div>
+
+        <ul class="keys">
+          <li><span class="kbd">Space</span> or <span class="kbd">↑</span> flap &nbsp;·&nbsp; <span class="kbd">P</span> pause &nbsp;·&nbsp; <span class="kbd">R</span> restart</li>
+        </ul>
+      </section>
+    </main>
+
+    <script src="/assets/js/catalog.js"></script>
+    <script src="/assets/js/site.js"></script>
+    <script src="/assets/js/games/common.js"></script>
+    <script src="/assets/js/games/flappy.js"></script>
+  </body>
+</html>

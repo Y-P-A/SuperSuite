@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Roman Numerals — SuperSuite</title>
+    <meta name="description" content="Convert numbers to Roman numerals and back, with a quick reference table." />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/rewind.css" />
+    <script src="/assets/js/rewind.js"></script>
+  </head>
+  <body data-page="/tools/roman-numerals">
+    <main class="wrap wrap--narrow">
+      <section class="panel">
+        <div class="two-col">
+          <div class="field">
+            <label for="number">Number (1 – 3999)</label>
+            <input class="input" id="number" type="number" min="1" max="3999" value="2026" />
+          </div>
+          <div class="field">
+            <label for="roman">Roman numeral</label>
+            <input class="input" id="roman" type="text" spellcheck="false" value="MMXXVI" />
+          </div>
+        </div>
+
+        <div class="btn-row" style="margin-top:12px">
+          <button class="btn btn--primary" type="button" id="copy">Copy roman</button>
+          <button class="btn" type="button" id="today">This year</button>
+        </div>
+
+        <p class="note" id="status" style="margin-top:14px">Type in either box — the other follows.</p>
+
+        <span class="label" style="display:block;margin:18px 0 8px">Quick reference</span>
+        <div class="chips" id="table"></div>
+      </section>
+    </main>
+
+    <script src="/assets/js/catalog.js"></script>
+    <script src="/assets/js/site.js"></script>
+    <script src="/assets/js/roman-numerals.js"></script>
+  </body>
+</html>

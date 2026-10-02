@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tip Splitter — SuperSuite</title>
+    <meta name="description" content="Split a bill with tip, per-person totals and an optional round-up." />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/rewind.css" />
+    <script src="/assets/js/rewind.js"></script>
+  </head>
+  <body data-page="/tools/tip-splitter">
+    <main class="wrap wrap--narrow">
+      <section class="panel">
+        <div class="row">
+          <div class="field field--grow">
+            <label for="bill">Bill amount</label>
+            <input class="input" id="bill" type="number" min="0" step="0.01" value="86.40" />
+          </div>
+          <div class="field field--grow">
+            <label for="people">Split between</label>
+            <input class="input" id="people" type="number" min="1" max="50" value="4" />
+          </div>
+        </div>
+
+        <span class="label" style="display:block;margin:16px 0 8px">Tip</span>
+        <div class="chips" id="tips">
+          <button class="chip" type="button" data-tip="0">No tip</button>
+          <button class="chip" type="button" data-tip="10">10%</button>
+          <button class="chip is-active" type="button" data-tip="15">15%</button>
+          <button class="chip" type="button" data-tip="18">18%</button>
+          <button class="chip" type="button" data-tip="20">20%</button>
+          <button class="chip" type="button" data-tip="25">25%</button>
+        </div>
+
+        <div class="row" style="margin-top:12px">
+          <div class="field field--grow">
+            <label for="custom">Custom tip %</label>
+            <input class="input" id="custom" type="number" min="0" max="100" value="15" />
+          </div>
+          <label class="check" style="align-self:end;padding-bottom:10px">
+            <input type="checkbox" id="round" /> Round each share up
+          </label>
+        </div>
+
+        <div class="hud" style="margin-top:18px">
+          <div class="hud__item"><span class="hud__label">Tip</span><span class="hud__value" id="o-tip">—</span></div>
+          <div class="hud__item"><span class="hud__label">Total</span><span class="hud__value" id="o-total">—</span></div>
+          <div class="hud__item"><span class="hud__label">Each</span><span class="hud__value" id="o-each">—</span></div>
+        </div>
+
+        <div class="output" id="o-detail" style="margin-top:14px"></div>
+      </section>
+    </main>
+
+    <script src="/assets/js/catalog.js"></script>
+    <script src="/assets/js/site.js"></script>
+    <script src="/assets/js/tip-splitter.js"></script>
+  </body>
+</html>

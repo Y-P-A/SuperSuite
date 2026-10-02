@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Image Converter — SuperSuite</title>
+    <meta name="description" content="Convert images and PDFs both ways: PNG to PDF, PDF to PNG, PNG to JPG and JPG to PNG — all in your browser." />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/rewind.css" />
+    <script src="/assets/js/rewind.js"></script>
+  </head>
+  <body>
+    <main class="wrap wrap--narrow">
+      <section class="panel t-pink">
+        <div class="panel__head">
+          <div>
+            <h1>Image Converter</h1>
+            <p class="muted small">Drop in PNG, JPG, WEBP, GIF, BMP, SVG or PDF. Nothing is uploaded — it all happens in this tab.</p>
+          </div>
+          <span class="badge">Utility 06</span>
+        </div>
+
+        <div class="two-col">
+          <div class="stack">
+            <label class="drop" id="drop">
+              <input type="file" id="files" accept="image/*,application/pdf,.pdf" multiple />
+              <strong>Drop files here</strong>
+              <span class="small muted">or click to choose — images and PDFs, as many as you like</span>
+            </label>
+
+            <div class="field">
+              <label for="format">Convert to</label>
+              <select class="select" id="format">
+                <option value="png" selected>PNG — lossless, keeps transparency</option>
+                <option value="jpg">JPG — small and photo friendly</option>
+                <option value="pdf">PDF — every image becomes a page</option>
+              </select>
+            </div>
+
+            <div class="field" id="quality-field" hidden>
+              <label for="quality">JPG quality — <span class="mono" id="quality-val">92</span>%</label>
+              <input type="range" id="quality" min="40" max="100" step="1" value="92" />
+              <span class="small muted">Used for JPG output and for images embedded in a PDF.</span>
+            </div>
+
+            <div class="field" id="background-field" hidden>
+              <label for="background">Background for transparency</label>
+              <input type="color" id="background" value="#ffffff" />
+              <span class="small muted">JPG and PDF have no transparency, so see-through areas get this color.</span>
+            </div>
+
+            <div class="field">
+              <label for="size">Longest side</label>
+              <select class="select" id="size">
+                <option value="0" selected>Keep original size</option>
+                <option value="2400">2400 px</option>
+                <option value="1600">1600 px</option>
+                <option value="1000">1000 px</option>
+                <option value="600">600 px</option>
+              </select>
+            </div>
+
+            <div class="btn-row">
+              <button class="btn btn--primary" type="button" id="convert" disabled>Convert</button>
+              <button class="btn" type="button" id="clear" disabled>Clear</button>
+            </div>
+
+            <p class="small muted" id="status">Waiting for a file.</p>
+          </div>
+
+          <div class="stack">
+            <p class="note" id="summary">Nothing converted yet.</p>
+            <div class="out-list" id="outputs"></div>
+          </div>
+        </div>
+
+        <ul class="keys">
+          <li>Everything runs locally: your files never leave the browser.</li>
+          <li>A PDF with several pages comes back as one image per page; several images going to PDF become one multi-page document.</li>
+          <li>Big photos and heavy PDFs take a moment — the status line keeps you posted.</li>
+        </ul>
+      </section>
+    </main>
+
+    <script src="/assets/js/site.js"></script>
+    <script src="/vendor/pdf.min.js"></script>
+    <script src="/assets/js/image-converter.js"></script>
+  </body>
+</html>

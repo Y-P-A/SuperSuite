@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pong — SuperSuite</title>
+    <meta name="description" content="Classic Pong against the computer. First to seven wins." />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/rewind.css" />
+    <script src="/assets/js/rewind.js"></script>
+  </head>
+  <body>
+    <main class="wrap wrap--narrow">
+      <section class="panel t-sky">
+        <div class="panel__head">
+          <div>
+            <h1>Pong</h1>
+            <p class="muted small">First to seven. The ball speeds up every rally.</p>
+          </div>
+          <span class="badge">Game 02</span>
+        </div>
+
+        <div class="hud">
+          <div class="hud__item"><span class="hud__label">You</span><span class="hud__value" id="score-you">0</span></div>
+          <div class="hud__item"><span class="hud__label">CPU</span><span class="hud__value" id="score-cpu">0</span></div>
+          <div class="hud__item"><span class="hud__label">Rally</span><span class="hud__value" id="rally">0</span></div>
+          <div class="hud__item"><span class="hud__label">Best rally</span><span class="hud__value" id="best">0</span></div>
+        </div>
+
+        <div class="chips" style="margin-bottom: 14px" id="difficulty">
+          <button class="chip" type="button" data-difficulty="0.72">Easy</button>
+          <button class="chip is-active" type="button" data-difficulty="0.9">Normal</button>
+          <button class="chip" type="button" data-difficulty="1.06">Hard</button>
+        </div>
+
+        <div class="stage">
+          <canvas id="court" width="800" height="480" aria-label="Pong court"></canvas>
+          <div class="stage__overlay is-visible" id="overlay">
+            <div>
+              <h3 data-overlay-title>Ready?</h3>
+              <p data-overlay-text>Move with the arrow keys, W/S, or drag your finger on the court.</p>
+              <button class="btn btn--primary" type="button" data-overlay-button>Start</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="spread" style="margin-top: 14px">
+          <span class="small muted">Click the court, then move your mouse to steer the left paddle.</span>
+          <div class="btn-row">
+            <button class="btn" type="button" id="pause">Pause</button>
+            <button class="btn" type="button" id="restart">Restart</button>
+          </div>
+        </div>
+
+        <div class="pad" id="pad">
+          <div class="pad__row">
+            <button class="btn" type="button" data-key="ArrowUp">&uarr;</button>
+            <button class="btn" type="button" data-key="ArrowDown">&darr;</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="/assets/js/site.js"></script>
+    <script src="/assets/js/games/common.js"></script>
+    <script src="/assets/js/games/pong.js"></script>
+  </body>
+</html>

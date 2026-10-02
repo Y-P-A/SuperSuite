@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Crazy Text Filters — SuperSuite</title>
+    <meta name="description" content="Turn plain text into mock, uwu, cursive script, bubble, small caps, leet and more." />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/rewind.css" />
+    <script src="/assets/js/rewind.js"></script>
+  </head>
+  <body>
+    <main class="wrap wrap--narrow">
+      <section class="panel t-purple">
+        <div class="panel__head">
+          <div>
+            <h1>Crazy Text Filters</h1>
+            <p class="muted small">Pick a filter, get weird text. Chain them if you dare.</p>
+          </div>
+          <span class="badge">Utility 05</span>
+        </div>
+
+        <div class="stack">
+          <div class="field">
+            <label for="input">Your text</label>
+            <textarea class="textarea" id="input" spellcheck="false">SuperSuite has the good stuff.</textarea>
+          </div>
+
+          <div>
+            <span class="label">Filters</span>
+            <div class="filter-grid" id="filters" style="margin-top: 8px">
+              <button class="btn" type="button" data-filter="mock">Mock</button>
+              <button class="btn" type="button" data-filter="uwu">UwU</button>
+              <button class="btn" type="button" data-filter="script">Script</button>
+              <button class="btn" type="button" data-filter="bubble">Bubble</button>
+              <button class="btn" type="button" data-filter="smallcaps">Small Caps</button>
+              <button class="btn" type="button" data-filter="fullwidth">Fullwidth</button>
+              <button class="btn" type="button" data-filter="upsidedown">Upside Down</button>
+              <button class="btn" type="button" data-filter="leet">Leet Speak</button>
+              <button class="btn" type="button" data-filter="reverse">Reverse</button>
+              <button class="btn" type="button" data-filter="morse">Morse</button>
+              <button class="btn" type="button" data-filter="nato">NATO Alphabet</button>
+              <button class="btn" type="button" data-filter="zalgo">Zalgo</button>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="output">Result</label>
+            <div class="output" id="output" aria-live="polite"></div>
+          </div>
+
+          <div class="btn-row">
+            <button class="btn btn--primary" type="button" id="copy-output">Copy result</button>
+            <button class="btn" type="button" id="use-output">Use result as input</button>
+            <button class="btn" type="button" id="clear">Clear</button>
+          </div>
+
+          <label class="row small muted" style="gap: 8px">
+            <input type="checkbox" id="chain" />
+            Chain: keep filtering the result instead of starting from your text
+          </label>
+        </div>
+      </section>
+    </main>
+
+    <script src="/assets/js/site.js"></script>
+    <script src="/assets/js/text-filters.js"></script>
+  </body>
+</html>

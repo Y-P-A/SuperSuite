@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Notes Pad — SuperSuite</title>
+    <meta name="description" content="A plain notepad that saves to your browser as you type." />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/rewind.css" />
+    <script src="/assets/js/rewind.js"></script>
+  </head>
+  <body data-page="/tools/notes">
+    <main class="wrap wrap--narrow">
+      <section class="panel">
+        <div class="spread" style="margin-bottom:10px">
+          <span class="label">Your note</span>
+          <span class="small muted" id="saved">Saved automatically</span>
+        </div>
+
+        <textarea class="textarea" id="note" rows="16" placeholder="Start typing — this note is saved in your browser as you go."></textarea>
+
+        <div class="hud" style="margin-top:16px">
+          <div class="hud__item"><span class="hud__label">Words</span><span class="hud__value" id="words">0</span></div>
+          <div class="hud__item"><span class="hud__label">Characters</span><span class="hud__value" id="chars">0</span></div>
+          <div class="hud__item"><span class="hud__label">Lines</span><span class="hud__value" id="lines">0</span></div>
+        </div>
+
+        <div class="btn-row" style="margin-top:14px">
+          <button class="btn" type="button" id="download">Download .txt</button>
+          <button class="btn" type="button" id="copy">Copy</button>
+          <button class="btn" type="button" id="clear">Clear note</button>
+        </div>
+
+        <p class="note" style="margin-top:14px">
+          Notes live in this browser only — nothing is uploaded, and clearing your browser data will remove them.
+        </p>
+      </section>
+    </main>
+
+    <script src="/assets/js/catalog.js"></script>
+    <script src="/assets/js/site.js"></script>
+    <script src="/assets/js/notes.js"></script>
+  </body>
+</html>

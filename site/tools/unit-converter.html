@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Unit Converter — SuperSuite</title>
+    <meta name="description" content="Convert length, weight, temperature, volume, data, area, speed and time units instantly in your browser." />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/rewind.css" />
+    <script src="/assets/js/rewind.js"></script>
+  </head>
+  <body>
+    <main class="wrap wrap--narrow">
+      <section class="panel t-sky">
+        <div class="panel__head">
+          <div>
+            <h1>Unit Converter</h1>
+            <p class="muted small">Pick a category, type an amount and the answer appears as you go.</p>
+          </div>
+          <span class="badge">Utility 07</span>
+        </div>
+
+        <div class="chips" id="cats"></div>
+
+        <div class="two-col" style="margin-top: 18px">
+          <div class="stack">
+            <div class="field">
+              <label for="amount">Amount</label>
+              <input class="input mono" type="text" id="amount" inputmode="decimal" value="1" autocomplete="off" />
+            </div>
+
+            <div class="field">
+              <label for="from">From</label>
+              <select class="select" id="from"></select>
+            </div>
+
+            <div class="btn-row">
+              <button class="btn" type="button" id="swap">Swap units</button>
+            </div>
+
+            <div class="field">
+              <label for="to">To</label>
+              <select class="select" id="to"></select>
+            </div>
+          </div>
+
+          <div class="stack">
+            <div class="field">
+              <span class="label">Result</span>
+              <div class="output">
+                <span class="readout mono" id="result">1</span>
+              </div>
+            </div>
+
+            <p class="note mono small" id="sentence">—</p>
+
+            <div class="btn-row">
+              <button class="btn btn--primary" type="button" id="copy">Copy result</button>
+              <button class="btn" type="button" id="reset">Reset</button>
+            </div>
+          </div>
+        </div>
+
+        <ul class="keys">
+          <li>Temperature switches between Celsius, Fahrenheit and Kelvin without you doing the maths.</li>
+          <li>Data sizes use the usual 1024-based units: KB, MB, GB and TB.</li>
+        </ul>
+      </section>
+    </main>
+
+    <script src="/assets/js/site.js"></script>
+    <script src="/assets/js/unit-converter.js"></script>
+  </body>
+</html>

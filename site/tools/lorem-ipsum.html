@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lorem Ipsum — SuperSuite</title>
+    <meta name="description" content="Generate classic Lorem Ipsum placeholder text as paragraphs, sentences or words." />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/rewind.css" />
+    <script src="/assets/js/rewind.js"></script>
+  </head>
+  <body data-page="/tools/lorem-ipsum">
+    <main class="wrap wrap--narrow">
+      <section class="panel">
+        <div class="row">
+          <div class="field field--grow">
+            <label for="unit">Generate</label>
+            <select class="select" id="unit">
+              <option value="paragraphs">Paragraphs</option>
+              <option value="sentences">Sentences</option>
+              <option value="words">Words</option>
+            </select>
+          </div>
+          <div class="field field--grow">
+            <label for="count">How many</label>
+            <input class="input" id="count" type="number" min="1" max="100" value="3" />
+          </div>
+          <div class="field field--grow">
+            <label for="start">Start with</label>
+            <select class="select" id="start">
+              <option value="lorem">“Lorem ipsum…”</option>
+              <option value="plain">Random sentence</option>
+            </select>
+          </div>
+        </div>
+
+        <label class="check" style="margin-top:12px">
+          <input type="checkbox" id="html" /> Wrap it in HTML &lt;p&gt; tags
+        </label>
+
+        <div class="btn-row" style="margin-top:14px">
+          <button class="btn btn--primary" type="button" id="generate">Generate</button>
+          <button class="btn" type="button" id="copy">Copy</button>
+        </div>
+
+        <div class="field" style="margin-top:16px">
+          <label for="output">Output</label>
+          <div class="output" id="output"></div>
+        </div>
+      </section>
+    </main>
+
+    <script src="/assets/js/catalog.js"></script>
+    <script src="/assets/js/site.js"></script>
+    <script src="/assets/js/lorem-ipsum.js"></script>
+  </body>
+</html>

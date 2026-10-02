@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Percentage Calculator — SuperSuite</title>
+    <meta name="description" content="Work out percent of a number, percent change, and what percent one number is of another." />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/rewind.css" />
+    <script src="/assets/js/rewind.js"></script>
+  </head>
+  <body data-page="/tools/percentage-calculator">
+    <main class="wrap wrap--narrow">
+      <section class="panel">
+        <h2>What is X% of Y?</h2>
+        <div class="row">
+          <div class="field field--grow"><label for="p1">Percent</label><input class="input" id="p1" type="number" value="15" /></div>
+          <div class="field field--grow"><label for="v1">Of value</label><input class="input" id="v1" type="number" value="250" /></div>
+        </div>
+        <div class="output readout" id="r1" style="margin-top:12px"></div>
+
+        <h2 style="margin-top:28px">X is what percent of Y?</h2>
+        <div class="row">
+          <div class="field field--grow"><label for="p2">Value</label><input class="input" id="p2" type="number" value="30" /></div>
+          <div class="field field--grow"><label for="v2">Of value</label><input class="input" id="v2" type="number" value="150" /></div>
+        </div>
+        <div class="output readout" id="r2" style="margin-top:12px"></div>
+
+        <h2 style="margin-top:28px">Percent change</h2>
+        <div class="row">
+          <div class="field field--grow"><label for="p3">From</label><input class="input" id="p3" type="number" value="80" /></div>
+          <div class="field field--grow"><label for="v3">To</label><input class="input" id="v3" type="number" value="100" /></div>
+        </div>
+        <div class="output readout" id="r3" style="margin-top:12px"></div>
+      </section>
+    </main>
+
+    <script src="/assets/js/catalog.js"></script>
+    <script src="/assets/js/site.js"></script>
+    <script src="/assets/js/percentage-calculator.js"></script>
+  </body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Discount Calculator — SuperSuite</title>
+    <meta name="description" content="Work out sale prices, how much you save, tax and the final total — live as you type." />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/rewind.css" />
+    <script src="/assets/js/rewind.js"></script>
+  </head>
+  <body data-page="/tools/discount-calculator">
+    <main class="wrap wrap--narrow">
+      <section class="panel">
+        <div class="two-col">
+          <div class="stack">
+            <div class="field">
+              <label for="price">Original price</label>
+              <input class="input mono" type="text" id="price" inputmode="decimal" value="120" autocomplete="off" />
+            </div>
+
+            <div class="field">
+              <label for="discount">Discount (%)</label>
+              <input class="input mono" type="text" id="discount" inputmode="decimal" value="25" autocomplete="off" />
+            </div>
+
+            <div class="field">
+              <label for="tax">Sales tax / VAT (%)</label>
+              <input class="input mono" type="text" id="tax" inputmode="decimal" value="0" autocomplete="off" />
+            </div>
+
+            <div class="field">
+              <label for="extra">Extra charges (shipping, fees)</label>
+              <input class="input mono" type="text" id="extra" inputmode="decimal" value="0" autocomplete="off" />
+            </div>
+
+            <div class="field">
+              <label for="currency">Currency symbol</label>
+              <input class="input" type="text" id="currency" maxlength="3" value="$" autocomplete="off" />
+            </div>
+
+            <div class="btn-row">
+              <button class="btn btn--primary" type="button" id="copy">Copy summary</button>
+              <button class="btn" type="button" id="reset">Reset</button>
+            </div>
+          </div>
+
+          <div class="stack">
+            <div class="hud">
+              <div class="hud__item"><span class="hud__label">You save</span><span class="hud__value" id="saved">—</span></div>
+              <div class="hud__item"><span class="hud__label">Sale price</span><span class="hud__value" id="sale">—</span></div>
+              <div class="hud__item"><span class="hud__label">Tax added</span><span class="hud__value" id="taxout">—</span></div>
+              <div class="hud__item"><span class="hud__label">Final total</span><span class="hud__value" id="total">—</span></div>
+            </div>
+
+            <div class="output">
+              <span class="readout mono small" id="sentence">—</span>
+            </div>
+
+            <p class="note small muted">The discount comes off the original price first, then tax is added to the sale price. Extra charges are added after tax.</p>
+          </div>
+        </div>
+
+        <ul class="keys">
+          <li>Handy for sales, vouchers and double discounts — type over any number and everything updates instantly.</li>
+          <li>Leave tax at 0 for a straight percentage-off calculation.</li>
+        </ul>
+      </section>
+    </main>
+
+    <script src="/assets/js/catalog.js"></script>
+    <script src="/assets/js/site.js"></script>
+    <script src="/assets/js/discount-calculator.js"></script>
+  </body>
+</html>

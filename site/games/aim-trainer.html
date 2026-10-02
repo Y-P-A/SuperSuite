@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Aim Trainer — SuperSuite</title>
+    <meta name="description" content="Thirty seconds, shrinking targets, no mercy. Sharpen your aim and chase the accuracy score." />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/rewind.css" />
+    <script src="/assets/js/rewind.js"></script>
+  </head>
+  <body data-page="/games/aim-trainer">
+    <main class="wrap wrap--narrow">
+      <section class="panel">
+        <div class="hud">
+          <div class="hud__item"><span class="hud__label">Time</span><span class="hud__value" id="time">30.0</span></div>
+          <div class="hud__item"><span class="hud__label">Score</span><span class="hud__value" id="score">0</span></div>
+          <div class="hud__item"><span class="hud__label">Accuracy</span><span class="hud__value" id="accuracy">100%</span></div>
+          <div class="hud__item"><span class="hud__label">Best</span><span class="hud__value" id="best">0</span></div>
+        </div>
+
+        <div class="stage stage--pixel">
+          <canvas id="field" width="480" height="480" aria-label="Aim trainer target area"></canvas>
+          <div class="stage__overlay is-visible" id="overlay">
+            <div>
+              <h3 data-overlay-title>Ready?</h3>
+              <p data-overlay-text>Hit as many targets as you can in thirty seconds. They shrink as your score climbs — a miss costs you accuracy.</p>
+              <button class="btn btn--primary" type="button" data-overlay-button>Start</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="spread" style="margin-top: 14px">
+          <span class="small muted">Click or tap a target to pop it. Clicking empty space counts as a miss.</span>
+          <div class="btn-row">
+            <button class="btn" type="button" id="restart">Restart</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="/assets/js/catalog.js"></script>
+    <script src="/assets/js/site.js"></script>
+    <script src="/assets/js/games/common.js"></script>
+    <script src="/assets/js/games/aim-trainer.js"></script>
+  </body>
+</html>

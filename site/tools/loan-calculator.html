@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Loan Calculator — SuperSuite</title>
+    <meta name="description" content="Work out monthly repayments, total interest and a full amortisation schedule." />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/rewind.css" />
+    <script src="/assets/js/rewind.js"></script>
+  </head>
+  <body data-page="/tools/loan-calculator">
+    <main class="wrap">
+      <section class="panel">
+        <div class="row">
+          <div class="field field--grow">
+            <label for="principal">Loan amount</label>
+            <input class="input" id="principal" type="number" min="0" step="100" value="250000" />
+          </div>
+          <div class="field field--grow">
+            <label for="rate">Annual interest rate (%)</label>
+            <input class="input" id="rate" type="number" min="0" step="0.01" value="5.5" />
+          </div>
+          <div class="field field--grow">
+            <label for="years">Term (years)</label>
+            <input class="input" id="years" type="number" min="1" max="40" value="25" />
+          </div>
+        </div>
+
+        <div class="hud" style="margin-top:18px">
+          <div class="hud__item"><span class="hud__label">Monthly</span><span class="hud__value" id="monthly">—</span></div>
+          <div class="hud__item"><span class="hud__label">Total interest</span><span class="hud__value" id="interest">—</span></div>
+          <div class="hud__item"><span class="hud__label">Total paid</span><span class="hud__value" id="total">—</span></div>
+          <div class="hud__item"><span class="hud__label">Payments</span><span class="hud__value" id="count">—</span></div>
+        </div>
+
+        <div class="spread" style="margin-top:22px;margin-bottom:8px">
+          <span class="label">Amortisation schedule</span>
+          <span class="small muted" id="note"></span>
+        </div>
+        <div class="table-wrap">
+          <table class="table" id="schedule"></table>
+        </div>
+      </section>
+    </main>
+
+    <script src="/assets/js/catalog.js"></script>
+    <script src="/assets/js/site.js"></script>
+    <script src="/assets/js/loan-calculator.js"></script>
+  </body>
+</html>

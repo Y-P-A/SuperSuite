@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Text Diff — SuperSuite</title>
+    <meta name="description" content="Compare two blocks of text and highlight added and removed lines." />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/rewind.css" />
+    <script src="/assets/js/rewind.js"></script>
+  </head>
+  <body data-page="/tools/text-diff">
+    <main class="wrap">
+      <section class="panel">
+        <div class="two-col">
+          <div class="field">
+            <label for="a">Original</label>
+            <textarea class="textarea" id="a" rows="12" spellcheck="false" placeholder="Paste the original text…"></textarea>
+          </div>
+          <div class="field">
+            <label for="b">Changed</label>
+            <textarea class="textarea" id="b" rows="12" spellcheck="false" placeholder="Paste the changed text…"></textarea>
+          </div>
+        </div>
+
+        <div class="btn-row" style="margin-top:12px">
+          <button class="btn btn--primary" type="button" id="compare">Compare</button>
+          <button class="btn" type="button" id="swap">Swap sides</button>
+          <button class="btn" type="button" id="sample">Load sample</button>
+          <button class="btn" type="button" id="clear">Clear</button>
+        </div>
+
+        <div class="hud" style="margin-top:16px">
+          <div class="hud__item"><span class="hud__label">Added</span><span class="hud__value" id="added">0</span></div>
+          <div class="hud__item"><span class="hud__label">Removed</span><span class="hud__value" id="removed">0</span></div>
+          <div class="hud__item"><span class="hud__label">Unchanged</span><span class="hud__value" id="same">0</span></div>
+        </div>
+
+        <div class="diff" id="result" style="margin-top:14px">
+          <p class="muted small">Press Compare to see what changed.</p>
+        </div>
+      </section>
+    </main>
+
+    <script src="/assets/js/catalog.js"></script>
+    <script src="/assets/js/site.js"></script>
+    <script src="/assets/js/text-diff.js"></script>
+  </body>
+</html>

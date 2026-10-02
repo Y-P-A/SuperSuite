@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Countdown Timer — SuperSuite</title>
+    <meta name="description" content="Set a countdown timer with quick presets and a chime when it finishes." />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/rewind.css" />
+    <script src="/assets/js/rewind.js"></script>
+  </head>
+  <body data-page="/tools/countdown-timer">
+    <main class="wrap wrap--narrow">
+      <section class="panel">
+        <div class="calc-display" style="text-align:center">
+          <div class="calc-display__value" id="display" style="font-size:clamp(34px,9vw,58px)">05:00</div>
+          <div class="calc-display__expr" id="hint">&nbsp;</div>
+        </div>
+
+        <div class="meter" style="margin-top:14px"><span class="meter__fill" id="progress"></span></div>
+
+        <div class="chips" id="presets" style="margin-top:16px">
+          <button class="chip" type="button" data-seconds="60">1 min</button>
+          <button class="chip" type="button" data-seconds="180">3 min</button>
+          <button class="chip" type="button" data-seconds="300">5 min</button>
+          <button class="chip" type="button" data-seconds="600">10 min</button>
+          <button class="chip" type="button" data-seconds="1500">25 min</button>
+          <button class="chip" type="button" data-seconds="3600">1 hour</button>
+        </div>
+
+        <div class="row" style="margin-top:16px">
+          <div class="field field--grow">
+            <label for="minutes">Minutes</label>
+            <input class="input" id="minutes" type="number" min="0" max="999" value="5" />
+          </div>
+          <div class="field field--grow">
+            <label for="seconds">Seconds</label>
+            <input class="input" id="seconds" type="number" min="0" max="59" value="0" />
+          </div>
+        </div>
+
+        <div class="btn-row" style="margin-top:14px">
+          <button class="btn btn--primary" type="button" id="start">Start</button>
+          <button class="btn" type="button" id="reset">Reset</button>
+        </div>
+
+        <p class="note" style="margin-top:14px">
+          Keep this tab open — the timer runs on your device, and it chimes when the countdown reaches zero.
+        </p>
+      </section>
+    </main>
+
+    <script src="/assets/js/catalog.js"></script>
+    <script src="/assets/js/site.js"></script>
+    <script src="/assets/js/countdown-timer.js"></script>
+  </body>
+</html>

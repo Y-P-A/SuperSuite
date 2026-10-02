@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hangman — SuperSuite</title>
+    <meta name="description" content="Guess the hidden word one letter at a time — six mistakes and the drawing is finished." />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/rewind.css" />
+    <script src="/assets/js/rewind.js"></script>
+  </head>
+  <body data-page="/games/hangman">
+    <main class="wrap wrap--narrow">
+      <section class="panel">
+        <div class="hud">
+          <div class="hud__item"><span class="hud__label">Wrong</span><span class="hud__value" id="wrong">0 / 6</span></div>
+          <div class="hud__item"><span class="hud__label">Streak</span><span class="hud__value" id="streak">0</span></div>
+          <div class="hud__item"><span class="hud__label">Best streak</span><span class="hud__value" id="best">0</span></div>
+        </div>
+
+        <div class="stage stage--narrow" style="max-width: 300px; margin: 0 auto">
+          <canvas id="field" width="240" height="240" aria-label="Hangman drawing"></canvas>
+          <div class="stage__overlay is-visible" id="overlay">
+            <div>
+              <h3 data-overlay-title>Ready?</h3>
+              <p data-overlay-text>Pick letters to reveal the word. Six wrong letters and you are out.</p>
+              <button class="btn btn--primary" type="button" data-overlay-button>Start</button>
+            </div>
+          </div>
+        </div>
+
+        <p class="mono" id="word" style="text-align: center; font-size: 30px; letter-spacing: 0.22em; margin: 18px 0 6px">_ _ _</p>
+        <p class="small muted" id="hint" style="text-align: center">—</p>
+
+        <div class="chips" id="keys" style="justify-content: center; margin-top: 16px"></div>
+
+        <div class="spread" style="margin-top: 16px">
+          <span class="small muted">Keyboard works too — just type a letter.</span>
+          <div class="btn-row">
+            <button class="btn" type="button" id="restart">New word</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="/assets/js/catalog.js"></script>
+    <script src="/assets/js/site.js"></script>
+    <script src="/assets/js/games/common.js"></script>
+    <script src="/assets/js/games/hangman.js"></script>
+  </body>
+</html>

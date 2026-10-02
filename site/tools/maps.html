@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Maps Explorer — SuperSuite</title>
+    <meta name="description" content="Search any place, switch between map types, jump to your location and share the link." />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/rewind.css" />
+    <script src="/assets/js/rewind.js"></script>
+  </head>
+  <body>
+    <main class="wrap">
+      <section class="panel t-green">
+        <div class="panel__head">
+          <div>
+            <h1>Maps Explorer</h1>
+            <p class="muted small">Powered by Google Maps. Search a place, a landmark or raw coordinates.</p>
+          </div>
+          <span class="badge">Utility 04</span>
+        </div>
+
+        <form class="row" id="search-form" style="margin-bottom: 14px">
+          <div class="field field--grow">
+            <label for="query">Where to?</label>
+            <input class="input" id="query" value="Burj Khalifa, Dubai" autocomplete="off" />
+          </div>
+          <div class="field">
+            <label>&nbsp;</label>
+            <button class="btn btn--primary" type="submit">Show it</button>
+          </div>
+        </form>
+
+        <div class="chips" style="margin-bottom: 14px">
+          <button class="chip is-active" type="button" data-maptype="m">Roadmap</button>
+          <button class="chip" type="button" data-maptype="k">Satellite</button>
+          <button class="chip" type="button" data-maptype="p">Terrain</button>
+        </div>
+
+        <div class="map-frame">
+          <iframe
+            id="map"
+            title="Google Map"
+            src="https://www.google.com/maps?q=Burj%20Khalifa%2C%20Dubai&t=m&z=13&output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen
+          ></iframe>
+        </div>
+
+        <div class="row" style="margin-top: 14px">
+          <button class="btn" type="button" data-zoom="-1">Zoom out &minus;</button>
+          <span class="badge">Zoom <span class="mono" id="zoom-val">13</span></span>
+          <button class="btn" type="button" data-zoom="1">Zoom in +</button>
+          <button class="btn" type="button" id="locate">My location</button>
+          <a class="btn" id="open-maps" href="https://www.google.com/maps" target="_blank" rel="noopener">Open in Google Maps</a>
+          <button class="btn" type="button" id="copy-link">Copy link</button>
+        </div>
+
+        <div class="chips" style="margin-top: 14px">
+          <button class="chip" type="button" data-place="Eiffel Tower, Paris">Eiffel Tower</button>
+          <button class="chip" type="button" data-place="Times Square, New York">Times Square</button>
+          <button class="chip" type="button" data-place="Shibuya Crossing, Tokyo">Shibuya</button>
+          <button class="chip" type="button" data-place="Pyramids of Giza, Egypt">Pyramids</button>
+          <button class="chip" type="button" data-place="Sydney Opera House">Opera House</button>
+          <button class="chip" type="button" data-place="Palm Jumeirah, Dubai">Palm Jumeirah</button>
+        </div>
+
+        <p class="note" style="margin-top: 14px" id="status">
+          Tip: type coordinates like <span class="mono">25.1972, 55.2744</span> to drop a pin exactly.
+        </p>
+      </section>
+    </main>
+
+    <script src="/assets/js/site.js"></script>
+    <script src="/assets/js/maps.js"></script>
+  </body>
+</html>

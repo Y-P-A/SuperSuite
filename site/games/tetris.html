@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tetris — SuperSuite</title>
+    <meta name="description" content="Play Tetris in your browser: stack, rotate, clear lines, chase the high score." />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/rewind.css" />
+    <script src="/assets/js/rewind.js"></script>
+  </head>
+  <body>
+    <main class="wrap wrap--narrow">
+      <section class="panel t-red">
+        <div class="panel__head">
+          <div>
+            <h1>Tetris</h1>
+            <p class="muted small">Ten wide, twenty tall. Clear lines, keep the stack low.</p>
+          </div>
+          <span class="badge">Game 01</span>
+        </div>
+
+        <div class="hud">
+          <div class="hud__item"><span class="hud__label">Score</span><span class="hud__value" id="score">0</span></div>
+          <div class="hud__item"><span class="hud__label">Lines</span><span class="hud__value" id="lines">0</span></div>
+          <div class="hud__item"><span class="hud__label">Level</span><span class="hud__value" id="level">1</span></div>
+          <div class="hud__item"><span class="hud__label">Best</span><span class="hud__value" id="best">0</span></div>
+        </div>
+
+        <div class="stage stage--narrow">
+          <canvas id="board" width="300" height="600" aria-label="Tetris board"></canvas>
+          <div class="stage__overlay is-visible" id="overlay">
+            <div>
+              <h3 data-overlay-title>Ready?</h3>
+              <p data-overlay-text>Arrow keys to move, up to rotate, space to drop.</p>
+              <button class="btn btn--primary" type="button" data-overlay-button>Start</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="spread" style="margin-top: 14px">
+          <div class="next-piece">
+            <span class="label">Next</span>
+            <canvas id="next" width="96" height="96" aria-label="Next piece"></canvas>
+          </div>
+          <div class="btn-row">
+            <button class="btn" type="button" id="pause">Pause</button>
+            <button class="btn" type="button" id="restart">Restart</button>
+          </div>
+        </div>
+
+        <div class="pad" id="pad">
+          <div class="pad__row">
+            <button class="btn" type="button" data-key="ArrowUp">Rotate</button>
+          </div>
+          <div class="pad__row">
+            <button class="btn" type="button" data-key="ArrowLeft">&larr;</button>
+            <button class="btn" type="button" data-key="ArrowDown">&darr;</button>
+            <button class="btn" type="button" data-key="ArrowRight">&rarr;</button>
+          </div>
+          <div class="pad__row">
+            <button class="btn" type="button" data-key="Space">Drop</button>
+          </div>
+        </div>
+
+        <ul class="keys">
+          <li><span class="kbd">&larr;</span><span class="kbd">&rarr;</span> move &nbsp;·&nbsp; <span class="kbd">&uarr;</span>/<span class="kbd">X</span> rotate &nbsp;·&nbsp; <span class="kbd">Z</span> rotate back</li>
+          <li><span class="kbd">&darr;</span> soft drop &nbsp;·&nbsp; <span class="kbd">Space</span> hard drop &nbsp;·&nbsp; <span class="kbd">P</span> pause &nbsp;·&nbsp; <span class="kbd">R</span> restart</li>
+        </ul>
+      </section>
+    </main>
+
+    <script src="/assets/js/site.js"></script>
+    <script src="/assets/js/games/common.js"></script>
+    <script src="/assets/js/games/tetris.js"></script>
+  </body>
+</html>

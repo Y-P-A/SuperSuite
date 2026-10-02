@@ -1,0 +1,115 @@
+/* Music Lab — only loaded by /tools/music-lab. Everything else on the page uses
+   the shared design system, so this file sticks to the same tokens and lets the
+   Rewind eras restyle it for free. */
+
+.ml-bar {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+.ml-bar--foot {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 2px solid var(--line);
+}
+
+.ml-tempo { flex: 1 1 210px; min-width: 190px; }
+.ml-preset { flex: 1 1 200px; min-width: 180px; }
+.ml-name { flex: 1 1 180px; min-width: 160px; }
+.ml-play { min-width: 118px; }
+
+.ml-bars { flex: 0 1 auto; }
+.ml-bars .btn { padding: 6px 10px; }
+
+.ml-hint { margin: 16px 0 10px; }
+
+/* ---------- the sound and drum pickers ---------- */
+
+.ml-tray {
+  display: grid;
+  gap: 8px;
+  flex: 1 1 280px;
+}
+
+.btn.ml-chip {
+  padding: 5px 10px;
+  font-size: 12px;
+}
+
+/* ---------- the grid ---------- */
+
+.ml-scroll {
+  overflow-x: auto;
+  padding: 10px;
+  border: 2px solid var(--line);
+  background: var(--surface);
+}
+
+.ml-grid {
+  display: grid;
+  grid-template-columns: 44px repeat(var(--steps, 16), minmax(18px, 1fr));
+  gap: 3px;
+  min-width: min-content;
+}
+
+.ml-note {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 6px;
+  color: var(--ink-3);
+}
+
+.ml-note--drum {
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.ml-cell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 20px;
+  aspect-ratio: 1 / 1;
+  padding: 0;
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  cursor: pointer;
+}
+
+/* Every other column is a lighter beat marker, and each bar starts crisply. */
+.ml-cell.is-beat { background: var(--surface); }
+.ml-cell.is-bar { border-left-width: 3px; }
+
+.ml-cell:hover { border-color: var(--accent, var(--tone)); }
+
+.ml-cell.is-on {
+  background: var(--accent, var(--tone));
+  border-color: var(--accent, var(--tone));
+}
+
+.ml-cell.is-play {
+  outline: 2px solid var(--accent, var(--tone));
+  outline-offset: 1px;
+}
+
+.ml-cell i {
+  display: inline-block;
+  width: 4px;
+  height: 54%;
+  background: var(--accent-ink, #fff);
+}
+
+/* The beat strip: solid blocks, so it reads as drums and not as pitches. */
+.ml-cell.is-drum { border-color: var(--ink); }
+.ml-cell.is-drum.is-on { background: var(--ink); }
+
+@media (max-width: 600px) {
+  .ml-grid { grid-template-columns: 30px repeat(var(--steps, 16), minmax(16px, 1fr)); }
+  .ml-note--drum { font-size: 9px; }
+}
