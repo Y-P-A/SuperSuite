@@ -24,7 +24,7 @@
       '<footer class="footer">' +
         '<div class="footer__inner">' +
           '<span>SuperSuite — handpicked utilities and unblocked games. No login, ever.</span>' +
-          '<span>Build 0.5.5 (Beta 5) · <a href="/utilities/">Utilities</a> · <a href="/games/">Games</a></span>' +
+          '<span>Build 0.7 (Beta 7) · <a href="/utilities/">Utilities</a> · <a href="/games/">Games</a></span>' +
         '</div>' +
       '</footer>'
     );
@@ -34,7 +34,7 @@
     const dark = DARK_ICON_TONES.indexOf(item.tone) > -1 ? ' card__icon--dark' : '';
     const icon = item.icon || item.glyph || '';
     return (
-      '<a class="card ' + item.tone + '" href="' + item.href + '">' +
+      '<a class="card ' + item.tone + (item.main ? ' card--main' : '') + '" href="' + item.href + '">' +
         '<span class="card__stripe"></span>' +
         '<span class="card__body">' +
           '<span class="card__icon' + dark + '" aria-hidden="true">' + icon + '</span>' +
@@ -113,6 +113,7 @@
       return entry.href === path;
     });
     if (!item) return;
+    document.title = item.name + ' — SuperSuite';
 
     const panel = document.querySelector('main .panel');
     if (!panel) return;
@@ -139,14 +140,43 @@
     });
   }
 
-  function mount() {
+  async function mount() {
+    const categoryStyle = document.createElement('link');
+    categoryStyle.rel = 'stylesheet'; categoryStyle.href = '/assets/css/build07.css';
+    document.head.appendChild(categoryStyle);
+    if (window.SS_CATALOG && !window.SS_CATALOG.categories) {
+      await new Promise(function (resolve) {
+        const script = document.createElement('script'); script.src = '/assets/js/build07/catalog.js';
+        script.onload = resolve; script.onerror = resolve; document.head.appendChild(script);
+      });
+    }
     document.body.insertAdjacentHTML('afterbegin', headerHTML());
     document.body.insertAdjacentHTML('beforeend', footerHTML());
 
     const catalog = window.SS_CATALOG || { utilities: [], games: [] };
     document.querySelectorAll('[data-catalog]').forEach(function (el) {
-      const list = catalog[el.getAttribute('data-catalog')] || [];
-      el.innerHTML = list.map(cardHTML).join('');
+      const kind = el.getAttribute('data-catalog');
+      const list = catalog[kind] || [];
+      if (kind !== 'utilities' || !catalog.categories) { el.innerHTML = list.map(cardHTML).join(''); return; }
+      const controls = document.createElement('div'); controls.className = 'catalog-controls';
+      controls.innerHTML = '<div class="field"><label for="utility-search">Find a utility</label><input class="input" id="utility-search" type="search" placeholder="Search 150 tools…"></div><div class="field"><label for="utility-category">Category</label><select class="select" id="utility-category"><option value="">All categories</option>' + catalog.categories.map(c => '<option value="' + c.id + '">' + c.name + '</option>').join('') + '</select></div><span class="small muted" id="utility-count" role="status">150 utilities</span>';
+      el.before(controls);
+      el.innerHTML = catalog.categories.map(function (cat) {
+        const items = list.filter(item => item.category === cat.id).sort((a,b) => Number(b.main)-Number(a.main) || a.name.localeCompare(b.name));
+        return '<section class="utility-category cat-' + cat.id + '" data-category="' + cat.id + '"><div class="utility-category__head"><h2>' + cat.name + '</h2><span>30 utilities · main tool featured</span></div><div class="grid">' + items.map(cardHTML).join('') + '</div></section>';
+      }).join('');
+      function filter() {
+        const q = controls.querySelector('input').value.toLowerCase().trim(), category = controls.querySelector('select').value;
+        let count = 0;
+        el.querySelectorAll('.utility-category').forEach(function (section) {
+          let visible = 0;
+          section.querySelectorAll('.card').forEach(function (card) { const show = (!category || category === section.dataset.category) && card.textContent.toLowerCase().includes(q); card.hidden = !show; if (show) visible++; });
+          section.hidden = !visible; count += visible;
+        });
+        controls.querySelector('#utility-count').textContent = count + (count === 1 ? ' utility' : ' utilities') + (count ? '' : ' — no matches');
+      }
+      controls.querySelector('input').addEventListener('input', filter);
+      controls.querySelector('select').addEventListener('change', filter);
     });
 
     mountPage();

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Image Converter — SuperSuite</title>
+    <title>Converter+ — SuperSuite</title>
     <meta name="description" content="Convert images and PDFs both ways: PNG to PDF, PDF to PNG, PNG to JPG and JPG to PNG — all in your browser." />
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="/assets/css/style.css" />
@@ -12,11 +12,11 @@
   </head>
   <body>
     <main class="wrap wrap--narrow">
-      <section class="panel t-pink">
+      <section class="panel cat-text">
         <div class="panel__head">
           <div>
-            <h1>Image Converter</h1>
-            <p class="muted small">Drop in PNG, JPG, WEBP, GIF, BMP, SVG or PDF. Nothing is uploaded — it all happens in this tab.</p>
+            <h1>Converter+</h1>
+            <p class="muted small">Convert images, PDFs, video and audio locally. Media conversion loads a 31 MB WASM engine; max 100 MB per media input. Browser-decodable images are supported; SVG output wraps pixels, not vector tracing.</p>
           </div>
           <span class="badge">Utility 06</span>
         </div>
@@ -24,9 +24,9 @@
         <div class="two-col">
           <div class="stack">
             <label class="drop" id="drop">
-              <input type="file" id="files" accept="image/*,application/pdf,.pdf" multiple />
+              <input type="file" id="files" accept="image/*,video/*,audio/*,application/pdf,.pdf,.mkv,.mov,.avi" multiple />
               <strong>Drop files here</strong>
-              <span class="small muted">or click to choose — images and PDFs, as many as you like</span>
+              <span class="small muted">or click to choose — images, PDFs, videos and audio</span>
             </label>
 
             <div class="field">
@@ -34,7 +34,15 @@
               <select class="select" id="format">
                 <option value="png" selected>PNG — lossless, keeps transparency</option>
                 <option value="jpg">JPG — small and photo friendly</option>
+                <option value="webp">WebP — compact, keeps transparency</option>
+                <option value="bmp">BMP — uncompressed bitmap</option>
+                <option value="svg">SVG — raster image in an SVG wrapper (not vector tracing)</option>
                 <option value="pdf">PDF — every image becomes a page</option>
+                <option value="mp4">MP4 — H.264 video + AAC audio</option>
+                <option value="webm">WebM — VP8 video + Vorbis audio</option>
+                <option value="gif">GIF — animated, first 15 seconds at 10 fps</option>
+                <option value="mp3">MP3 — audio / extract audio from video</option>
+                <option value="wav">WAV — uncompressed audio</option>
               </select>
             </div>
 
@@ -83,7 +91,9 @@
       </section>
     </main>
 
+    <script src="/assets/js/catalog.js"></script>
     <script src="/assets/js/site.js"></script>
+    <script src="/assets/js/build07/converter-media.js"></script>
     <script src="/vendor/pdf.min.js"></script>
     <script src="/assets/js/image-converter.js"></script>
   </body>

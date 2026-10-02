@@ -111,7 +111,7 @@
             toggle('stickyHeader', 'Keep header visible', 'Keep navigation at the top while scrolling.') +
             toggle('footer', 'Footer', 'Show the footer at the bottom of each page.') +
           '</div>' +
-          '<p class="set-hint">Build 0.5.5 (Beta 5) · Settings stay in this browser.</p>' +
+          '<p class="set-hint">Build 0.7 (Beta 7) · Settings stay in this browser.</p>' +
           '<button class="btn btn--block" type="button" id="ss-reset">Reset everything</button>' +
         '</div>' +
       '</aside>'

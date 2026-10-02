@@ -1,0 +1,37 @@
+/* Functional category colors deliberately stay identifiable across Rewind eras. */
+[hidden] { display: none !important; }
+.cat-math { --tone: #6554c0 !important; }
+.cat-coding { --tone: #087f73 !important; }
+.cat-text { --tone: #b9630b !important; }
+.cat-media { --tone: #bc347d !important; }
+.cat-everyday { --tone: #246aa5 !important; }
+[data-catalog="utilities"].grid { display: block; }
+.catalog-controls { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 14px; margin-bottom: 24px; }
+.utility-category { margin: 0 0 36px; }
+.utility-category[hidden], .card[hidden] { display: none !important; }
+.utility-category__head { display: flex; align-items: baseline; flex-wrap: wrap; gap: 12px; border-bottom: 4px solid var(--tone); padding-bottom: 12px; margin-bottom: 18px; }
+.utility-category__head h2 { text-transform: none; font-size: 23px; }
+.utility-category__head span { color: var(--ink-2); font-size: 13px; }
+.utility-category .card--main { grid-column: span 2; background: color-mix(in srgb, var(--tone) 7%, var(--surface)); }
+.card--main .card__body { padding: 24px; }
+.card--main h3 { font-size: 26px; text-transform: none; }
+.card--main .card__icon { width: 62px; height: 62px; font-size: 26px; }
+.card--main .card__tag { color: var(--tone); }
+.tool-fields { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; }
+#tool-result { margin-top: 16px; max-height: 600px; overflow: auto; }
+#tool-preview { margin: 16px 0; overflow: hidden; }
+#tool-preview img { display: block; max-width: 100%; max-height: 380px; margin: auto; }
+.code-editor { min-height: 330px; tab-size: 2; font-family: var(--mono); text-transform: none; }
+.code-preview { width: 100%; min-height: 380px; border: 2px solid var(--ink); background: white; }
+.code-language { margin-bottom: 16px; }
+.code-web { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; }
+.code-web .textarea { min-height: 240px; }
+#code-output { max-height: 400px; overflow: auto; }
+.science-controls { margin: 20px 0; }
+.science-controls .input { font-family: var(--mono); }
+.text-hub-toolbar { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; margin-bottom: 16px; }
+#note { line-height: 1.7; min-height: 360px; }
+@media(max-width:680px) {
+  .catalog-controls, .tool-fields, .code-web, .text-hub-toolbar { grid-template-columns: 1fr; }
+  .utility-category .card--main { grid-column: 1 / -1; }
+}
