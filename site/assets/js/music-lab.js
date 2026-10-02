@@ -324,11 +324,11 @@
 
   function renderSounds() {
     el('ml-sounds').innerHTML = SOUNDS.map((sound) =>
-      '<button class="btn ml-chip' + (sound.id === song.sound ? ' is-active' : '') +
-      '" type="button" data-sound="' + sound.id + '">' + sound.label + '</button>').join('');
+      '<option value="' + sound.id + '">' + sound.label + '</option>').join('');
     el('ml-drums').innerHTML = DRUMS.map((drum) =>
-      '<button class="btn ml-chip' + (drum.id === song.drum ? ' is-active' : '') +
-      '" type="button" data-drum="' + drum.id + '">' + drum.label + '</button>').join('');
+      '<option value="' + drum.id + '">' + drum.label + '</option>').join('');
+    el('ml-sounds').value = song.sound;
+    el('ml-drums').value = song.drum;
   }
 
   function cellHTML(row, step) {
@@ -466,20 +466,16 @@
     Sound.play(instrument, MIDDLE_C, ctx.currentTime + 0.02, 0.3, 0.8);
   }
 
-  el('ml-sounds').addEventListener('click', (event) => {
-    const button = event.target.closest('[data-sound]');
-    if (!button) return;
+  el('ml-sounds').addEventListener('change', (event) => {
     pushUndo();
-    song.sound = button.getAttribute('data-sound');
+    song.sound = event.target.value;
     renderSounds();
     preview(song.sound);
   });
 
-  el('ml-drums').addEventListener('click', (event) => {
-    const button = event.target.closest('[data-drum]');
-    if (!button) return;
+  el('ml-drums').addEventListener('change', (event) => {
     pushUndo();
-    song.drum = button.getAttribute('data-drum');
+    song.drum = event.target.value;
     renderSounds();
     preview(song.drum);
   });

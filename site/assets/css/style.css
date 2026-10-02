@@ -455,6 +455,7 @@ input[type="checkbox"] { accent-color: var(--tone); width: 16px; height: 16px; }
 
 /* ---------- maps ---------- */
 .map-frame {
+  width: 100%;
   position: relative;
   border: 2px solid var(--ink);
   background: var(--surface-2);
@@ -572,6 +573,7 @@ input[type="checkbox"] { accent-color: var(--tone); width: 16px; height: 16px; }
 
 /* ---------- embedded frames (Eaglercraft) ---------- */
 .frame-wide {
+  width: 100%;
   position: relative;
   border: 2px solid var(--ink);
   background: #0f1626;

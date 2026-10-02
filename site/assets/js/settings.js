@@ -100,6 +100,18 @@
             toggle('clock', 'Header clock', 'Show the time in the top bar.') +
           '</div>' +
 
+          '<div class="set-group">' +
+            '<span class="label">Your experience</span>' +
+            '<div class="set-row"><span class="label">Reading font</span>' + seg('font') + '</div>' +
+            '<div class="set-row"><span class="label">Line spacing</span>' + seg('reading') + '</div>' +
+            '<div class="set-row"><span class="label">Clock format</span>' + seg('clockFormat') + '</div>' +
+            toggle('descriptions', 'Card descriptions', 'Show explanations in the utility and game catalogs.') +
+            toggle('tags', 'Catalog tags', 'Show utility and game numbers on cards.') +
+            toggle('decorations', 'Hero decorations', 'Show decorative shapes on the home page.') +
+            toggle('stickyHeader', 'Keep header visible', 'Keep navigation at the top while scrolling.') +
+            toggle('footer', 'Footer', 'Show the footer at the bottom of each page.') +
+          '</div>' +
+          '<p class="set-hint">Build 0.7 (Beta 7) · Settings stay in this browser.</p>' +
           '<button class="btn btn--block" type="button" id="ss-reset">Reset everything</button>' +
         '</div>' +
       '</aside>'
@@ -121,6 +133,7 @@
         : key === 'scanlines' ? (settings.scanlines ? 'on' : 'off')
         : key === 'opaque' ? (settings.opaque ? 'on' : 'off')
         : key === 'clock' ? (settings.clock ? 'on' : 'off')
+        : typeof settings[key] === 'boolean' ? (settings[key] ? 'on' : 'off')
         : settings[key];
       group.querySelectorAll('[data-value]').forEach(function (button) {
         button.classList.toggle('is-on', button.getAttribute('data-value') === value);

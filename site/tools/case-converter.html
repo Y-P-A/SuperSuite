@@ -18,19 +18,22 @@
           <textarea class="textarea" id="input" rows="6" placeholder="Type or paste the text you want to convert."></textarea>
         </div>
 
-        <span class="label" style="display:block;margin:14px 0 8px">Convert to</span>
-        <div class="chips" id="modes">
-          <button class="chip" type="button" data-mode="upper">UPPER</button>
-          <button class="chip" type="button" data-mode="lower">lower</button>
-          <button class="chip" type="button" data-mode="title">Title Case</button>
-          <button class="chip" type="button" data-mode="sentence">Sentence case</button>
-          <button class="chip" type="button" data-mode="camel">camelCase</button>
-          <button class="chip" type="button" data-mode="pascal">PascalCase</button>
-          <button class="chip" type="button" data-mode="snake">snake_case</button>
-          <button class="chip" type="button" data-mode="kebab">kebab-case</button>
-          <button class="chip" type="button" data-mode="constant">CONSTANT_CASE</button>
-          <button class="chip" type="button" data-mode="alternating">aLtErNaTiNg</button>
-          <button class="chip" type="button" data-mode="inverse">inVERT cASE</button>
+
+        <div class="field" style="margin-top:14px">
+          <label for="modes">Convert to</label>
+          <select class="select" id="modes">
+            <option value="upper">UPPER</option>
+            <option value="lower">lower</option>
+            <option value="title">Title Case</option>
+            <option value="sentence">Sentence case</option>
+            <option value="camel">camelCase</option>
+            <option value="pascal">PascalCase</option>
+            <option value="snake">snake_case</option>
+            <option value="kebab">kebab-case</option>
+            <option value="constant">CONSTANT_CASE</option>
+            <option value="alternating">aLtErNaTiNg</option>
+            <option value="inverse">inVERT cASE</option>
+          </select>
         </div>
 
         <div class="field" style="margin-top:16px">

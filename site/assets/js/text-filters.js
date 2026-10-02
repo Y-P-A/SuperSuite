@@ -132,9 +132,9 @@
     output.textContent = filter(base);
   }
 
-  document.getElementById('filters').addEventListener('click', (event) => {
-    const button = event.target.closest('[data-filter]');
-    if (button) apply(button.getAttribute('data-filter'));
+  document.getElementById('filters').addEventListener('change', (event) => apply(event.target.value));
+  document.getElementById('apply-filter').addEventListener('click', () => {
+    apply(document.getElementById('filters').value);
   });
 
   document.getElementById('copy-output').addEventListener('click', () => {

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Notes Pad — SuperSuite</title>
+    <title>TextHub — SuperSuite</title>
     <meta name="description" content="A plain notepad that saves to your browser as you type." />
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="/assets/css/style.css" />
@@ -13,6 +13,15 @@
   <body data-page="/tools/notes">
     <main class="wrap wrap--narrow">
       <section class="panel">
+        <div class="text-hub-toolbar">
+          <div class="field"><label for="note-list">Notebook</label><select class="select" id="note-list"></select></div>
+          <div class="field"><label for="note-title">Note title</label><input class="input" id="note-title" value="My note"></div>
+          <div class="field"><label for="note-font">Writing font</label><select class="select" id="note-font"><option value="system-ui">System sans</option><option value="serif">Book serif</option><option value="monospace">Monospace</option><option value="Georgia,serif">Georgia</option><option value="Verdana,sans-serif">Verdana</option><option value="Trebuchet MS,sans-serif">Trebuchet</option><option value="cursive">Cursive</option></select></div>
+          <div class="field"><label for="note-size">Font size</label><select class="select" id="note-size"><option>14</option><option selected>18</option><option>22</option><option>28</option><option>36</option></select></div>
+          <div class="field"><label for="note-find">Find in note</label><input class="input" id="note-find" type="search" placeholder="Search this note"></div>
+          <div class="field"><label for="note-symbol">Insert Unicode</label><select class="select" id="note-symbol"><option value="">Choose a symbol…</option><option>→</option><option>✓</option><option>★</option><option>♡</option><option>π</option><option>∞</option><option>≠</option><option>±</option><option>©</option><option>—</option><option>•</option></select></div>
+        </div>
+        <div class="btn-row" style="margin-bottom:16px"><button class="btn" id="note-new" type="button">New note</button><button class="btn" id="note-delete" type="button">Delete note</button><button class="btn" id="note-find-next" type="button">Find next</button><button class="btn" id="note-export-all" type="button">Export notebook</button></div>
         <div class="spread" style="margin-bottom:10px">
           <span class="label">Your note</span>
           <span class="small muted" id="saved">Saved automatically</span>

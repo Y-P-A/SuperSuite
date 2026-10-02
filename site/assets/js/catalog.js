@@ -568,7 +568,7 @@
       },
       {
         name: 'Eaglercraft',
-        desc: 'Minecraft in the browser — pick a client or a vanilla version.',
+        desc: 'Minecraft in the browser — classic versions, clients and modded builds.',
         href: '/games/eaglercraft',
         tone: 't-purple',
         icon: ICON.eaglercraft,

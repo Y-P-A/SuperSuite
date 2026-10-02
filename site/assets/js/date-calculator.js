@@ -58,13 +58,8 @@
       Math.floor(totalDays / 7).toLocaleString() + ' weeks, since ' + pretty(birth) + '.';
   }
 
-  document.getElementById('tabs').addEventListener('click', function (event) {
-    const button = event.target.closest('[data-tab]');
-    if (!button) return;
-    const tab = button.getAttribute('data-tab');
-    document.querySelectorAll('#tabs .chip').forEach(function (chip) {
-      chip.classList.toggle('is-active', chip === button);
-    });
+  document.getElementById('tabs').addEventListener('change', function (event) {
+    const tab = event.target.value;
     document.querySelectorAll('[data-panel]').forEach(function (panel) {
       panel.hidden = panel.getAttribute('data-panel') !== tab;
     });

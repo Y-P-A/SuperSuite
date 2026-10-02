@@ -63,13 +63,8 @@
       'A healthy weight for your height is about ' + weightInUnit(low) + ' to ' + weightInUnit(high) + '.';
   }
 
-  el('units').addEventListener('click', (event) => {
-    const chip = event.target.closest('[data-unit]');
-    if (!chip) return;
-    unit = chip.getAttribute('data-unit');
-    el('units').querySelectorAll('[data-unit]').forEach((button) => {
-      button.classList.toggle('is-active', button === chip);
-    });
+  el('units').addEventListener('change', (event) => {
+    unit = event.target.value;
     el('metric-fields').hidden = unit !== 'metric';
     el('imperial-fields').hidden = unit !== 'imperial';
     update();

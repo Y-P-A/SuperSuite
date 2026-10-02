@@ -13,10 +13,13 @@
   <body data-page="/tools/date-calculator">
     <main class="wrap wrap--narrow">
       <section class="panel">
-        <div class="chips" id="tabs">
-          <button class="chip is-active" type="button" data-tab="between">Days between</button>
-          <button class="chip" type="button" data-tab="shift">Add / subtract</button>
-          <button class="chip" type="button" data-tab="age">Age</button>
+        <div class="field">
+          <label for="tabs">Calculation</label>
+          <select class="select" id="tabs">
+            <option value="between" selected>Days between</option>
+            <option value="shift">Add / subtract</option>
+            <option value="age">Age</option>
+          </select>
         </div>
 
         <div data-panel="between" style="margin-top:18px">

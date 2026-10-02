@@ -43,10 +43,14 @@
   }
 
   function renderPicker() {
-    picker.innerHTML = Object.keys(CITIES).map(function (key) {
-      const on = active.indexOf(key) > -1;
-      return '<button class="chip' + (on ? ' is-active' : '') + '" type="button" data-city="' + key + '">' + CITIES[key].name + '</button>';
-    }).join('');
+    const available = Object.keys(CITIES).filter((key) => !active.includes(key));
+    picker.innerHTML = '<option value="">' + (available.length ? 'Pick a city…' : 'All cities added') + '</option>' +
+      available.map((key) => '<option value="' + key + '">' + CITIES[key].name + '</option>').join('');
+    picker.disabled = !available.length;
+    const remove = document.getElementById('remove-city');
+    remove.innerHTML = '<option value="">' + (active.length ? 'Pick a city…' : 'No cities to remove') + '</option>' +
+      active.map((key) => '<option value="' + key + '">' + CITIES[key].name + '</option>').join('');
+    remove.disabled = !active.length;
   }
 
   function renderClocks() {
@@ -76,16 +80,15 @@
     });
   }
 
-  picker.addEventListener('click', function (event) {
-    const button = event.target.closest('[data-city]');
-    if (!button) return;
-    const key = button.getAttribute('data-city');
-    active = active.indexOf(key) > -1
-      ? active.filter(function (k) { return k !== key; })
-      : active.concat(key);
-    renderPicker();
-    renderClocks();
-    tick();
+  [picker, document.getElementById('remove-city')].forEach(function (select) {
+    select.addEventListener('change', function (event) {
+      const key = event.target.value;
+      if (!key) return;
+      active = select === picker ? active.concat(key) : active.filter((city) => city !== key);
+      renderPicker();
+      renderClocks();
+      tick();
+    });
   });
 
   renderPicker();

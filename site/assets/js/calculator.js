@@ -153,6 +153,7 @@
       const trailing = currentNumber();
       if (trailing === '0') source = source.slice(0, -1) + key;
       else source += key;
+      render();
       return;
     }
 
@@ -230,6 +231,12 @@
     render();
   }
 
+  document.getElementById('memory-keys').addEventListener('click', (event) => {
+    const button = event.target.closest('[data-key]');
+    if (button) press(button.getAttribute('data-key'));
+    render();
+  });
+
   keypad.addEventListener('click', (event) => {
     const button = event.target.closest('[data-key]');
     if (button) press(button.getAttribute('data-key'));
@@ -247,7 +254,7 @@
   };
 
   document.addEventListener('keydown', (event) => {
-    if (event.metaKey || event.ctrlKey) return;
+    if (event.metaKey || event.ctrlKey || event.target.closest('input,textarea,select,[contenteditable]')) return;
     const key = event.key;
     let action = null;
     if (DIGITS.indexOf(key) > -1 || key === '.' || OPERATORS.indexOf(key) > -1 || key === '%') action = key;

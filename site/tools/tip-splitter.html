@@ -24,14 +24,18 @@
           </div>
         </div>
 
-        <span class="label" style="display:block;margin:16px 0 8px">Tip</span>
-        <div class="chips" id="tips">
-          <button class="chip" type="button" data-tip="0">No tip</button>
-          <button class="chip" type="button" data-tip="10">10%</button>
-          <button class="chip is-active" type="button" data-tip="15">15%</button>
-          <button class="chip" type="button" data-tip="18">18%</button>
-          <button class="chip" type="button" data-tip="20">20%</button>
-          <button class="chip" type="button" data-tip="25">25%</button>
+
+        <div class="field" style="margin-top:16px">
+          <label for="tips">Tip preset</label>
+          <select class="select" id="tips">
+            <option value="">Custom tip</option>
+            <option value="0">No tip</option>
+            <option value="10">10%</option>
+            <option value="15" selected>15%</option>
+            <option value="18">18%</option>
+            <option value="20">20%</option>
+            <option value="25">25%</option>
+          </select>
         </div>
 
         <div class="row" style="margin-top:12px">

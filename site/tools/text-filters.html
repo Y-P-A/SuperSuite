@@ -27,22 +27,23 @@
             <textarea class="textarea" id="input" spellcheck="false">SuperSuite has the good stuff.</textarea>
           </div>
 
-          <div>
-            <span class="label">Filters</span>
-            <div class="filter-grid" id="filters" style="margin-top: 8px">
-              <button class="btn" type="button" data-filter="mock">Mock</button>
-              <button class="btn" type="button" data-filter="uwu">UwU</button>
-              <button class="btn" type="button" data-filter="script">Script</button>
-              <button class="btn" type="button" data-filter="bubble">Bubble</button>
-              <button class="btn" type="button" data-filter="smallcaps">Small Caps</button>
-              <button class="btn" type="button" data-filter="fullwidth">Fullwidth</button>
-              <button class="btn" type="button" data-filter="upsidedown">Upside Down</button>
-              <button class="btn" type="button" data-filter="leet">Leet Speak</button>
-              <button class="btn" type="button" data-filter="reverse">Reverse</button>
-              <button class="btn" type="button" data-filter="morse">Morse</button>
-              <button class="btn" type="button" data-filter="nato">NATO Alphabet</button>
-              <button class="btn" type="button" data-filter="zalgo">Zalgo</button>
-            </div>
+          <div class="field">
+            <label for="filters">Filter</label>
+            <select class="select" id="filters">
+              <option value="mock">Mock</option>
+              <option value="uwu">UwU</option>
+              <option value="script">Script</option>
+              <option value="bubble">Bubble</option>
+              <option value="smallcaps">Small Caps</option>
+              <option value="fullwidth">Fullwidth</option>
+              <option value="upsidedown">Upside Down</option>
+              <option value="leet">Leet Speak</option>
+              <option value="reverse">Reverse</option>
+              <option value="morse">Morse</option>
+              <option value="nato">NATO Alphabet</option>
+              <option value="zalgo">Zalgo</option>
+            </select>
+            <div class="btn-row"><button class="btn" type="button" id="apply-filter">Apply filter</button></div>
           </div>
 
           <div class="field">

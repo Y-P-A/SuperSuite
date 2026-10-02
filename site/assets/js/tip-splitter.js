@@ -14,6 +14,7 @@
     const amount = Math.max(0, Number(bill.value) || 0);
     const count = Math.max(1, Math.min(50, Math.floor(Number(people.value) || 1)));
     const percent = Math.max(0, Number(custom.value) || 0);
+    tips.value = Array.from(tips.options).some((option) => option.value === String(percent)) ? String(percent) : '';
 
     const tip = amount * percent / 100;
     const total = amount + tip;
@@ -31,11 +32,9 @@
       (roundUp.checked ? ' (rounded up, ' + money(collected) + ' collected)' : '') + '.';
   }
 
-  tips.addEventListener('click', function (event) {
-    const button = event.target.closest('[data-tip]');
-    if (!button) return;
-    custom.value = button.getAttribute('data-tip');
-    tips.querySelectorAll('.chip').forEach(function (chip) { chip.classList.toggle('is-active', chip === button); });
+  tips.addEventListener('change', function (event) {
+    if (!event.target.value) return;
+    custom.value = event.target.value;
     render();
   });
 

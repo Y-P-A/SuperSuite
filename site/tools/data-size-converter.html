@@ -13,9 +13,12 @@
   <body data-page="/tools/data-size-converter">
     <main class="wrap wrap--narrow">
       <section class="panel">
-        <div class="chips" id="modes">
-          <button class="chip is-active" type="button" data-mode="decimal">Decimal (1000) — KB, MB, GB</button>
-          <button class="chip" type="button" data-mode="binary">Binary (1024) — KiB, MiB, GiB</button>
+        <div class="field">
+          <label for="modes">Unit system</label>
+          <select class="select" id="modes">
+            <option value="decimal" selected>Decimal (1000) — KB, MB, GB</option>
+            <option value="binary">Binary (1024) — KiB, MiB, GiB</option>
+          </select>
         </div>
 
         <div class="two-col" style="margin-top: 18px">

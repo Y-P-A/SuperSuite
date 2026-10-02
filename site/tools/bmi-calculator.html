@@ -13,9 +13,12 @@
   <body data-page="/tools/bmi-calculator">
     <main class="wrap wrap--narrow">
       <section class="panel">
-        <div class="chips" id="units">
-          <button class="chip is-active" type="button" data-unit="metric">Metric (cm / kg)</button>
-          <button class="chip" type="button" data-unit="imperial">Imperial (ft, in / lb)</button>
+        <div class="field">
+          <label for="units">Units</label>
+          <select class="select" id="units">
+            <option value="metric" selected>Metric (cm / kg)</option>
+            <option value="imperial">Imperial (ft, in / lb)</option>
+          </select>
         </div>
 
         <div class="two-col" style="margin-top: 18px">

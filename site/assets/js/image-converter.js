@@ -4,7 +4,7 @@
    pdf.js. PDF output is written by hand: a tiny PDF holding each page's JPEG
    with the DCTDecode filter, so no PDF library is needed. */
 (function () {
-  const MIME = { png: 'image/png', jpg: 'image/jpeg', pdf: 'application/pdf' };
+  const MIME = { png: 'image/png', jpg: 'image/jpeg', webp: 'image/webp', bmp: 'image/bmp', svg: 'image/svg+xml', pdf: 'application/pdf' };
   const PAGE_W = 595.28; /* A4 in points */
   const PAGE_H = 841.89;
   const MARGIN = 24;
@@ -232,10 +232,11 @@
     const item = document.createElement('div');
     item.className = 'out-item';
 
-    const thumb = document.createElement(blob.type === MIME.pdf ? 'span' : 'img');
-    if (blob.type === MIME.pdf) {
+    const image = blob.type.startsWith('image/');
+    const thumb = document.createElement(image ? 'img' : 'span');
+    if (!image) {
       thumb.className = 'out-item__file mono';
-      thumb.textContent = 'PDF';
+      thumb.textContent = name.split('.').pop().toUpperCase();
     } else {
       thumb.src = url;
       thumb.alt = name;
@@ -285,13 +286,22 @@
     const format = formatEl.value;
     const quality = Number(qualityEl.value) / 100;
     const longest = Number(sizeEl.value);
-    const opaque = format !== 'png';
+    const opaque = ['jpg', 'pdf', 'bmp'].includes(format);
     const background = opaque ? backgroundEl.value : null;
 
     setBusy(true);
     clearOutputs();
 
     try {
+      const mediaFormat = ['mp4', 'webm', 'gif', 'mp3', 'wav'].includes(format);
+      const mediaInput = files.some(file => /^(video|audio)\//.test(file.type) || /\.(mp4|webm|mkv|mov|avi|mp3|wav|ogg|m4a|flac)$/i.test(file.name));
+      if (mediaFormat || mediaInput) {
+        const results = await SS.convertMedia(files, format, statusEl);
+        results.forEach(result => showOutput(result.name, result.blob, result.note));
+        summaryEl.textContent = results.length + ' file(s) converted locally.';
+        statusEl.textContent = 'Done — ' + results.length + ' file(s) converted.';
+        return;
+      }
       const pages = [];
 
       for (const file of files) {
@@ -328,7 +338,8 @@
       } else {
         for (const page of pages) {
           statusEl.textContent = 'Writing ' + page.name + '…';
-          const blob = await toBlob(page.canvas, MIME[format], quality);
+          const blob = ['bmp', 'svg'].includes(format) ? await SS.imageExtra(page.canvas, format) : await toBlob(page.canvas, MIME[format], quality);
+          if (blob.type !== MIME[format]) throw new Error('This browser cannot encode ' + format.toUpperCase() + '. Choose PNG or JPG instead.');
           showOutput(page.name, blob, page.canvas.width + ' × ' + page.canvas.height + ' px');
         }
         summaryEl.textContent = pages.length + (pages.length === 1 ? ' file' : ' files') + ' converted to ' + label() + '.';
@@ -367,8 +378,8 @@
 
   function syncOptions() {
     const format = formatEl.value;
-    qualityField.hidden = format === 'png';
-    backgroundField.hidden = format === 'png';
+    qualityField.hidden = !['jpg', 'webp', 'pdf'].includes(format);
+    backgroundField.hidden = !['jpg', 'pdf', 'bmp'].includes(format);
     qualityVal.textContent = qualityEl.value;
     convertBtn.textContent = 'Convert to ' + label();
   }
