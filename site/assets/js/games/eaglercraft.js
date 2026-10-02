@@ -36,8 +36,8 @@
   const noteEl = document.getElementById('version-note');
   const groups = {
     Clients: ['astra', 'astra2', 'eclipse', 'resent', 'pixel', 'larp'],
-    'Classic versions': ['beta181', 'js10', 'wasm123', 'js152', 'js164', 'js188', 'wasm188', 'js1122', 'wasm1122', 'js1165', 'wasm1165'],
-    'Modded builds': ['wasm1206', 'wasm262']
+    'Classic versions': ['beta181', 'js10', 'wasm123', 'js152', 'js164', 'js188', 'wasm188', 'js1122', 'wasm1122', 'js1165', 'wasm1165', 'wasm262'],
+    'Modded builds': ['wasm1206']
   };
   Object.keys(groups).forEach(function (label) {
     const group = document.createElement('optgroup');
