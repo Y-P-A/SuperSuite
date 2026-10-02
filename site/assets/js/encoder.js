@@ -136,9 +136,9 @@
 
   function renderModes() {
     modesEl.innerHTML = MODES.map(function (mode) {
-      const current = mode.id === active.id ? ' is-active' : '';
-      return '<button class="chip' + current + '" type="button" data-mode="' + mode.id + '">' + mode.label + '</button>';
+      return '<option value="' + mode.id + '">' + mode.label + '</option>';
     }).join('');
+    modesEl.value = active.id;
     hintEl.textContent = active.hint;
   }
 
@@ -160,10 +160,8 @@
     }
   }
 
-  modesEl.addEventListener('click', function (event) {
-    const chip = event.target.closest('[data-mode]');
-    if (!chip) return;
-    active = MODES.filter(function (mode) { return mode.id === chip.getAttribute('data-mode'); })[0];
+  modesEl.addEventListener('change', function (event) {
+    active = MODES.find(function (mode) { return mode.id === event.target.value; });
     renderModes();
     run('encode');
   });

@@ -152,13 +152,8 @@
   sepEl.addEventListener('change', function () {
     if (mode.value === 'passphrase') generatePassphrase();
   });
-  modeEl.addEventListener('click', function (event) {
-    const chip = event.target.closest('[data-mode]');
-    if (!chip) return;
-    mode.value = chip.getAttribute('data-mode');
-    modeEl.querySelectorAll('.chip').forEach(function (item) {
-      item.classList.toggle('is-active', item === chip);
-    });
+  modeEl.addEventListener('change', function (event) {
+    mode.value = event.target.value;
     const phrase = mode.value === 'passphrase';
     lengthField.hidden = phrase;
     phraseOpts.hidden = !phrase;

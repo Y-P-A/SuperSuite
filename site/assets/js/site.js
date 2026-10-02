@@ -24,7 +24,7 @@
       '<footer class="footer">' +
         '<div class="footer__inner">' +
           '<span>SuperSuite — handpicked utilities and unblocked games. No login, ever.</span>' +
-          '<span>Build 0.5 (Beta 5) · <a href="/utilities/">Utilities</a> · <a href="/games/">Games</a></span>' +
+          '<span>Build 0.5.5 (Beta 5) · <a href="/utilities/">Utilities</a> · <a href="/games/">Games</a></span>' +
         '</div>' +
       '</footer>'
     );

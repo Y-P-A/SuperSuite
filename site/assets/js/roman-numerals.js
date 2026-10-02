@@ -63,13 +63,12 @@
   });
 
   const samples = [4, 9, 14, 40, 90, 400, 1984, 2026, 3999];
-  document.getElementById('table').innerHTML = samples.map(function (n) {
-    return '<button class="chip" type="button" data-n="' + n + '">' + n + ' = ' + toRoman(n) + '</button>';
+  document.getElementById('table').innerHTML = '<option value="">Pick an example…</option>' + samples.map(function (n) {
+    return '<option value="' + n + '">' + n + ' = ' + toRoman(n) + '</option>';
   }).join('');
-  document.getElementById('table').addEventListener('click', function (event) {
-    const button = event.target.closest('[data-n]');
-    if (!button) return;
-    number.value = button.getAttribute('data-n');
+  document.getElementById('table').addEventListener('change', function (event) {
+    if (!event.target.value) return;
+    number.value = event.target.value;
     fromNumber();
   });
 

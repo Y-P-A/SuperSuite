@@ -1,4 +1,4 @@
-/* Eaglercraft launcher: one iframe, a shelf of clients plus the vanilla
+/* Eaglercraft launcher: one iframe, a grouped dropdown of clients and
    versions, remembered between visits. Everything comes from the GX Launcher
    page, which serves the builds as plain pages that may be framed. */
 (function () {
@@ -18,13 +18,33 @@
     js1165: { label: '1.16.5 · JS', url: BASE + '1.16.5/index.html', heavy: true },
     wasm188: { label: '1.8.8 · WASM', url: BASE + '1.8.8-wasm/index.html' },
     wasm1122: { label: '1.12.2 · WASM', url: BASE + '1.12.2-wasm/index.html' },
-    wasm1165: { label: '1.16.5 · WASM', url: BASE + '1.16.5-wasm/index.html', heavy: true }
+    wasm1165: { label: '1.16.5 · WASM', url: BASE + '1.16.5-wasm/index.html', heavy: true },
+    beta181: { label: 'Beta 1.8.1 · WASM', url: BASE + 'beta-1.8.1-wasm/index.html' },
+    js10: { label: '1.0 · JS', url: BASE + '1.0/index.html' },
+    wasm123: { label: '1.2.3 · WASM', url: BASE + '1.2.3-wasm/index.html' },
+    js164: { label: '1.6.4 · JS', url: BASE + '1.6.4/index.html' },
+    wasm1206: { label: '1.20.6 · WASM (modded)', url: BASE + '1.20.6-wasm/index.html', note: 'This is a modded 1.20.6 build.' },
+    wasm262: { label: '26.2 · WASM', url: BASE + '26.2-wasm/index.html', note: 'The initial black screen is the loading screen, not a crash. This build is lightweight and heavily based on 1.8.8 — give it time to finish loading.' }
   };
 
   const frame = document.getElementById('game');
   const holder = document.getElementById('frame');
   const currentEl = document.getElementById('current');
   const warningEl = document.getElementById('heavy-warning');
+
+  const versionEl = document.getElementById('version');
+  const noteEl = document.getElementById('version-note');
+  const groups = {
+    Clients: ['astra', 'astra2', 'eclipse', 'resent', 'pixel', 'larp'],
+    'Classic versions': ['beta181', 'js10', 'wasm123', 'js152', 'js164', 'js188', 'wasm188', 'js1122', 'wasm1122', 'js1165', 'wasm1165'],
+    'Modded builds': ['wasm1206', 'wasm262']
+  };
+  Object.keys(groups).forEach(function (label) {
+    const group = document.createElement('optgroup');
+    group.label = label;
+    groups[label].forEach(function (id) { group.appendChild(new Option(VERSIONS[id].label, id)); });
+    versionEl.appendChild(group);
+  });
 
   let active = 'astra';
 
@@ -44,17 +64,21 @@
     frame.src = entry.url;
     currentEl.textContent = entry.label;
     warningEl.hidden = !entry.heavy;
-    document.querySelectorAll('[data-version]').forEach(function (button) {
-      button.classList.toggle('is-active', button.getAttribute('data-version') === version);
-    });
+    versionEl.value = version;
+    noteEl.textContent = entry.note || ({
+      astra: 'Recommended — the best all-round client.',
+      astra2: 'Newer Astra build.', eclipse: 'Tuned for PvP.', resent: 'Light and smooth.',
+      pixel: 'Client for 1.12.2.', larp: 'Another 1.12.2 pick.',
+      js152: 'Lightest — runs on almost anything.', js188: 'PvP classic, no WASM needed.',
+      wasm188: 'Faster 1.8.8 for modern devices.', js1122: 'More blocks, more world.',
+      wasm1122: 'Smoother 1.12.2.', js1165: 'Newest vanilla content — heavy.',
+      wasm1165: 'Newest and heaviest vanilla build.'
+    }[version] || 'Click inside the game after it loads to grab mouse control.');
     try { localStorage.setItem(STORE_KEY, version); } catch (err) { /* ignore */ }
   }
 
-  document.querySelectorAll('#versions, #versions-vanilla').forEach(function (grid) {
-    grid.addEventListener('click', function (event) {
-      const button = event.target.closest('[data-version]');
-      if (button) select(button.getAttribute('data-version'));
-    });
+  versionEl.addEventListener('change', function (event) {
+    select(event.target.value);
   });
 
   document.getElementById('reload').addEventListener('click', function () {

@@ -64,6 +64,9 @@
     const m = Math.max(0, Number(minutes.value) || 0);
     const s = Math.max(0, Math.min(59, Number(seconds.value) || 0));
     total = (m * 60 + s) * 1000;
+    const presets = document.getElementById('presets');
+    presets.value = Array.from(presets.options).some((option) => option.value === String(total / 1000))
+      ? String(total / 1000) : '';
     return total;
   }
 
@@ -102,10 +105,9 @@
   [minutes, seconds].forEach(function (el) {
     el.addEventListener('input', function () { if (!running) reset(); });
   });
-  document.getElementById('presets').addEventListener('click', function (event) {
-    const button = event.target.closest('[data-seconds]');
-    if (!button) return;
-    const value = Number(button.getAttribute('data-seconds'));
+  document.getElementById('presets').addEventListener('change', function (event) {
+    if (!event.target.value) return;
+    const value = Number(event.target.value);
     minutes.value = String(Math.floor(value / 60));
     seconds.value = String(value % 60);
     reset();

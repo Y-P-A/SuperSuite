@@ -135,7 +135,23 @@ markup and have no `data-page`; both styles coexist.
   Quick navigation lazily loads `catalog.js` on older pages that don't include it.
   Its home anchor remains a normal `/` link, and release-click suppression is scoped
   to the hold gesture (reset in the next task, not permanently).
-- Build 0.5 / Beta 5 is displayed in the home badge, shared footer, and settings.
+- Build 0.5.5 / Beta 5 is displayed in the home badge, shared footer, and settings.
+- Utility choice groups now use native `<select>` controls with `change` listeners.
+  Action buttons and read-only keyword chips remain buttons/spans. World Clock uses
+  separate add/remove city dropdowns to preserve multiple clocks; Text Filters keeps
+  an Apply button so repeating the same chained filter still works. Music Lab sound
+  and drum selects keep the old IDs, audio previews, undo, preset and saved-song sync.
+- Eaglercraft's `#version` dropdown is populated from VERSIONS and grouped in its script.
+  Build 0.5.5 adds Beta 1.8.1 WASM, 1.0 JS, 1.2.3 WASM, 1.6.4 JS, modded 1.20.6 WASM,
+  and 26.2 WASM. All six GX URLs returned HTTP 200. 26.2's black loading screen is normal;
+  its note describes the lightweight 1.8.8-based build. Only 1.16.5 has the heavy warning.
+- Build 0.5.5 dropdown interactions were checked in isolated Chromium at localhost:
+  units, conversions, timer presets, dates, encoding, map URLs, music undo/save/load,
+  password modes, Roman examples, recent slugs, chained filters, tips, world clocks,
+  and all six Eaglercraft selections plus localStorage persistence. Geometry checks
+  passed at widths 1175 and 390. Cross-origin game/map contents were not inspected;
+  external frames were blocked in isolated tests. The user's live preview tool was
+  unavailable, so visual appearance there was not automatically verified.
 - No secrets, database, or external services.
 
 ## Verifying changes (no browser needed)

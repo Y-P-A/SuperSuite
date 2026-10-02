@@ -39,14 +39,13 @@
     if (!value) return;
     SS.copy(value);
     saved = [value].concat(saved.filter(function (s) { return s !== value; })).slice(0, 8);
-    recent.innerHTML = saved.map(function (s) {
-      return '<button class="chip" type="button" data-slug="' + s.replace(/"/g, '&quot;') + '">' + s + '</button>';
-    }).join('');
+    recent.replaceChildren(new Option('Pick a recent slug…', ''));
+    saved.forEach(function (s) { recent.add(new Option(s, s)); });
+    recent.disabled = false;
   });
 
-  recent.addEventListener('click', function (event) {
-    const button = event.target.closest('[data-slug]');
-    if (button) { input.value = button.getAttribute('data-slug'); render(); }
+  recent.addEventListener('change', function (event) {
+    if (event.target.value) { input.value = event.target.value; render(); }
   });
 
   render();

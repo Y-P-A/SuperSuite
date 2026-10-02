@@ -48,15 +48,11 @@
 
   function render() {
     output.textContent = TRANSFORM[mode](input.value);
-    modes.querySelectorAll('[data-mode]').forEach(function (button) {
-      button.classList.toggle('is-active', button.getAttribute('data-mode') === mode);
-    });
+    modes.value = mode;
   }
 
-  modes.addEventListener('click', function (event) {
-    const button = event.target.closest('[data-mode]');
-    if (!button) return;
-    mode = button.getAttribute('data-mode');
+  modes.addEventListener('change', function (event) {
+    mode = event.target.value;
     render();
   });
 

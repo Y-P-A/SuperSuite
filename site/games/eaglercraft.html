@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Eaglercraft — SuperSuite</title>
-    <meta name="description" content="Minecraft in the browser through Eaglercraft — Astra, Eclipse, Resent, Pixel and Larp clients plus the classic 1.5.2, 1.8.8, 1.12.2 and 1.16.5 versions in both JS and WASM builds." />
+    <meta name="description" content="Minecraft in the browser through Eaglercraft — Astra, Eclipse, Resent, Pixel and Larp clients plus Beta 1.8.1, 1.0, 1.2.3, 1.5.2, 1.6.4, 1.8.8, 1.12.2, 1.16.5, modded 1.20.6 and 26.2 builds." />
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="/assets/css/style.css" />
     <link rel="stylesheet" href="/assets/css/rewind.css" />
@@ -21,64 +21,10 @@
           <span class="badge">Game 05</span>
         </div>
 
-        <p class="label">Clients</p>
-        <div class="version-grid" id="versions" style="margin-bottom: 16px">
-          <button class="btn" type="button" data-version="astra">
-            Astra Client &middot; 1.8.8
-            <span class="small muted" style="display:block;letter-spacing:0;text-transform:none;margin-top:4px">Recommended — the best all-round client</span>
-          </button>
-          <button class="btn" type="button" data-version="astra2">
-            Astra Client 2 &middot; 1.8.8
-            <span class="small muted" style="display:block;letter-spacing:0;text-transform:none;margin-top:4px">Newer Astra build</span>
-          </button>
-          <button class="btn" type="button" data-version="eclipse">
-            Eclipse Client &middot; 1.8.8
-            <span class="small muted" style="display:block;letter-spacing:0;text-transform:none;margin-top:4px">Tuned for PvP</span>
-          </button>
-          <button class="btn" type="button" data-version="resent">
-            Resent Client
-            <span class="small muted" style="display:block;letter-spacing:0;text-transform:none;margin-top:4px">Light and smooth</span>
-          </button>
-          <button class="btn" type="button" data-version="pixel">
-            Pixel Client &middot; 1.12.2
-            <span class="small muted" style="display:block;letter-spacing:0;text-transform:none;margin-top:4px">Client for 1.12.2</span>
-          </button>
-          <button class="btn" type="button" data-version="larp">
-            Larp Client &middot; 1.12.2
-            <span class="small muted" style="display:block;letter-spacing:0;text-transform:none;margin-top:4px">Another 1.12.2 pick</span>
-          </button>
-        </div>
-
-        <p class="label">Vanilla versions</p>
-        <div class="version-grid" id="versions-vanilla" style="margin-bottom: 14px">
-          <button class="btn" type="button" data-version="js152">
-            1.5.2 &middot; JS
-            <span class="small muted" style="display:block;letter-spacing:0;text-transform:none;margin-top:4px">Lightest — runs on almost anything</span>
-          </button>
-          <button class="btn" type="button" data-version="js188">
-            1.8.8 &middot; JS
-            <span class="small muted" style="display:block;letter-spacing:0;text-transform:none;margin-top:4px">PvP classic, no WASM needed</span>
-          </button>
-          <button class="btn" type="button" data-version="wasm188">
-            1.8.8 &middot; WASM
-            <span class="small muted" style="display:block;letter-spacing:0;text-transform:none;margin-top:4px">Faster 1.8.8 for modern devices</span>
-          </button>
-          <button class="btn" type="button" data-version="js1122">
-            1.12.2 &middot; JS
-            <span class="small muted" style="display:block;letter-spacing:0;text-transform:none;margin-top:4px">More blocks, more world</span>
-          </button>
-          <button class="btn" type="button" data-version="wasm1122">
-            1.12.2 &middot; WASM
-            <span class="small muted" style="display:block;letter-spacing:0;text-transform:none;margin-top:4px">Smoother 1.12.2</span>
-          </button>
-          <button class="btn" type="button" data-version="js1165">
-            1.16.5 &middot; JS
-            <span class="small muted" style="display:block;letter-spacing:0;text-transform:none;margin-top:4px">Newest content — heavy</span>
-          </button>
-          <button class="btn" type="button" data-version="wasm1165">
-            1.16.5 &middot; WASM
-            <span class="small muted" style="display:block;letter-spacing:0;text-transform:none;margin-top:4px">Newest and heaviest</span>
-          </button>
+        <div class="field" style="margin-bottom:14px">
+          <label for="version">Client or version</label>
+          <select class="select" id="version"></select>
+          <p class="small muted" id="version-note" aria-live="polite"></p>
         </div>
 
         <p class="warn" id="heavy-warning" hidden>
@@ -105,7 +51,7 @@
         <ul class="keys">
           <li>Click inside the game once so it can lock your mouse. <span class="kbd">Esc</span> releases it.</li>
           <li>Client builds are single files of 18-56 MB, so the first load takes a moment; after that the browser has them cached.</li>
-          <li>Stuck on a blank frame? Give it a moment, or press <em>Reload game</em>.</li>
+          <li>A black screen in 26.2 is its loading screen, not a crash — let it finish loading. For other builds, give a blank frame a moment before using <em>Reload game</em>.</li>
         </ul>
       </section>
     </main>

@@ -193,11 +193,11 @@
     }).join('');
   }
 
-  function renderChips() {
+  function renderCategories() {
     catsEl.innerHTML = CATEGORIES.map(function (category) {
-      const current = category.id === active.id ? ' is-active' : '';
-      return '<button class="chip' + current + '" type="button" data-cat="' + category.id + '">' + category.label + '</button>';
+      return '<option value="' + category.id + '">' + category.label + '</option>';
     }).join('');
+    catsEl.value = active.id;
   }
 
   function fillSelects(pair) {
@@ -225,13 +225,11 @@
       ' = ' + format(converted) + ' ' + (to.symbol || to.label);
   }
 
-  catsEl.addEventListener('click', function (event) {
-    const chip = event.target.closest('[data-cat]');
-    if (!chip) return;
-    active = CATEGORIES.filter(function (category) {
-      return category.id === chip.getAttribute('data-cat');
-    })[0];
-    renderChips();
+  catsEl.addEventListener('change', function (event) {
+    active = CATEGORIES.find(function (category) {
+      return category.id === event.target.value;
+    });
+    renderCategories();
     fillSelects();
     render();
   });
@@ -262,7 +260,7 @@
     render();
   });
 
-  renderChips();
+  renderCategories();
   fillSelects();
   render();
 })();

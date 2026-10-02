@@ -25,15 +25,15 @@
     frame.src = embedUrl();
     openMaps.href = publicUrl();
     zoomVal.textContent = String(state.zoom);
-    document.querySelectorAll('[data-maptype]').forEach((chip) => {
-      chip.classList.toggle('is-active', chip.getAttribute('data-maptype') === state.type);
-    });
+    document.getElementById('map-type').value = state.type;
     if (message) statusEl.textContent = message;
   }
 
   function setQuery(value, message) {
     state.query = value.trim() || state.query;
     queryEl.value = state.query;
+    const places = document.getElementById('places');
+    places.value = Array.from(places.options).some((option) => option.value === state.query) ? state.query : '';
     const coords = state.query.match(/^\s*(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)\s*$/);
     render(message || (coords
       ? 'Showing the pin at ' + coords[1] + ', ' + coords[2] + '.'
@@ -45,11 +45,9 @@
     setQuery(queryEl.value);
   });
 
-  document.querySelectorAll('[data-maptype]').forEach((chip) => {
-    chip.addEventListener('click', () => {
-      state.type = chip.getAttribute('data-maptype');
-      render('Map type: ' + TYPE_LABEL[state.type] + '.');
-    });
+  document.getElementById('map-type').addEventListener('change', (event) => {
+    state.type = event.target.value;
+    render('Map type: ' + TYPE_LABEL[state.type] + '.');
   });
 
   document.querySelectorAll('[data-zoom]').forEach((button) => {
@@ -60,8 +58,8 @@
     });
   });
 
-  document.querySelectorAll('[data-place]').forEach((chip) => {
-    chip.addEventListener('click', () => setQuery(chip.getAttribute('data-place')));
+  document.getElementById('places').addEventListener('change', (event) => {
+    if (event.target.value) setQuery(event.target.value);
   });
 
   document.getElementById('locate').addEventListener('click', () => {

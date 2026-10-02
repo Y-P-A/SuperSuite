@@ -93,13 +93,8 @@
     return { bit: 'bits', byte: 'bytes', kb: 'KB', mb: 'MB', gb: 'GB', tb: 'TB', pb: 'PB', kib: 'KiB', mib: 'MiB', gib: 'GiB', tib: 'TiB', pib: 'PiB' }[id] || id;
   }
 
-  el('modes').addEventListener('click', (event) => {
-    const chip = event.target.closest('[data-mode]');
-    if (!chip) return;
-    mode = chip.getAttribute('data-mode');
-    el('modes').querySelectorAll('[data-mode]').forEach((button) => {
-      button.classList.toggle('is-active', button === chip);
-    });
+  el('modes').addEventListener('change', (event) => {
+    mode = event.target.value;
     fillSelect(el('from'), EQUIVALENT[el('from').value]);
     fillSelect(el('to'), EQUIVALENT[el('to').value]);
     update();
@@ -110,9 +105,7 @@
 
   el('reset').addEventListener('click', () => {
     mode = 'decimal';
-    el('modes').querySelectorAll('[data-mode]').forEach((button) => {
-      button.classList.toggle('is-active', button.getAttribute('data-mode') === 'decimal');
-    });
+    el('modes').value = mode;
     el('amount').value = '1500';
     el('speed').value = '100';
     fillSelect(el('from'), 'mb');
