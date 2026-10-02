@@ -324,10 +324,10 @@
 
   function renderSounds() {
     el('ml-sounds').innerHTML = SOUNDS.map((sound) =>
-      '<button class="btn ml-chip' + (sound.id === song.sound ? ' is-active' : '') +
+      '<button class="ml-button ml-chip' + (sound.id === song.sound ? ' is-active' : '') +
       '" type="button" data-sound="' + sound.id + '">' + sound.label + '</button>').join('');
     el('ml-drums').innerHTML = DRUMS.map((drum) =>
-      '<button class="btn ml-chip' + (drum.id === song.drum ? ' is-active' : '') +
+      '<button class="ml-button ml-chip ml-drumchip' + (drum.id === song.drum ? ' is-active' : '') +
       '" type="button" data-drum="' + drum.id + '">' + drum.label + '</button>').join('');
   }
 

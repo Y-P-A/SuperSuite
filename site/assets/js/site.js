@@ -3,27 +3,11 @@
 (function () {
   const SS = (window.SS = window.SS || {});
 
-  const NAV = [
-    { href: '/', label: 'Home' },
-    { href: '/utilities/', label: 'Utilities' },
-    { href: '/games/', label: 'Games' }
-  ];
-
   const DARK_ICON_TONES = ['t-yellow'];
 
-  function currentSection() {
-    const path = location.pathname;
-    if (path.indexOf('/games') === 0) return '/games';
-    if (path.indexOf('/tools') === 0 || path.indexOf('/utilities') === 0) return '/utilities';
-    return '/';
-  }
-
   function headerHTML() {
-    const active = currentSection();
-    const links = NAV.map(function (item) {
-      const current = item.href.replace(/\/$/, '') === active ? ' aria-current="page"' : '';
-      return '<a href="' + item.href + '"' + current + '>' + item.label + '</a>';
-    }).join('');
+    const links = '<a class="home-shortcut" id="ss-home" href="/" aria-label="Home" aria-haspopup="dialog" aria-controls="ss-quick-nav" aria-expanded="false" title="Home · right-click or hold for quick navigation">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m3 10 9-7 9 7v10H15v-6H9v6H3z"/></svg></a>';
     return (
       '<header class="topbar">' +
         '<div class="topbar__inner">' +
@@ -40,7 +24,7 @@
       '<footer class="footer">' +
         '<div class="footer__inner">' +
           '<span>SuperSuite — handpicked utilities and unblocked games. No login, ever.</span>' +
-          '<span>Updated monthly · <a href="/utilities/">Utilities</a> · <a href="/games/">Games</a></span>' +
+          '<span>Build 0.5 (Beta 5) · <a href="/utilities/">Utilities</a> · <a href="/games/">Games</a></span>' +
         '</div>' +
       '</footer>'
     );
@@ -144,9 +128,15 @@
   }
 
   function mountSettings() {
-    const tag = document.createElement('script');
-    tag.src = '/assets/js/settings.js';
-    document.head.appendChild(tag);
+    const style = document.createElement('link');
+    style.rel = 'stylesheet';
+    style.href = '/assets/css/experience.css';
+    document.head.appendChild(style);
+    ['settings', 'quick-nav'].forEach(function (name) {
+      const tag = document.createElement('script');
+      tag.src = '/assets/js/' + name + '.js';
+      document.head.appendChild(tag);
+    });
   }
 
   function mount() {

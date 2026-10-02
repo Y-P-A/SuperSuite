@@ -17,7 +17,15 @@
     scanlines: false,
     motion: true,
     opaque: false,
-    clock: false
+    clock: false,
+    clockFormat: 'local',
+    font: 'system',
+    reading: 'normal',
+    descriptions: true,
+    tags: true,
+    decorations: true,
+    stickyHeader: true,
+    footer: true
   };
 
   const root = document.documentElement;
@@ -61,6 +69,11 @@
     root.setAttribute('data-scale', settings.scale);
     root.setAttribute('data-cards', settings.cards);
     root.setAttribute('data-width', settings.width);
+    root.setAttribute('data-font', settings.font);
+    root.setAttribute('data-reading', settings.reading);
+    ['descriptions', 'tags', 'decorations', 'stickyHeader', 'footer'].forEach(function (key) {
+      root.classList.toggle('ss-hide-' + key, !settings[key]);
+    });
     root.classList.toggle('ss-glow', !!settings.glow);
     root.classList.toggle('ss-scanlines', !!settings.scanlines);
     root.classList.toggle('ss-motion-off', !settings.motion);
@@ -88,7 +101,9 @@
     el.hidden = false;
     const tick = function () {
       const now = new Date();
-      el.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const options = { hour: '2-digit', minute: '2-digit' };
+      if (settings.clockFormat !== 'local') options.hour12 = settings.clockFormat === '12h';
+      el.textContent = now.toLocaleTimeString([], options);
     };
     tick();
     clockTimer = setInterval(tick, 20000);
@@ -109,7 +124,10 @@
       corners: ['sharp', 'soft', 'round'],
       scale: ['small', 'normal', 'large'],
       cards: ['compact', 'normal', 'large', 'list'],
-      width: ['normal', 'wide']
+      width: ['normal', 'wide'],
+      font: ['system', 'serif', 'mono'],
+      reading: ['normal', 'relaxed'],
+      clockFormat: ['local', '12h', '24h']
     },
     get: function () { return Object.assign({}, settings); },
     set: function (key, value) { settings[key] = value; save(); apply(); },

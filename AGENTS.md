@@ -16,8 +16,11 @@ site/
   assets/css/style.css  the design system: tokens, shell, catalog, tools, games
   assets/css/rewind.css era themes (2010s/2000s/1990s/2020s), every user setting,
                         and the settings drawer
-  assets/css/music-lab.css  loaded only by /tools/music-lab — the note grid and the
-                        instrument cards, built from the same tokens so eras restyle it
+  assets/css/music-lab.css  loaded only by /tools/music-lab — scoped Slate Composer
+                        section; intentionally keeps its approved palette across eras
+  assets/css/experience.css optional reading/catalog settings and quick navigation
+  assets/js/quick-nav.js home shortcut: tap goes home; right-click/550ms hold opens
+                        catalog sidebar (Alt+ArrowDown also opens it)
   assets/js/rewind.js   settings STORE — loaded in <head> on every page so the chosen
                         era paints before the body (no flash of the wrong decade)
   assets/js/settings.js settings UI — gear button + drawer; injected by site.js
@@ -125,6 +128,14 @@ markup and have no `data-page`; both styles coexist.
   `ensureAudio` in `assets/js/morse-code.js`). A fresh context per press runs into the
   browser's context limit and everything after a few beeps is silent, which reads as "the
   beeper is broken".
+- Music Lab uses `.ml-studio` rather than `.panel` and supplies its own heading; the
+  catalog panel-head injection intentionally does not run on that page. Keep all `ml-*`
+  control IDs and the `.ml-cell`/`.is-on`/`.is-active` hooks when changing its markup.
+- `site.js` mounts `experience.css`, `settings.js`, and `quick-nav.js` on every page.
+  Quick navigation lazily loads `catalog.js` on older pages that don't include it.
+  Its home anchor remains a normal `/` link, and release-click suppression is scoped
+  to the hold gesture (reset in the next task, not permanently).
+- Build 0.5 / Beta 5 is displayed in the home badge, shared footer, and settings.
 - No secrets, database, or external services.
 
 ## Verifying changes (no browser needed)
