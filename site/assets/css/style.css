@@ -520,6 +520,12 @@ input[type="checkbox"] { accent-color: var(--tone); width: 16px; height: 16px; }
 }
 .meter { height: 14px; border: 2px solid var(--ink); background: var(--surface-2); }
 .meter__fill { display: block; height: 100%; width: 0; background: var(--tone); transition: width 0.15s ease; }
+.meter__fill.t-green { background: var(--green); }
+.meter__fill.t-orange { background: var(--orange); }
+.meter__fill.t-red { background: var(--red); }
+.meter__fill.t-sky { background: var(--sky); }
+
+.bmi-scale { display: flex; justify-content: space-between; gap: 6px; margin-top: 5px; font-size: 11px; }
 
 /* ---------- games ---------- */
 .hud {

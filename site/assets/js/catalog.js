@@ -195,6 +195,58 @@
     jumper: mark(
       '<rect x="4" y="19" width="16" height="2.5"/>' +
       '<circle cx="12" cy="8" r="3.5"/><path d="M9 14.5l3 3 3-3"/>'
+    ),
+    musicLab: mark(
+      '<path d="M9.5 17.5V6l9.5-2v11.5"/>' +
+      '<circle cx="6.8" cy="17.8" r="2.8"/><circle cx="16.3" cy="15.5" r="2.8"/>'
+    ),
+    discount: mark(
+      '<path d="M11.5 2.5h10v10L12 22 2.5 12.5z"/>' +
+      '<circle cx="17" cy="7" r="1.6" fill="currentColor" stroke="none"/>'
+    ),
+    bmi: mark(
+      '<circle cx="12" cy="5" r="2.6"/>' +
+      '<path d="M12 8v6M6.5 11h11M9.5 21l2.5-7 2.5 7"/>'
+    ),
+    cooking: mark(
+      '<path d="M4.5 8.5h12v8a3.5 3.5 0 01-3.5 3.5H8a3.5 3.5 0 01-3.5-3.5z"/>' +
+      '<path d="M16.5 11h2a2.5 2.5 0 010 5h-2"/>' +
+      '<path d="M7.5 12.5h6"/>'
+    ),
+    dataSize: mark(
+      '<ellipse cx="12" cy="6" rx="8" ry="3.5"/>' +
+      '<path d="M4 6v12c0 1.9 3.6 3.5 8 3.5s8-1.6 8-3.5V6"/>' +
+      '<path d="M4 12c0 1.9 3.6 3.5 8 3.5s8-1.6 8-3.5"/>'
+    ),
+    spaceInvaders: mark(
+      '<rect x="7" y="3.5" width="10" height="4"/>' +
+      '<rect x="4" y="7.5" width="16" height="6"/>' +
+      '<rect x="2" y="10" width="2.5" height="3"/>' +
+      '<rect x="19.5" y="10" width="2.5" height="3"/>' +
+      '<rect x="6" y="13.5" width="3.5" height="4"/>' +
+      '<rect x="14.5" y="13.5" width="3.5" height="4"/>',
+      'currentColor'
+    ),
+    hangman: mark(
+      '<path d="M3.5 21h9M8 21V3.5h9.5v3.5"/>' +
+      '<circle cx="17.5" cy="9.5" r="2.6"/>' +
+      '<path d="M17.5 12.1v4.4M14.8 20.5l2.7-4 2.7 4"/>'
+    ),
+    lightsOut: mark(
+      '<rect x="3" y="3" width="7.5" height="7.5"/><rect x="13.5" y="3" width="7.5" height="7.5"/>' +
+      '<rect x="3" y="13.5" width="7.5" height="7.5"/><rect x="13.5" y="13.5" width="7.5" height="7.5"/>' +
+      '<rect x="5" y="5" width="3.5" height="3.5" fill="currentColor" stroke="none"/>' +
+      '<rect x="15.5" y="15.5" width="3.5" height="3.5" fill="currentColor" stroke="none"/>'
+    ),
+    aimTrainer: mark(
+      '<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="2.4"/>' +
+      '<path d="M12 1.5v4M12 18.5v4M1.5 12h4M18.5 12h4"/>'
+    ),
+    reversi: mark(
+      '<rect x="2.5" y="2.5" width="19" height="19"/>' +
+      '<circle cx="8.5" cy="8.5" r="2.4" fill="currentColor" stroke="none"/>' +
+      '<circle cx="15.5" cy="15.5" r="2.4" fill="currentColor" stroke="none"/>' +
+      '<circle cx="15.5" cy="8.5" r="2.4"/>'
     )
   };
 
@@ -439,6 +491,46 @@
         tone: 't-pink',
         icon: ICON.gradientGenerator,
         tag: 'Utility 30'
+      },
+      {
+        name: 'Music Lab',
+        desc: 'Paint notes on an endless grid and stack as many instruments as you like.',
+        href: '/tools/music-lab',
+        tone: 't-purple',
+        icon: ICON.musicLab,
+        tag: 'Utility 31'
+      },
+      {
+        name: 'Discount Calculator',
+        desc: 'Sale price, savings, tax and the final total — worked out as you type.',
+        href: '/tools/discount-calculator',
+        tone: 't-green',
+        icon: ICON.discount,
+        tag: 'Utility 32'
+      },
+      {
+        name: 'BMI Calculator',
+        desc: 'Metric or imperial BMI, the category band, and your healthy weight range.',
+        href: '/tools/bmi-calculator',
+        tone: 't-teal',
+        icon: ICON.bmi,
+        tag: 'Utility 33'
+      },
+      {
+        name: 'Cooking Converter',
+        desc: 'Cups, spoons, grams, millilitres and ounces — converted for the exact ingredient.',
+        href: '/tools/cooking-converter',
+        tone: 't-orange',
+        icon: ICON.cooking,
+        tag: 'Utility 34'
+      },
+      {
+        name: 'Data Size Converter',
+        desc: 'Decimal and binary units side by side, with an honest download-time estimate.',
+        href: '/tools/data-size-converter',
+        tone: 't-sky',
+        icon: ICON.dataSize,
+        tag: 'Utility 35'
       }
     ],
     games: [
@@ -561,6 +653,46 @@
         tone: 't-teal',
         icon: ICON.jumper,
         tag: 'Game 15'
+      },
+      {
+        name: 'Space Invaders',
+        desc: 'Hold the line against a marching fleet that speeds up as it thins out.',
+        href: '/games/space-invaders',
+        tone: 't-blue',
+        icon: ICON.spaceInvaders,
+        tag: 'Game 16'
+      },
+      {
+        name: 'Hangman',
+        desc: 'Guess the word letter by letter — six mistakes and the drawing is done.',
+        href: '/games/hangman',
+        tone: 't-yellow',
+        icon: ICON.hangman,
+        tag: 'Game 17'
+      },
+      {
+        name: 'Lights Out',
+        desc: 'Every click flips a cross of five squares. Switch them all off.',
+        href: '/games/lights-out',
+        tone: 't-sky',
+        icon: ICON.lightsOut,
+        tag: 'Game 18'
+      },
+      {
+        name: 'Aim Trainer',
+        desc: 'Thirty seconds of shrinking targets — how accurate are you really?',
+        href: '/games/aim-trainer',
+        tone: 't-pink',
+        icon: ICON.aimTrainer,
+        tag: 'Game 19'
+      },
+      {
+        name: 'Reversi',
+        desc: 'Othello against a CPU that thinks four moves ahead. Corners win games.',
+        href: '/games/reversi',
+        tone: 't-teal',
+        icon: ICON.reversi,
+        tag: 'Game 20'
       }
     ]
   };

@@ -1,8 +1,8 @@
 # SuperSuite
 
-Static site — flat, geometric hub with a **Rewind** theme system. Thirty utilities and
-fifteen games. No build step, no framework, no backend: plain HTML, two stylesheets, and
-plain scripts served by nginx.
+Static site — flat, geometric hub with a **Rewind** theme system. Thirty-five utilities and
+twenty games. No build step, no framework, no backend: plain HTML, a stylesheet per concern,
+and plain scripts served by nginx.
 
 ## Layout
 
@@ -16,6 +16,8 @@ site/
   assets/css/style.css  the design system: tokens, shell, catalog, tools, games
   assets/css/rewind.css era themes (2010s/2000s/1990s/2020s), every user setting,
                         and the settings drawer
+  assets/css/music-lab.css  loaded only by /tools/music-lab — the note grid and the
+                        instrument cards, built from the same tokens so eras restyle it
   assets/js/rewind.js   settings STORE — loaded in <head> on every page so the chosen
                         era paints before the body (no flash of the wrong decade)
   assets/js/settings.js settings UI — gear button + drawer; injected by site.js
@@ -54,14 +56,15 @@ curl -sS -o /dev/null -w '%{http_code}\n' http://localhost:3000/        # 200
 - `--accent` is only defined per era; a user-picked accent is set inline on
   `documentElement`, which outranks the stylesheet. Always reference it as
   `var(--accent, <fallback>)` so `classic` (no `--accent`) still renders.
+- Every era redefines the design tokens (`--surface`, `--ink`, `--line`, …), so custom CSS
+  that sticks to tokens is themed for free. Anything hard-coding a colour is not.
 
 ## Page shell for new tools and games
 
 New tool/game pages do not repeat the back link or the panel header. Put
 `data-page="/tools/slug"` on `<body>` (optional `data-note="…"` to override the blurb) and
-`site.js` builds both from the catalog entry. Such pages must load
-`catalog.js` before `site.js`. Older pages keep hand-written markup and have no
-`data-page`; both styles coexist.
+`site.js` builds both from the catalog entry. Such pages must load `catalog.js` before
+`site.js`. Older pages keep hand-written markup and have no `data-page`; both styles coexist.
 
 ## Quirks worth knowing
 
@@ -82,6 +85,16 @@ New tool/game pages do not repeat the back link or the panel header. Put
   `raw.githack.com` **cannot** be framed — that host answers with `x-frame-options: SAMEORIGIN`
   (and 403s datacenter IPs). Nothing is self-hosted, and there is no "open in new tab"
   fallback by design.
+- **Music Lab** (`assets/js/music-lab.js`) is the only tool with real state. A song is
+  `{ bpm, bars, metronome, layers[] }` and each layer is
+  `{ instrument, volume, octave, muted, solo, notes:Set("row:step") }`. Sound is synthesised
+  live through the Web Audio API — no samples, no vendored audio. Notes are scheduled ahead
+  of the clock (25 ms tick, 120 ms lookahead) and the playhead is driven by a queue of
+  `[step, ctxTime]`, so changing tempo mid-playback never desyncs the highlight. Grid edits
+  push JSON snapshots onto a 25-deep undo stack. Cells listen for `pointerdown`/`pointermove`
+  rather than `click`, so notes can be painted by dragging. **Every envelope ramps to 0.0001,
+  never to 0** — `exponentialRampToValueAtTime(0)` throws and would silence that instrument.
+  The grid is `8 rows × bars × 8 steps`; growing a bar is just `bars += 1`, capped at 64.
 - **Image Converter** writes PDFs by hand (`buildPdf` in `assets/js/image-converter.js`): every
   page is one JPEG stored with `/Filter /DCTDecode`, laid out on A4 by aspect ratio. The xref
   offsets and `/Length` values must stay byte-accurate, and the byte arrays must be concatenated
@@ -93,8 +106,14 @@ New tool/game pages do not repeat the back link or the panel header. Put
 - Games share `assets/js/games/common.js`: `SS.createLoop`, `SS.createKeys`, `SS.bindPad`,
   `SS.createOverlay`, `SS.best`. Pause/restart keys must be read *outside* the
   "is the game running" guard, otherwise `P` can pause but never un-pause.
+- Every game page is canvas-first and uses the shared `.stage` / `.hud` / `.pad` classes, so
+  new games need no new CSS. Canvas coordinates must be scaled by the element's box
+  (`(clientX - rect.left) * (canvas.width / rect.width)`) because `.stage canvas` is fluid.
 - **Tic-Tac-Toe** scores positions from the CPU's side (O maximises, X minimises, `ply`
   prefers faster wins). Getting this inverted makes the "unbeatable" CPU deliberately lose.
+  **Reversi** is the same trap with a different sign: `search` maximises for the CPU and
+  minimises for the player, and the evaluation is from the CPU's side. Corner weights dominate
+  on purpose; mobility and disc counts only break ties.
 - No secrets, database, or external services.
 
 ## Verifying changes (no browser needed)
@@ -113,13 +132,19 @@ for f in $(cd site && find . -name '*.html' | sed 's|^\./||;s|\.html$||'); do
   `docker run --rm -v "$PWD":/w -w /w node:22-alpine sh -c 'for f in $(find site -name "*.js"); do node --check $f; done'`
 - **Catalog + theme wiring**, headlessly (no browser needed) — this is the fastest way to
   catch a page that forgot `rewind.css`/`rewind.js`, or a catalog entry with a dead href:
-  load `catalog.js` with a `window` stub and assert 30 utilities / 15 games and that
+  load `catalog.js` with a `window` stub and assert 35 utilities / 20 games and that
   `site/<href>.html` exists; eval `rewind.js` with a small `document`/`localStorage` stub and
   assert `rw.set('rewind','1990s')` updates `data-rewind` and persists.
 - The scripts are plain scripts, so they can be exercised headlessly with a small DOM stub
   (element ids, key events, `requestAnimationFrame`). That is how the calculator maths, the
   text filters, the QR canvas geometry, the 2048 merge rules and the tic-tac-toe minimax
   (3000 random games, CPU never loses) were checked.
+- **Reach the insides of an IIFE** by appending an export before its closing `})();`:
+  read the file, `src.replace(/\}\)\(\);\s*$/, 'globalThis.__t = { … };\n})();')`, and run it
+  with `vm.runInContext` over a stub sandbox. That is how the Reversi search (40 games against
+  a random player — no illegal moves, CPU never loses) and every Music Lab instrument voice
+  were checked. A Web Audio stub whose `exponentialRampToValueAtTime` *throws on 0* is worth
+  the ten lines: it catches the silent-synth bug above.
 - QR output is genuinely scannable: render the module matrix to a PBM (same geometry as
   `assets/js/qr-code.js`) and decode it with `zxing-cpp` / `pyzbar` in a throwaway container.
 - A PDF written by the image converter is worth checking with a real tool — `pdftoppm` (poppler)
