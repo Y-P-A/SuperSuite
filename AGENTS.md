@@ -1,30 +1,9 @@
-# SuperSuite
+# SuperSuite development notes
 
-Static "coming soon" landing page. The repo previously held only a README — there is
-no application framework, build step, or backend yet.
-
-## Layout
-
-- `site/index.html` — the landing page (self-contained HTML + CSS, no build step).
-- `site/nginx.conf` — nginx server block used as `/etc/nginx/conf.d/default.conf`.
-- `docker-compose.base44.yml` — dev environment: nginx serving the bind-mounted `site/`
-  directory on host port 3000.
-
-## Run it
-
-```bash
-docker compose -f docker-compose.base44.yml up -d
-```
-
-Verify: `curl -sS -o /dev/null -w '%{http_code}\n' http://localhost:3000/` → `200`.
-
-## Notes / quirks
-
-- nginx runs on a plain base image with the source bind-mounted read-only, so page edits
-  are picked up immediately with no rebuild. There is no file watcher, so after editing
-  `site/` the browser needs a refresh.
-- `site/nginx.conf` is mounted as a **file**; nginx only re-reads it on start, so after
-  changing it run `docker compose -f docker-compose.base44.yml restart web`.
-- The page is served for every path (`try_files ... /index.html`) and nginx's default
-  server accepts any `Host`, which is required for the Base44 preview proxy.
-- No secrets, database, or external services are involved.
+- The app is a static multipage site, not a landing-page placeholder. nginx serves the bind-mounted `site/` checkout on port 3000; no build, database or secrets are needed. Start with `docker compose -f docker-compose.base44.yml up -d` and verify `curl -fsS http://localhost:3000/` and `/tools/banner-maker`.
+- There is no live reload. Refresh the preview after source edits. `site/nginx.conf` is a file mount, so changes to routing require a web-service restart. Clean URLs resolve `.html` files; the expanded utility slugs are explicitly routed to `tools/workbench.html`. Unregistered routes return 404.
+- Catalog setup order matters: `catalog.js` → `build07/catalog.js` (150 utilities in five categories) → `utility-logos.js` → `customization.js`. `site.js` awaits that sequence before mounting cards, tool headings, settings and navigation. Do not load the expansion twice.
+- Original utilities retain their individual SVG marks; expanded tools use explicit semantic symbols in `utility-logos.js`. A missing mark is a startup error rather than a silent generic fallback.
+- Appearance stays in `supersuite.settings`; visibility uses a separate `supersuite.hiddenUtilities` browser-storage key. Hiding applies only to Home (`/`) and quick navigation, never `/utilities/` or direct tool URLs. Reset everything clears appearance and visibility; Show all utilities clears only visibility.
+- Midnight Command styling is scoped to the two dialogs in `build08.css`, not global theme tokens. Settings retains every Rewind option. Home right-click, long press, or focused Alt+ArrowDown opens quick navigation; Escape closes dialogs and Tab stays inside them.
+- Verify visibility by hiding a tool in Settings, checking Home and quick navigation, then checking that `/utilities/` still includes it and its direct URL still works. Reload to confirm persistence. Verify all 150 SVG marks are distinct, settings controls save, navigation category/search results work, and desktop/mobile panels do not overflow.

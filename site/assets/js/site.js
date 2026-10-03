@@ -5,6 +5,19 @@
 
   const DARK_ICON_TONES = ['t-yellow'];
 
+  SS.trapFocus = function (panel, event) {
+    const controls = Array.from(panel.querySelectorAll('button, a, input, select, textarea')).filter(el => !el.disabled && el.getClientRects().length);
+    const first = controls[0], last = controls[controls.length - 1];
+    if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+    else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+  };
+  function loadScript(name) {
+    return new Promise(function (resolve, reject) {
+      const script = document.createElement('script'); script.src = '/assets/js/' + name + '.js';
+      script.onload = resolve; script.onerror = reject; document.head.appendChild(script);
+    });
+  }
+
   function headerHTML() {
     const links = '<a class="home-shortcut" id="ss-home" href="/" aria-label="Home" aria-haspopup="dialog" aria-controls="ss-quick-nav" aria-expanded="false" title="Home · right-click or hold for quick navigation">' +
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m3 10 9-7 9 7v10H15v-6H9v6H3z"/></svg></a>';
@@ -24,7 +37,7 @@
       '<footer class="footer">' +
         '<div class="footer__inner">' +
           '<span>SuperSuite — handpicked utilities and unblocked games. No login, ever.</span>' +
-          '<span>Build 0.7 (Beta 7) · <a href="/utilities/">Utilities</a> · <a href="/games/">Games</a></span>' +
+          '<span>Build 0.8 (Beta 8) · <a href="/utilities/">Utilities</a> · <a href="/games/">Games</a></span>' +
         '</div>' +
       '</footer>'
     );
@@ -133,23 +146,21 @@
     style.rel = 'stylesheet';
     style.href = '/assets/css/experience.css';
     document.head.appendChild(style);
-    ['settings', 'quick-nav'].forEach(function (name) {
-      const tag = document.createElement('script');
-      tag.src = '/assets/js/' + name + '.js';
-      document.head.appendChild(tag);
-    });
+    const commandStyle = document.createElement('link');
+    commandStyle.rel = 'stylesheet'; commandStyle.href = '/assets/css/build08.css';
+    document.head.appendChild(commandStyle);
+    loadScript('settings');
+    loadScript('quick-nav');
   }
 
   async function mount() {
     const categoryStyle = document.createElement('link');
     categoryStyle.rel = 'stylesheet'; categoryStyle.href = '/assets/css/build07.css';
     document.head.appendChild(categoryStyle);
-    if (window.SS_CATALOG && !window.SS_CATALOG.categories) {
-      await new Promise(function (resolve) {
-        const script = document.createElement('script'); script.src = '/assets/js/build07/catalog.js';
-        script.onload = resolve; script.onerror = resolve; document.head.appendChild(script);
-      });
-    }
+    if (!window.SS_CATALOG) await loadScript('catalog');
+    if (!window.SS_CATALOG.categories) await loadScript('build07/catalog');
+    await loadScript('utility-logos');
+    await loadScript('customization');
     document.body.insertAdjacentHTML('afterbegin', headerHTML());
     document.body.insertAdjacentHTML('beforeend', footerHTML());
 
@@ -170,16 +181,22 @@
         let count = 0;
         el.querySelectorAll('.utility-category').forEach(function (section) {
           let visible = 0;
-          section.querySelectorAll('.card').forEach(function (card) { const show = (!category || category === section.dataset.category) && card.textContent.toLowerCase().includes(q); card.hidden = !show; if (show) visible++; });
+          section.querySelectorAll('.card').forEach(function (card) { const show = (!category || category === section.dataset.category) && card.textContent.toLowerCase().includes(q) && (location.pathname !== '/' || !SS.visibility.has(card.getAttribute('href'))); card.hidden = !show; if (show) visible++; });
           section.hidden = !visible; count += visible;
+          const featured = section.querySelector('.card--main');
+          section.querySelector('.utility-category__head span').textContent = visible + (visible === 1 ? ' utility' : ' utilities') + (featured && !featured.hidden ? ' · main tool featured' : '');
         });
         controls.querySelector('#utility-count').textContent = count + (count === 1 ? ' utility' : ' utilities') + (count ? '' : ' — no matches');
       }
       controls.querySelector('input').addEventListener('input', filter);
       controls.querySelector('select').addEventListener('change', filter);
+      SS.visibility.onChange(filter);
     });
 
     mountPage();
+    const utility = catalog.utilities.find(item => item.href === location.pathname.replace(/\.html$/, ''));
+    const title = document.querySelector('main .panel h1');
+    if (utility && title) title.insertAdjacentHTML('afterbegin', '<span class="utility-mark ' + utility.tone + '" aria-hidden="true">' + utility.icon + '</span>');
     SS.wireCopyButtons(document);
     mountSettings();
   }

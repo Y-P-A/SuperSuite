@@ -18,49 +18,58 @@
   }
 
   function build() {
-    const catalog = window.SS_CATALOG || {};
+    const catalog = window.SS_CATALOG;
     document.body.insertAdjacentHTML('beforeend',
       '<div class="quick-scrim" id="ss-quick-scrim" hidden></div>' +
-      '<aside class="quick-nav" id="ss-quick-nav" role="dialog" aria-modal="true" aria-labelledby="ss-quick-title" hidden>' +
-      '<div class="quick-nav__head"><h2 id="ss-quick-title">Quick navigation</h2><button class="btn" id="ss-quick-close" type="button">Close</button></div>' +
-      '<div class="quick-nav__body"><p class="quick-nav__hint">Jump straight to a utility or game.</p><a href="/">Home</a></div></aside>');
+      '<aside class="command quick-command" id="ss-quick-nav" role="dialog" aria-modal="true" aria-labelledby="ss-quick-title" hidden>' +
+      '<aside class="rail"><nav aria-label="Quick navigation categories"><a href="#" data-nav-category="" aria-current="true">All utilities</a>' +
+      catalog.categories.map(cat => '<a href="#" data-nav-category="' + cat.id + '">' + cat.name + '</a>').join('') +
+      '<a href="#" data-nav-category="games">Games</a></nav><nav class="nav-overviews" aria-label="Overview pages"><a href="/">Home</a><a href="/utilities/">Browse all utilities</a><a href="/games/">Browse all games</a></nav></aside>' +
+      '<div class="command-panel"><header class="head"><h1 id="ss-quick-title">Quick navigation</h1><button class="command-btn" id="ss-quick-close" type="button">Close</button></header>' +
+      '<input class="search" id="quick-search" type="search" aria-label="Search quick navigation" placeholder="Find your next tool…"><p class="hint" id="quick-count" role="status"></p><div class="nav-results"></div></div></aside>');
     panel = document.getElementById('ss-quick-nav');
     scrim = document.getElementById('ss-quick-scrim');
-    const body = panel.querySelector('.quick-nav__body');
-    ['utilities', 'games'].forEach(function (section) {
-      const heading = document.createElement('h3');
-      const overview = document.createElement('a');
-      heading.textContent = section === 'utilities' ? 'Utilities' : 'Games';
-      overview.textContent = 'Browse all ' + section;
-      overview.href = '/' + section + '/';
-      body.append(heading, overview);
-      (catalog[section] || []).forEach(function (entry) {
+    let category = '';
+    function render() {
+      const q = document.getElementById('quick-search').value.toLowerCase().trim();
+      const source = category === 'games' ? catalog.games : catalog.utilities;
+      const entries = source.filter(entry => (category === 'games' || !category || entry.category === category) &&
+        (category === 'games' || !window.SS.visibility.has(entry.href)) && (entry.name + ' ' + entry.desc).toLowerCase().includes(q));
+      const results = panel.querySelector('.nav-results');
+      results.replaceChildren();
+      entries.forEach(function (entry) {
         const link = document.createElement('a');
-        link.href = entry.href;
-        link.textContent = entry.name;
-        if (location.pathname === entry.href) link.setAttribute('aria-current', 'page');
-        body.appendChild(link);
+        link.className = 'link'; link.href = entry.href;
+        if (location.pathname.replace(/\.html$/, '') === entry.href) link.setAttribute('aria-current','page');
+        const icon = document.createElement('span'); icon.className = 'utility-mark ' + entry.tone; icon.innerHTML = entry.icon;
+        const text = document.createElement('span'); text.textContent = entry.name;
+        const detail = document.createElement('small'); detail.textContent = entry.tag; text.appendChild(detail);
+        link.append(icon,text); results.appendChild(link);
+      });
+      document.getElementById('quick-count').textContent = entries.length + (category === 'games' ? ' games' : ' utilities') + (entries.length ? ' · pick one to jump in' : ' — no matches. Try another search or restore hidden tools in Settings.');
+    }
+    panel.querySelectorAll('[data-nav-category]').forEach(function (link) {
+      link.addEventListener('click',function (event) {
+        event.preventDefault(); category = link.dataset.navCategory;
+        panel.querySelectorAll('[data-nav-category]').forEach(a => a.removeAttribute('aria-current'));
+        link.setAttribute('aria-current','true'); render();
       });
     });
+    document.getElementById('quick-search').addEventListener('input',render);
+    window.SS.visibility.onChange(render);
     document.getElementById('ss-quick-close').addEventListener('click', close);
     scrim.addEventListener('click', close);
-    panel.addEventListener('keydown', function (event) {
-      if (event.key !== 'Tab') return;
-      const controls = panel.querySelectorAll('button, a');
-      const first = controls[0];
-      const last = controls[controls.length - 1];
-      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
-      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
-    });
+    panel.addEventListener('keydown',function (event) { if (event.key === 'Tab') window.SS.trapFocus(panel,event); });
   }
 
   function show() {
     clearTimeout(timer);
     if (!panel) build();
+    if (window.SS.closeSettings) window.SS.closeSettings();
     panel.hidden = false;
     scrim.hidden = false;
     home.setAttribute('aria-expanded', 'true');
-    document.getElementById('ss-quick-close').focus();
+    document.getElementById('quick-search').focus();
   }
 
   function open() {
@@ -74,6 +83,7 @@
     document.head.appendChild(script);
   }
 
+  window.SS.closeQuickNav = close;
   home.addEventListener('contextmenu', function (event) { event.preventDefault(); open(); });
   home.addEventListener('pointerdown', function (event) {
     if (event.button !== 0) return;
